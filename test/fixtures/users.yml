@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  email: MyString
+  hashed_password: MyString
+  salt: MyString
+  true_name: MyString
+  student_number: 1
+  team_id: 1
+  portait_path: MyString
+  type: 
+
+two:
+  name: MyString
+  email: MyString
+  hashed_password: MyString
+  salt: MyString
+  true_name: MyString
+  student_number: 1
+  team_id: 1
+  portait_path: MyString
+  type: 

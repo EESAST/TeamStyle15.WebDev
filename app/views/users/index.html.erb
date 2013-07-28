@@ -1,0 +1,40 @@
+<h1>用户列表</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>用户名</th>
+      <th>电子邮箱</th>
+      <th>姓名</th>
+      <th>学号</th>
+      <th>所在队伍</th>
+      <th>头像</th>
+      <th>类别</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.true_name %></td>
+        <td><%= user.student_number %></td>
+        <td><%= user.team_id %></td>
+        <td><%= image_tag user.gravatar_url size: 50 %></td>
+        <td><%= user.type %></td>
+        <td><%= link_to '查看', user %></td>
+        <td><%= link_to '修改', edit_user_path(user) %></td>
+        <td><%= link_to '删除', user, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '创建新用户', new_user_path %>
+<%= link_to '返回主页', root_path %>

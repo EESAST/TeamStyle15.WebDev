@@ -1,5 +1,7 @@
 <h1>第十五届队式程序设计大赛官方网站</h1>
 <div><%= image_tag 'TeamStyle15.text.png', :size=> "500x250" %></div>
-<div><%= %></div><!--注册-->
-<div><%= %></div><!--登录-->
-<div><%= %></div><!--宣传信息神马的-->
+<div><%= link_to "注册", new_user_path %></div><!--注册(链接)-->
+<div><% button_to "注册", new_user_path, :method => :get %></div><!--注册(按钮,未显示)-->
+<!--上面这两种东西差不多的以后只写一个了-->
+<div><%= link_to "登录", user_index_path%></div><!--登录-->
+<div></div><!--宣传信息神马的-->

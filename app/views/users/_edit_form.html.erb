@@ -1,0 +1,50 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @user.errors.count %>个错误导致你无法保存:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "用户名" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :password, "新密码" %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, "确认密码" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :email, "电子邮箱" %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :true_name, "姓名" %><br>
+    <%= f.text_field :true_name %>
+  </div>
+  <div class="field">
+    <%= f.label :student_number, "学号" %><br>
+    <%= f.number_field :student_number %>
+  </div>
+  <!--div class="field">
+    <%= f.label :team_id %><br>
+    <%= #f.select :team_id, params[:team], :promt => "可以现在选择一支队伍加入"
+    %>
+  </div-->
+  <!--div class="field">
+    <%= f.label :portait_path, "头像" %><br>
+    <%= f.file_field :portait_path %>
+  </div-->
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
