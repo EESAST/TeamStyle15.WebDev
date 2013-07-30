@@ -1,10 +1,15 @@
 ﻿class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :authorize, :only => [:create, :destroy, :new, :delete]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(:name)
+    if User.find_by_id(session[:user_id]).admin?
+      @users = User.order(:name)
+    else
+      redirect_to root_path, :notice => "您不是管理员"
+    end
   end
 
   # GET /users/1
@@ -14,11 +19,23 @@
 
   # GET /users/new
   def new
-    @user = User.new
+    if User.find_by_id(session[:user_id]) && !User.find_by_id(session[:user_id]).admin?
+      redirect_to user_index_path, :notice => "您已经登录"
+    else
+      @user = User.new
+    end
   end
 
   # GET /users/1/edit
   def edit
+    if !(current_user=User.find_by_id(session[:user_id]))
+      redirect_to login_url, :notice => "无效的请求"
+      return 
+    end
+    if current_user.id!=@user.id && !current_user.admin?
+      redirect_to root_path,:notice=>"无效的请求"
+      return 
+    end
   end
 
   # POST /users
@@ -28,7 +45,7 @@
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: "用户#{@user.name}注册成功." }
+        format.html { redirect_to user_index_path, notice: "用户#{@user.name}注册成功." }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { render action: 'new' }

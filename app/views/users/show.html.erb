@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+﻿<p id="notice"><%= notice %></p>
 
 <p>
   <strong>用户名:</strong>
@@ -29,9 +29,14 @@
 </p>
 
 <p>
-  <strong>类别:</strong>
-  <%= @user.type %>
+  <strong>用户类型:</strong>
+  <% if @user.admin? %>
+    <%= "管理员"%>
+  <% else %>
+    <%= "参赛选手" %>
+  <% end %>
 </p>
 
 <%= link_to '修改用户信息', edit_user_path(@user) %> |
-<%= link_to '返回用户列表', users_path %>
+<%= link_to '返回用户列表', users_path %>|
+<%= link_to '返回网站主页', root_path %>

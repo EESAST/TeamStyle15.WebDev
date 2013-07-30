@@ -1,4 +1,4 @@
-<%= form_for(@user) do |f| %>
+﻿<%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= @user.errors.count %>个错误导致你无法注册:</h2>
@@ -37,7 +37,7 @@
   </div>
   <!--div class="field">
     <%= f.label :team_id %><br>
-    <%= #f.select :team_id, params[:team], :promt => "可以现在选择一支队伍加入"
+    <%= #f.select :team_id, params[:team], :prompt => "可以现在选择一支队伍加入" 
     %>
   </div-->
   <!--div class="field">

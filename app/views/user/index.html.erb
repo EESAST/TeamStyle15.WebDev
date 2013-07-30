@@ -1,2 +1,46 @@
-<h1>用户登录</h1>
+﻿<% current_user = User.find_by_id(session[:user_id]) %>
+<h1>用户<%= current_user.name %></h1>
+<h3>欢迎使用</h3>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>用户名:</strong>
+  <%= current_user.name %>
+</p>
+<div>
+  <%= image_tag current_user.gravatar_url size: 100 %>
+</div>
+
+<p>
+  <strong>电子邮箱:</strong>
+  <%= current_user.email %>
+</p>
+
+<p>
+  <strong>姓名:</strong>
+  <%= current_user.true_name %>
+</p>
+
+<p>
+  <strong>学号:</strong>
+  <%= current_user.student_number %>
+</p>
+
+<p>
+  <strong>所在队伍:</strong>
+  <%= current_user.team_id %>
+</p>
+
+<p>
+  <strong>用户类型:</strong>
+  <% if current_user.admin? %>
+    <%= "管理员"%>
+  <% else %>
+    <%= "参赛选手" %>
+  <% end %>
+</p>
+
+<%= link_to '修改用户信息', edit_user_path(current_user) %> |
+<%= link_to '返回网站主页', root_path %>
+
 

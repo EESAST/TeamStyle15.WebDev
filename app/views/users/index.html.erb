@@ -25,7 +25,13 @@
         <td><%= user.student_number %></td>
         <td><%= user.team_id %></td>
         <td><%= image_tag user.gravatar_url size: 50 %></td>
-        <td><%= user.type %></td>
+        <td>
+          <% if user.admin? %>
+            <%= "管理员"%>
+          <% else %>
+            <%= "参赛选手" %>
+          <% end %>
+        </td>
         <td><%= link_to '查看', user %></td>
         <td><%= link_to '修改', edit_user_path(user) %></td>
         <td><%= link_to '删除', user, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></td>
@@ -36,5 +42,6 @@
 
 <br>
 
-<%= link_to '创建新用户', new_user_path %>
+<%= link_to '创建新用户', new_user_path %>|
+<%= link_to '返回管理员主页', admin_index_path %>|
 <%= link_to '返回主页', root_path %>
