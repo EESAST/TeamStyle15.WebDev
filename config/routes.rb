@@ -1,5 +1,4 @@
-TeamStyle15Webdev::Application.routes.draw do
-  get 'admin' => 'admin#index'
+﻿TeamStyle15Webdev::Application.routes.draw do
   
   controller :sessions do
     get 'login' => :new
@@ -7,21 +6,22 @@ TeamStyle15Webdev::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
-
-  get "user/index"
   resources :teams
-
-  resources :comments
-
+  resources :comments,:only=>[:index,:delete,:destroy,:edit,:update,:create]
   resources :posts
-
   resources :users
 
+  get 'admin' => 'admin#index'
+  get "user/index"
   get "admin/index"
   get "sessions/new"
   get "sessions/create"
   get "sessions/destroy"
-  get "home/index"
+  
+  match "home/index" => redirect("/"), :via=>:get
+  match "comments/new" => redirect("/"), :via=>:get, :notice=>'不可以直接发表评论'
+  match "comments/new" => redirect("/"), :via=>:post, :notice=>'不可以直接发表评论'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

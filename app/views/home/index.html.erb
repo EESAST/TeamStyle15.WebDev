@@ -1,4 +1,4 @@
-<h1>第十五届队式程序设计大赛官方网站</h1>
+﻿<h1>第十五届队式程序设计大赛官方网站</h1>
 <p id="notice"><%= notice %></p>
 <div><%= image_tag 'TeamStyle15.text.png', :size=> "400x200" %></div>
 <% if !(current_user=User.find_by_id(session[:user_id])) %>
@@ -9,6 +9,9 @@
 <% else %>
 <div><%= link_to "注销", logout_path, :method => :delete %></div><!--注销-->
 <% end %>
+
+<div><%= link_to "发表帖子", new_post_path %></div>
+<div><%= link_to "浏览帖子", posts_path %></div>
 
 <% if User.find_by_id(session[:user_id]) %>
 <div><%= link_to "用户主页", user_index_path%></div>

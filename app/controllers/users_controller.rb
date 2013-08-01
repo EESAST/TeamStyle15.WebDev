@@ -1,6 +1,7 @@
 ﻿class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :authorize, :only => [:create, :destroy, :new, :delete]
+  skip_before_filter :admin_authorize
 
   # GET /users
   # GET /users.json
@@ -45,7 +46,7 @@
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_index_path, notice: "用户#{@user.name}注册成功." }
+        format.html { redirect_to @user, notice: "用户#{@user.name}注册成功." }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { render action: 'new' }
@@ -71,6 +72,14 @@
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    if !(current_user=User.find_by_id(session[:user_id]))
+      redirect_to login_url, :notice => "无效的请求"
+      return 
+    end
+    if current_user.id!=@user.id && !current_user.admin?
+      redirect_to root_path,:notice=>"无效的请求"
+      return 
+    end
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }

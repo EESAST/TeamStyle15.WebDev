@@ -1,10 +1,11 @@
-<h1>Listing comments</h1>
+﻿<h1>所有评论</h1>
 
 <table>
   <thead>
     <tr>
-      <th>User</th>
-      <th>Text</th>
+      <th>作者</th>
+      <th>内容</th>
+      <th>帖子</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,11 +15,12 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= comment.user_id %></td>
+        <td><%= User.find(comment.user_id).name %></td>
         <td><%= comment.text %></td>
-        <td><%= link_to 'Show', comment %></td>
-        <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-        <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= comment.post_id %></td>
+        <td><%= link_to '详情', comment %></td>
+        <td><%= link_to '编辑', edit_comment_path(comment) %></td>
+        <td><%= link_to '删除', comment, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +28,6 @@
 
 <br>
 
-<%= link_to 'New Comment', new_comment_path %>
+<%= link_to '返回用户主页', user_index_path %> |
+<%= link_to '返回管理员主页', admin_index_path %> |
+<%= link_to '返回网站主页', root_path %>

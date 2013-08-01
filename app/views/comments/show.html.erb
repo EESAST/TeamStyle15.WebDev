@@ -1,14 +1,22 @@
-<p id="notice"><%= notice %></p>
+﻿<p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @comment.user_id %>
+  <strong>评论作者:</strong>
+  <%= User.find(@comment.user_id).name %>
 </p>
 
 <p>
-  <strong>Text:</strong>
-  <%= @comment.text %>
+  <strong>所属帖子:</strong>
+  <%= Post.find(@comment.post_id).title %>
 </p>
 
-<%= link_to 'Edit', edit_comment_path(@comment) %> |
-<%= link_to 'Back', comments_path %>
+<p>
+  <strong>评论内容:</strong>
+  <%=simple_format(@comment.text)%>
+</p>
+
+<%= link_to '编辑', edit_comment_path(@comment) %> |
+<%= link_to '返回评论列表', comments_path %> |
+<%= link_to '返回用户主页', user_path %> |
+<%= link_to '返回网站主页', root_path %>
+

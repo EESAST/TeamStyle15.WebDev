@@ -1,7 +1,7 @@
-<%= form_for(@comment) do |f| %>
+﻿<%= form_for(@comment) do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <h2><%=@comment.errors.count%>个错误:</h2>
 
       <ul>
       <% @comment.errors.full_messages.each do |msg| %>
@@ -12,14 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
+    <%= f.label :text,"评论" %><br>
+    <%= f.text_area :text,:size=>"100x30" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit '提交' %>
   </div>
 <% end %>

@@ -1,4 +1,8 @@
 ﻿class User < ActiveRecord::Base
+  belongs_to :team
+  has_many :posts, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
+  
   include Gravtastic
   gravtastic :size => 512
 

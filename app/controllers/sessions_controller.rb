@@ -1,5 +1,6 @@
 ﻿class SessionsController < ApplicationController
   skip_before_filter :authorize
+  skip_before_filter :admin_authorize
   def new
     if User.find_by_id(session[:user_id])
       redirect_to user_index_path, :notice => '您已经登录'

@@ -1,19 +1,61 @@
-<p id="notice"><%= notice %></p>
-
+﻿<p id="notice"><%= notice %></p>
 <p>
-  <strong>User:</strong>
-  <%= @post.user_id %>
+  <strong>作者:</strong>
+    <%if User.find_by_id(@post.user_id) -%>
+    <td><%= User.find_by_id(@post.user_id).name -%></td>
+    <%else-%>
+    <td>已被删除的用户</td>
+    <%end-%>
 </p>
-
 <p>
-  <strong>Title:</strong>
-  <%= @post.title %>
+  <strong>标题:</strong>
+  <%= @post.title -%>
 </p>
-
 <p>
-  <strong>Text:</strong>
-  <%= @post.text %>
+  <strong>正文:</strong>
+  <fieldset><%=simple_format(@post.text)-%></fieldset>
 </p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<p>
+  <strong>评论:</strong>
+  <% @post.comments.each do |comment| -%>
+  <fieldset>
+    <div>作者：<%=comment.user.name-%></div>
+    <div>内容：<%=comment.text-%></div>
+        <%if User.find(session[:user_id]).id==comment.user_id||User.find(session[:user_id]).admin?-%>
+    <%= link_to '编辑', edit_comment_path(comment.id) %> |
+    <%= link_to '删除', comment, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %>
+        <%end-%>
+  </fieldset>
+  <%end%>
+  <%if @post.comments.empty? -%>
+    <div>-_-还没有人评论！</div>
+    <div>第一个发表评论↓↓↓</div>
+  <%end-%>
+</p>
+<p>
+    <% @comment = Comment.new -%>
+    <%= form_for(@comment) do |f| %>
+      <% if @comment.errors.any? -%>
+        <div id="error_explanation">
+          <h2><%=@comment.errors.count%>个错误:</h2>
+          <ul>
+          <% @comment.errors.full_messages.each do |msg| -%>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      
+      <div class="field">
+        <%= f.label :text,'发表评论'%><br>
+        <%= f.text_area :text,:size=>"100x10" %>
+      </div>
+      <div class="actions">
+        <%= f.hidden_field :post_id,:value=>@post.id%>
+        <%= f.submit '提交' %>
+      </div>
+    <% end %>
+</p>
+<%= link_to '编辑', edit_post_path(@post) %> |
+<%= link_to '返回帖子列表', posts_path %> |
+<%= link_to '返回网站主页', root_path %>

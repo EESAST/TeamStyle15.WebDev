@@ -1,4 +1,5 @@
-class PostsController < ApplicationController
+﻿class PostsController < ApplicationController
+  skip_before_filter :admin_authorize
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
@@ -19,16 +20,26 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    if !current_user
+      redirect_to login_url, :notice => "无效的请求"
+      return 
+    end
+    
+    if current_user.id != @post.user_id && !current_user.admin?
+      redirect_to root_path,:notice=>"无效的请求"
+      return
+    end
   end
 
   # POST /posts
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    @post.user_id=current_user.id
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to @post, notice: '发表帖子成功.' }
         format.json { render action: 'show', status: :created, location: @post }
       else
         format.html { render action: 'new' }
@@ -42,7 +53,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to @post, notice: '编辑帖子成功.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

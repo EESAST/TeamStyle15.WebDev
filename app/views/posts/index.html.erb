@@ -1,11 +1,10 @@
-<h1>Listing posts</h1>
+﻿<h1>浏览帖子</h1>
 
 <table>
   <thead>
     <tr>
-      <th>User</th>
-      <th>Title</th>
-      <th>Text</th>
+      <th>作者</th>
+      <th>标题</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,12 +14,17 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.user_id %></td>
+        <%if User.find_by_id(post.user_id) %>
+        <td><%= User.find_by_id(post.user_id).name %></td>
+        <%else%>
+        <td>已被删除的用户</td>
+        <%end%>
         <td><%= post.title %></td>
-        <td><%= post.text %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '详情', post %></td>
+        <%if User.find_by_id(session[:user_id]).admin? or User.find_by_id(session[:user_id]).id==post.user_id%>
+        <td><%= link_to '编辑', edit_post_path(post) %></td>
+        <td><%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,6 @@
 
 <br>
 
-<%= link_to 'New Post', new_post_path %>
+<%= link_to '发表帖子', new_post_path %> |
+<%= link_to '返回管理员主页', admin_index_path %> |
+<%= link_to '返回主页', root_path %>

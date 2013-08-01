@@ -1,6 +1,8 @@
-<h1>Editing comment</h1>
+﻿<h1>编辑评论</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @comment %> |
-<%= link_to 'Back', comments_path %>
+<%= link_to '取消编辑', Post.find(@comment.post_id) %>
+<%if User.find(session[:user_id]).id==@comment.user_id||User.find(session[:user_id]).admin?-%> |
+<%= link_to '返回评论列表', comments_path %>
+<%end-%>
