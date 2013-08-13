@@ -35,16 +35,16 @@
     <%= f.label :student_number, "学号" %><br>
     <%= f.number_field :student_number %>
   </div>
-  <!--div class="field">
+  <div class="field">
     <%= f.label :team_id %><br>
     <%= #f.select :team_id, params[:team], :promt => "可以现在选择一支队伍加入"
     %>
-  </div-->
+  </div>
   <!--div class="field">
     <%= f.label :portait_path, "头像" %><br>
     <%= f.file_field :portait_path %>
   </div-->
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit '提交'%>
   </div>
 <% end %>

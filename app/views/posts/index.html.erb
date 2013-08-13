@@ -33,5 +33,9 @@
 <br>
 
 <%= link_to '发表帖子', new_post_path %> |
-<%= link_to '返回管理员主页', admin_index_path %> |
-<%= link_to '返回主页', root_path %>
+<%if current_user.admin?%>
+  <%= link_to '返回管理员主页', admin_index_path %> |
+<%else%>
+  <%= link_to '返回用户主页', user_index_path %> |
+<%end%>
+<%= link_to '返回网站主页', root_path %>

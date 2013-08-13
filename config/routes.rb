@@ -22,6 +22,10 @@
   match "comments/new" => redirect("/"), :via=>:get, :notice=>'不可以直接发表评论'
   match "comments/new" => redirect("/"), :via=>:post, :notice=>'不可以直接发表评论'
   
+  get 'teams/:id/add' => 'teams#add_member'
+  delete 'teams/:id/del' => 'teams#del_member'
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

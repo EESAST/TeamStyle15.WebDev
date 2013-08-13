@@ -56,6 +56,9 @@
       </div>
     <% end %>
 </p>
-<%= link_to '编辑', edit_post_path(@post) %> |
+<%if current_user.admin?||current_user.id==@post.user_id-%>
+<%= link_to '编辑帖子', edit_post_path(@post) %> |
+<%= link_to '删除帖子', post_path(@post),method: :delete,confirm: "此操作不可恢复。确定？"%> |
+<%end-%>
 <%= link_to '返回帖子列表', posts_path %> |
 <%= link_to '返回网站主页', root_path %>

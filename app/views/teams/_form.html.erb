@@ -1,25 +1,21 @@
-<%= form_for(@team) do |f| %>
-  <% if @team.errors.any? %>
+﻿<%= form_for(@team) do |f| %>
+  <% if @team.errors.any? -%>
     <div id="error_explanation">
-      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+      <h2><%=@team.errors.count%>个错误</h2>
 
       <ul>
-      <% @team.errors.full_messages.each do |msg| %>
+      <% @team.errors.full_messages.each do |msg| -%>
         <li><%= msg %></li>
-      <% end %>
+      <% end -%>
       </ul>
     </div>
-  <% end %>
+  <% end -%>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name,'队伍名称'%><br>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :captain_id %><br>
-    <%= f.number_field :captain_id %>
-  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit '提交'%>
   </div>
 <% end %>

@@ -1,4 +1,6 @@
 ﻿class ApplicationController < ActionController::Base
+  include SessionsHelper
+
   before_filter :authorize
   before_filter :admin_authorize
   
@@ -18,12 +20,6 @@
     unless User.find_by_id(session[:user_id]).admin?
       redirect_to root_path, :notice => "您不是管理员"
     end
-  end
-  
-  private
-  
-  def current_user
-    User.find(session[:user_id])
   end
   
 end

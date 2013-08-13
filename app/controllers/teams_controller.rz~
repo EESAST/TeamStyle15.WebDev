@@ -15,10 +15,10 @@
 
   # GET /teams/new
   def new
-    if current_user.team_id&&Team.find_by_id(current_user.team_id)
-      redirect_to user_index_path, notice: ("您已经加入了队伍\""+Team.find_by_id(current_user.team_id).name+"\"")
+    if current_user.team_id
+      redirect_to user_index_path, notice: "您已经加入了队伍\""+Team.find(current_user.team_id).name+"\""
     end
-    @team = Team.new
+      @team = Team.new
   end
 
   # GET /teams/1/edit
@@ -69,7 +69,7 @@
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    if @team.captain_id!=current_user.id&&!current_user.admin?
+    if @team.captain_id!=current_user.idd&&!current_user.admin?
       redirect_to root_path, notice: '您不是队长'
       return
     end
