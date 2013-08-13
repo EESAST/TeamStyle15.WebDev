@@ -1,9 +1,11 @@
-﻿<h1>第十五届队式程序设计大赛官方网站</h1>
+﻿<div class="center hero-unit">
+<h1>第十五届队式程序设计大赛官方网站</h1>
 <p id="notice"><%= notice %></p>
 <div><%= image_tag 'TeamStyle15.text.png', :size=> "400x200" %></div>
 <% if !(current_user=User.find_by_id(session[:user_id])) %>
-<div><%= link_to "注册", new_user_path %></div><!--注册(链接)-->
-<div><% button_to "注册", new_user_path, :method => :get %></div><!--注册(按钮,未显示)-->
+
+  <%= link_to "注册!", new_user_path, :method => :get, class: "btn btn-large btn-primary", id: "sgn-primary" %>
+
 <!--上面这两种东西差不多的以后只写一个了-->
 <div><%= link_to "登录", login_path%></div><!--登录-->
 <% else %>
@@ -21,3 +23,4 @@
 <% end %>
 <% end %>
 <div></div><!--宣传信息神马的-->
+</div>
