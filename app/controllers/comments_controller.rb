@@ -45,7 +45,7 @@
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to post_path(@comment.post_id), notice: '修改成功' }
+        format.html { redirect_to post_path(@comment.post_id), notice: '修改评论成功' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -59,7 +59,7 @@
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to post_path(@comment.post_id) }
+      format.html { redirect_to post_path(@comment.post_id), notice: '删除评论成功' }
       format.json { head :no_content }
     end
   end

@@ -1,25 +1,24 @@
-﻿<div>
-  <% if flash[:alert] %>
-    <p id="notice"><%= flash[:alert] %></p>
-  <% end %>
-  
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%= link_to "返回网站主页", root_path %><li>
+  </ul>
+</div>
+<div id="content">
   <%= form_tag do %>
-    <fieldset>
-        <legend>请登录</legend>
+        <legend><h1>请输入用户名和密码</h1><br/></legend>
         
         <div>
             <label for="name">用户名:</label>
             <%= text_field_tag :name, params[:name] %>
         </div>
         <div>
-            <label for="password">密&nbsp;&nbsp;码:</label>
+            <label for="password">密码:</label>
             <%= password_field_tag :password, params[:password] %>
         </div>
         
         <div>
             <%= submit_tag "登录" %>
         </div>
-    </fieldset>
   <% end %>
 </div>
-<div><%= link_to "返回网站主页", root_path %>

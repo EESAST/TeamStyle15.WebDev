@@ -1,64 +1,58 @@
-﻿<p id="notice"><%= notice %></p>
-<p>
-  <strong>作者:</strong>
-    <%if User.find_by_id(@post.user_id) -%>
-    <td><%= User.find_by_id(@post.user_id).name -%></td>
-    <%else-%>
-    <td>已被删除的用户</td>
+<div id="right">
+  <ul>
+    <li><%= link_to "注销", logout_path, :method => :delete -%></li>
+    <%if current_user.admin?||current_user.id==@post.user_id-%>
+      <li><%= link_to '编辑帖子', edit_post_path(@post) -%></li>
+      <li><%= link_to '删除帖子', post_path(@post),method: :delete,confirm: "此操作不可恢复。确定？"-%></li>
     <%end-%>
-</p>
+    <li><%= link_to '帖子列表', posts_path -%></li>
+    <li><%= link_to '网站主页', root_path -%></li>
+    <%if User.find(session[:user_id]).admin?-%>
+      <li><%= link_to '管理主页', admin_index_path -%></li>
+    <%end-%>
+  </ul>
+</div>
+<div id="content">
 <p>
-  <strong>标题:</strong>
-  <%= @post.title -%>
-</p>
-<p>
-  <strong>正文:</strong>
-  <fieldset><%=simple_format(@post.text)-%></fieldset>
-</p>
-<p>
-  <strong>评论:</strong>
-  <% @post.comments.each do |comment| -%>
-  <fieldset>
-    <div>作者：<%=comment.user.name-%></div>
-    <div>内容：<%=comment.text-%></div>
-        <%if User.find(session[:user_id]).id==comment.user_id||User.find(session[:user_id]).admin?-%>
-    <%= link_to '编辑', edit_comment_path(comment.id) %> |
-    <%= link_to '删除', comment, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %>
-        <%end-%>
-  </fieldset>
-  <%end%>
-  <%if @post.comments.empty? -%>
-    <div>-_-还没有人评论！</div>
-    <div>第一个发表评论↓↓↓</div>
+  <h1 style="text-align:center; font-size:30px"><%=@post.title-%></h1><br//>
+  <h2 style="text-align:center; font-size:16px">
+  <%if User.find_by_id(@post.user_id) -%>
+    <strong>作者</strong>：<%= User.find_by_id(@post.user_id).name -%>
+  <%else-%>
+    <strong>作者</strong>：已被删除的用户
+  <%end-%>
+  </h2>
+  <div style="text-align:right; font-size:12px"><strong>创建于</strong>：<%=@post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></div>
+  <%if @post.created_at!=@post.updated_at-%>
+    <div style="text-align:right; font-size:12px"><strong>修改于</strong>：<%=@post.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
   <%end-%>
 </p>
 <p>
-    <% @comment = Comment.new -%>
-    <%= form_for(@comment) do |f| %>
-      <% if @comment.errors.any? -%>
-        <div id="error_explanation">
-          <h2><%=@comment.errors.count%>个错误:</h2>
-          <ul>
-          <% @comment.errors.full_messages.each do |msg| -%>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-      
-      <div class="field">
-        <%= f.label :text,'发表评论'%><br>
-        <%= f.text_area :text,:size=>"100x10" %>
-      </div>
-      <div class="actions">
-        <%= f.hidden_field :post_id,:value=>@post.id%>
-        <%= f.submit '提交' %>
-      </div>
-    <% end %>
+  <div><strong>正文：</strong></div>
+  <div style="word-break:break-all;font-size:18px"><%=simple_format(@post.text)-%></div>
 </p>
-<%if current_user.admin?||current_user.id==@post.user_id-%>
-<%= link_to '编辑帖子', edit_post_path(@post) %> |
-<%= link_to '删除帖子', post_path(@post),method: :delete,confirm: "此操作不可恢复。确定？"%> |
-<%end-%>
-<%= link_to '返回帖子列表', posts_path %> |
-<%= link_to '返回网站主页', root_path %>
+<p>
+  <div><strong>评论：</strong></div><br/>
+  <% @post.comments.each do |comment| -%>
+  <fieldset>
+    <div style="text-align:right; font-size:12px"><strong>创建于</strong>：<%=comment.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></div>
+    <%if comment.created_at!=comment.updated_at-%>
+      <div style="text-align:right; font-size:12px"><strong>修改于</strong>：<%=comment.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+    <%end-%>
+    <div style="font-size:20px"><%=comment.user.name-%><strong>说:</strong></div>
+    <%=simple_format(comment.text,{},wrapper_tag: 'blockquote style="word-break:break-all"')-%>
+    <%if User.find(session[:user_id]).id==comment.user_id||User.find(session[:user_id]).admin?-%>
+      <div style="text-align:right; font-size:12px">
+        <%= link_to '编辑', edit_comment_path(comment.id) %>
+        <%= link_to '删除', comment, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %>
+      </div>
+    <%end-%>
+  </fieldset><br/>
+  <%end%>
+  <%if @post.comments.empty? -%>
+    <div style="font-size:20px; color:green">还没有人评论！来说点什么吧 ↓</div>
+  <%end-%>
+</p>
+<%=render 'comment_form'%>
+<%render :template => 'comments/_form.html.erb'%>
+</div>

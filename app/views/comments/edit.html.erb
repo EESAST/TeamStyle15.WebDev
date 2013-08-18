@@ -1,8 +1,18 @@
-﻿<h1>编辑评论</h1>
-
-<%= render 'form' %>
-
-<%= link_to '取消编辑', Post.find(@comment.post_id) %>
-<%if User.find(session[:user_id]).id==@comment.user_id||User.find(session[:user_id]).admin?-%> |
-<%= link_to '返回评论列表', comments_path %>
-<%end-%>
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+    <li><%= link_to '取消编辑', Post.find(@comment.post_id) %></li>
+    <li><%= link_to '网站主页', root_path %></li>
+    <%if User.find(session[:user_id]).admin?-%>
+      <li><%= link_to '评论列表', comments_path %></li>
+      <li><%= link_to '管理主页', admin_index_path %></li>
+    <%end-%>
+  <ul>
+</div>
+<div id="content">
+  <h1>原文内容</h1>
+  <blockquote><%=simple_format(Post.find_by_id(@comment.post_id).text,id:"quote")%></blockquote>
+  <h1>编辑评论</h1><br/>
+  <%=render 'form'%>
+</div>

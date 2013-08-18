@@ -1,41 +1,51 @@
-﻿<h1>浏览帖子</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>作者</th>
-      <th>标题</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
+<div id="right">
+  <ul>
+    <li><%= link_to '发表帖子', new_post_path %></li>
+    <li>
+      <%if current_user.admin?%>
+        <%= link_to '管理主页', admin_index_path %>
+      <%else%>
+        <%= link_to '用户主页', user_index_path %>
+      <%end%>
+    </li>
+    <li><%= link_to '网站主页', root_path %></li>
+  </ul>
+</div>
+<div id="content">
+  <h1>浏览帖子</h1>
+  <table>
+    <thead>
       <tr>
-        <%if User.find_by_id(post.user_id) %>
-        <td><%= User.find_by_id(post.user_id).name %></td>
-        <%else%>
-        <td>已被删除的用户</td>
-        <%end%>
-        <td><%= post.title %></td>
-        <td><%= link_to '详情', post %></td>
-        <%if User.find_by_id(session[:user_id]).admin? or User.find_by_id(session[:user_id]).id==post.user_id%>
-        <td><%= link_to '编辑', edit_post_path(post) %></td>
-        <td><%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } %></td>
-        <%end%>
+        <th style="text-align:center">作者</th>
+        <th style="text-align:center">标题</th>
+        <th style="text-align:center">内容</th>
+        <th style="text-align:center">评论</th>
+        <%if current_user.admin?-%>
+          <th style="text-align:center">编辑</th>
+          <th style="text-align:center">删除</th>
+        <%end-%>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+    <tbody>
+      <%@posts.each do |post|-%>
+        <tr>
+          <td>
+            <%if User.find_by_id(post.user_id)-%>
+              <%=User.find_by_id(post.user_id).name-%>
+            <%else-%>
+              已被删除的用户
+            <%end-%>
+          </td>
+          <td><%=link_to truncate(post.title,length: 11,omission: '...'),post-%></td>
+          <td><blockquote><%=truncate(post.text,length: 26,omission: '......')-%></blockquote></td>
+          <td style="text-align:center"><%=post.comments.count()-%></td>
+          <%if current_user.admin?-%>
+            <td style="text-align:center"><%= link_to '编辑', edit_post_path(post) -%></td>
+            <td style="text-align:center"><%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%></td>
+          <%end-%>
+        </tr>
+      <%end-%>
+    </tbody>
 </table>
+</div>
 
-<br>
-
-<%= link_to '发表帖子', new_post_path %> |
-<%if current_user.admin?%>
-  <%= link_to '返回管理员主页', admin_index_path %> |
-<%else%>
-  <%= link_to '返回用户主页', user_index_path %> |
-<%end%>
-<%= link_to '返回网站主页', root_path %>

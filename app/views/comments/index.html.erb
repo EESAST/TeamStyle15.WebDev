@@ -1,4 +1,4 @@
-﻿<h1>所有评论</h1>
+<h1>所有评论</h1>
 
 <table>
   <thead>
@@ -15,10 +15,12 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= User.find(comment.user_id).name %></td>
+    <%if User.find_by_id(comment.user_id)%>
+        <td><%= User.find_by_id(comment.user_id).name%></td>
+    <% end %>
         <td><%= comment.text %></td>
         <td><%= comment.post_id %></td>
-        <td><%= link_to '详情', comment %></td>
+        <td><%= link_to '详情', Post.find_by_id(comment.post_id) %></td>
         <td><%= link_to '编辑', edit_comment_path(comment) %></td>
         <td><%= link_to '删除', comment, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></td>
       </tr>
