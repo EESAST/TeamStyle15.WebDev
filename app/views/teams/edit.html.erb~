@@ -1,0 +1,14 @@
+﻿<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%=link_to "注销", logout_path, :method => :delete %></li>
+    <li><%=link_to '取消', :back%></li>
+    <li><%=link_to '用户主页', user_index_path %></li>
+    <li><%=link_to '队伍列表', teams_path %></li>
+  </ul>
+</div>
+<div id="content">
+<h1>编辑队伍名称<br/><br/></h1>
+<%= render 'form' %>
+</div>
+

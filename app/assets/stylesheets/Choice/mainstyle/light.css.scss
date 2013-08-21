@@ -75,7 +75,7 @@ body {
 	}
 	
 #right {
-	width: 30%;
+	width: 20%;
 	float: right;
 	border-top: 5px solid #ECECEC;
 	padding-top: 40px;
@@ -106,7 +106,8 @@ body {
 	}
 
 #content {
-	width: 64%;
+	width: 75%;
+  height:100%;
 	margin-right: 35%;
 	border-top: 5px solid #ECECEC;
 	padding-top: 40px;
@@ -124,7 +125,7 @@ h2 {
 	font: 400 1.2em 'header hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
 	margin-top: -0.4em;
 	padding-top: 0px;
-	letter-spacing: -1px;
+	letter-spsacing: -1px;
 	}
 	
 h3 {
@@ -246,12 +247,14 @@ table th,td {
 
 
 thead th {
+  text-align: center;
   border-top: 2px solid #CCC;
   border-bottom: 1px solid #CCC;
 }
 
 
 tbody td {
+  text-align: center;
   border-bottom: 1px solid #ECECEC;
 }
 

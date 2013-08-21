@@ -1,26 +1,22 @@
 <div id="right">
-  <h3>导航</h3>
   <ul>
-    <% if !(current_user=User.find_by_id(session[:user_id])) %>
-      <li><%= link_to "注册", new_user_path %></li><!--注册(链接)-->
-      <li><%= link_to "登录", login_path%></li><!--登录-->
-    <% else %>
-      <li><%= link_to "注销", logout_path, :method => :delete %></li><!--注销-->
-      <li><%= link_to "发表帖子", new_post_path %></li>
-      <li><%= link_to "浏览帖子", posts_path %></li>
-    <% end %>
-
-    
-    <% if User.find_by_id(session[:user_id]) %>
-      <li><%= link_to "用户主页", user_index_path%></li>
-      <% if User.find_by_id(session[:user_id]).admin? %>
-        <li><%= link_to "管理主页", admin_index_path %></li>
-        <li><%= link_to "用户列表", users_path %></li><!--管理用户列表-->
-        <li><%= link_to "队伍列表", teams_path %></li>
-        <li><%= link_to "帖子列表", posts_path %></li>
-        <li><%= link_to "评论列表", comments_path %></li>
-      <% end %>
-    <% end %>
+    <h3>导航</h3>
+<%if !current_user %>
+    <li><%= link_to "注册", new_user_path %></li>
+    <li><%= link_to "登录", login_path%></li>
+<%else %>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+    <li><%= link_to "发表帖子", new_post_path %></li>
+    <li><%= link_to "浏览帖子", posts_path %></li>
+<%  if current_user.admin? %>
+    <li><%= link_to "帖子列表", posts_path %></li>
+    <li><%= link_to "评论列表", comments_path %></li>
+    <li><%= link_to "用户列表", users_path %></li>
+    <li><%= link_to "队伍列表", teams_path %></li>
+    <li><%= link_to "管理主页", admin_index_path %></li>
+<%  end-%>
+    <li><%= link_to "用户主页", user_index_path%></li>
+<%end-%>
   </ul>
 </div>
 
@@ -30,4 +26,4 @@
 ……<i>然后就打起来了</i>……”
   </div>
   <div><%= image_tag 'TeamStyle15.text.png', :size=> "750x375" %></div>
-</div><!--宣传信息神马的-->
+</div><!--还有宣传信息神马的-->

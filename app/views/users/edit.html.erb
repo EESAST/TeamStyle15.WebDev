@@ -1,10 +1,15 @@
-<h1>修改用户信息</h1>
-
-<%= render 'edit_form' %>
-
-<%= link_to '取消修改信息', user_index_path %> |
-<% if User.find_by_id(session[:user_id]).admin? %>
-<%= link_to '返回用户列表', users_path %>
-<% else %>
-<%= link_to '返回网站主页', root_path %>
-<% end %>
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+    <li><%=link_to '取消修改信息', :back%></li>
+  <%if current_user.admin?-%>
+    <li><%=link_to '用户列表', users_path%></li>
+  <%end-%>
+  </ul>
+</div>
+<div id="content">
+<h1>修改用户信息<br/><br/></h1>
+<%@pwd="新";@team="选择队伍加入"-%>
+<%= render 'form' %>
+</div>

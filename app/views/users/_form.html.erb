@@ -1,51 +1,59 @@
-﻿<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
+<%=form_for(@user) do |f|%>
+  <% if @user.errors.any?-%>
     <div id="error_explanation">
-      <h2><%= @user.errors.count %>个错误导致你无法注册:</h2>
-
+      <h2><%=@user.errors.count%>个错误：</h2>
       <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+      <%@user.errors.messages.each do |msg|%>
+        <li><%=msg.last.first-%></li>
+      <%end-%>
       </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name, "用户名" %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :password, "密码" %><br>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation, "确认密码" %><br>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
-    <%= f.label :email, "电子邮箱" %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :true_name, "姓名" %><br>
-    <%= f.text_field :true_name %>
-  </div>
-  <div class="field">
-    <%= f.label :student_number, "学号" %><br>
-    <%= f.number_field :student_number %>
-  </div>
-  <!--div class="field">
-    <%= f.label :team_id %><br>
-    <%= #f.select :team_id, params[:team], :prompt => "可以现在选择一支队伍加入" 
-    %>
-  </div-->
-  <!--div class="field">
-    <%= f.label :portait_path, "头像" %><br>
-    <%= f.file_field :portait_path %>
-  </div-->
-  <div>网站使用<%= link_to "Gravatar", "http://cn.gravatar.com" %>读取头像。</div>
-  <div class="actions">
-    <%= f.submit '提交' %>
-  </div>
-<% end %>
+  <%end-%>
+  <table style="width:500px;margin:auto;">
+    <thead>
+      <th id="left-item">请输入相应信息：</th><th/> 
+    </thead>
+    <tr>
+        <td id="left-item">用户名：</td>
+        <td id="right-item"><%=(@user.admin?)?"admin":(f.text_field :name)%></td>
+    </tr>
+    <tr>
+      <td id="left-item"><%=@pwd%>密码：</td>
+        <td id="right-item"><%=f.password_field :password%></td>
+    </tr>
+    <tr>
+        <td id="left-item">确认密码：</td>
+        <td id="right-item"><%=f.password_field :password_confirmation%></td>
+    </tr>
+    <tr>
+        <td id="left-item">电子邮箱：</td>
+        <td id="right-item"><%=f.text_field :email%></td>
+    </tr>
+    <tr>
+        <td id="left-item">姓名：</td>
+        <td id="right-item"><%=f.text_field :true_name%></td>
+    </tr>
+    <tr>
+        <td id="left-item">学号：</td>
+        <td id="right-item"><%=f.number_field :student_number%></td>
+    </tr>
+  <%if !@user.admin?-%>
+    <tr>
+      <td id="left-item"><%=@team%>：</td>
+        <td id="right-item"><%=f.select :team_id,Team.all.collect {|p| [ p.name, p.id ] }, include_blank: true%></td>
+    </tr>
+  <%end-%>
+    <tr>
+        <td id="left-item">头像：</td>
+        <td id="right-item"><%=f.file_field :portrait%></td>
+    </tr>
+    <tr>
+      <td/>
+      <td id="right-item">网站默认使用<%= link_to "Gravatar", "http://cn.gravatar.com" %>读取头像。</td>
+    </tr>
+    <tr>
+        <td id="left-item"><%= f.submit '提交'%></td>
+        <td/>
+    </tr>
+  </table>
+<%end-%>

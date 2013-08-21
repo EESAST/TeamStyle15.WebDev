@@ -2,12 +2,13 @@
   <ul>
     <h3>导航</h3>
     <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '取消编辑', Post.find(@comment.post_id) %></li>
-    <li><%= link_to '网站主页', root_path %></li>
+    <li><%= link_to '取消编辑', :back %></li>
     <%if User.find(session[:user_id]).admin?-%>
       <li><%= link_to '评论列表', comments_path %></li>
       <li><%= link_to '管理主页', admin_index_path %></li>
     <%end-%>
+    <li><%= link_to '用户主页', user_index_path %></li>
+    <li><%= link_to '网站主页', root_path %></li>
   <ul>
 </div>
 <div id="content">

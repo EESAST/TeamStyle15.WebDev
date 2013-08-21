@@ -6,10 +6,10 @@
       <li><%= link_to '删除帖子', post_path(@post),method: :delete,confirm: "此操作不可恢复。确定？"-%></li>
     <%end-%>
     <li><%= link_to '帖子列表', posts_path -%></li>
-    <li><%= link_to '网站主页', root_path -%></li>
     <%if User.find(session[:user_id]).admin?-%>
       <li><%= link_to '管理主页', admin_index_path -%></li>
     <%end-%>
+    <li><%= link_to '网站主页', root_path -%></li>
   </ul>
 </div>
 <div id="content">

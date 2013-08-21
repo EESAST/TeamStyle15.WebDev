@@ -1,5 +1,19 @@
-<h1>注册</h1>
-
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+<%if !current_user-%>
+    <li><%=link_to "登录", login_path%></li>
+<%else-%>
+    <li><%=link_to "注销", logout_path, :method => :delete %></li>
+    <li><%=link_to '用户列表', users_path%></li>
+    <li><%=link_to "用户主页", user_index_path %></li>
+    <li><%=link_to "管理主页", admin_index_path %></li>
+    <li><%=link_to '网站主页', root_path%></li>
+  </ul>
+<%end-%>
+</div>
+<div id="content">
+<h1>注册新用户<br/><br/></h1>
+<%@pwd="";@team="可以现在加入一支队伍"-%>
 <%= render 'form' %>
-
-<%= link_to '返回', root_path %>
+</div>

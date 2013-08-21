@@ -2,6 +2,9 @@ source 'http://mirrors.tuna.tsinghua.edu.cn/rubygems'
 # Use gravatar
 gem 'gravtastic'
 
+# Use Delayed Job
+#gem 'delayed_job_active_record'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 

@@ -31,7 +31,7 @@
     
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to post_path(@comment.post_id), notice: '评论成功' }
+        format.html { redirect_to :back, notice: '评论成功' }
         format.json { render action: 'show', status: :created, location: @comment }
       else
         format.html { render action: 'new' }
@@ -59,7 +59,7 @@
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to post_path(@comment.post_id), notice: '删除评论成功' }
+      format.html { redirect_to :back, notice: '删除评论成功' }
       format.json { head :no_content }
     end
   end

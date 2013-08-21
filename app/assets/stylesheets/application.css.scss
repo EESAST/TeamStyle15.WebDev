@@ -13,16 +13,16 @@
  */
 
 body {
-  background:url('background.png')repeat-x top center;
+//  background:url('background.png')repeat-x top center;
   background-attachment:fixed;
-  background-color:#F9F9F9;
+//  background-color:#F9F9F9;
   padding:20px 0 100px 0;
   margin:0;
 }
 
-#notice {
-	font:16px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
-    color: red;
+#alert {
+  font:16px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
+  color: red;
 	}
 
 input{
@@ -60,4 +60,21 @@ font-family: 'light hei';
 src: local(""), url('light hei.ttf') format('truetype');
 }
 
+#para-title{
+  padding:10px 0;
+  text-align:center;
+}
 
+.field,.actions{
+  padding:6px 0;
+}
+
+#left-item{
+  width:150px;
+  text-align:right;
+}
+
+#right-item{
+  width:250px;
+  text-align:left;
+}

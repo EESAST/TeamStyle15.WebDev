@@ -1,10 +1,13 @@
-﻿class User < ActiveRecord::Base
+﻿require 'open-uri'
+class User < ActiveRecord::Base
   belongs_to :team
   has_many :posts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   
   include Gravtastic
-  gravtastic :size => 512
+  gravtastic  :secure => false,
+              :filetype => :png,
+              :size => 512
 
   validates :name, :presence => {:presence => true, :message => "用户名不能为空"}, :uniqueness => {:uniqueness => true, :message => "该用户名已经被注册"}, :length=>{:maximum=>20,:message=>"用户名不能超过20个字符"}
   validates :password, :confirmation => true
@@ -14,6 +17,7 @@
 
   attr_accessor :password_confirmation
   attr_reader :password
+  attr_accessor :portrait
 
   validate :password_must_be_present
 
@@ -41,8 +45,30 @@
   def admin?
     name == 'admin'
     #一定要在公开运行之前注册admin这个用户名，或者使用命令行直接操作数据库，否则无法使用管理员账户！
+  end 
+
+  def upload(params)
+    if uploaded_io=params[:user][:portrait]
+      portrait_path="/uploads/portraits/#{Time.now.to_i.to_s}_#{params[:user][:name]}_#{uploaded_io.original_filename}"
+      File.open("#{Rails.root}/public/#{portrait_path}", 'wb') do |file|  
+        file.write(uploaded_io.read)
+        file.close()
+      end
+      return portrait_path
+    else
+      return nil
+    end
   end
-  
+  def fetch(user)
+    portrait_path="/uploads/portraits/#{Time.now.to_i.to_s}_#{user.name}_gravatar_#{user.gravatar_url.split("/")[-1].split("?")[0]}"
+    File.open("#{Rails.root}/public/#{portrait_path}", "wb") do |saved_file|
+      open(user.gravatar_url, 'rb') do |read_file|
+        saved_file.write(read_file.read)
+      end
+    end
+    portrait_path
+  end
+
   private
 
   def password_must_be_present
@@ -52,5 +78,5 @@
   def generate_salt
     self.salt = self.object_id.to_s + rand.to_s
   end
-  
+ 
 end

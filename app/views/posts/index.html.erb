@@ -1,13 +1,13 @@
 <div id="right">
   <ul>
+    <h3>导航</h3>
     <li><%= link_to '发表帖子', new_post_path %></li>
-    <li>
-      <%if current_user.admin?%>
-        <%= link_to '管理主页', admin_index_path %>
-      <%else%>
-        <%= link_to '用户主页', user_index_path %>
-      <%end%>
-    </li>
+    <% if User.find_by_id(session[:user_id]) %>
+      <li><%= link_to "用户主页", user_index_path%></li>
+      <% if User.find_by_id(session[:user_id]).admin? %>
+        <li><%= link_to "管理主页", admin_index_path %></li>
+      <% end %>
+    <% end %>
     <li><%= link_to '网站主页', root_path %></li>
   </ul>
 </div>
@@ -16,13 +16,13 @@
   <table>
     <thead>
       <tr>
-        <th style="text-align:center">作者</th>
-        <th style="text-align:center">标题</th>
-        <th style="text-align:center">内容</th>
-        <th style="text-align:center">评论</th>
+        <th>作者</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>评论</th>
         <%if current_user.admin?-%>
-          <th style="text-align:center">编辑</th>
-          <th style="text-align:center">删除</th>
+          <th>编辑</th>
+          <th>删除</th>
         <%end-%>
       </tr>
     </thead>
@@ -37,11 +37,11 @@
             <%end-%>
           </td>
           <td><%=link_to truncate(post.title,length: 11,omission: '...'),post-%></td>
-          <td><blockquote><%=truncate(post.text,length: 26,omission: '......')-%></blockquote></td>
-          <td style="text-align:center"><%=post.comments.count()-%></td>
+          <td style="text-align:left"><blockquote><%=truncate(post.text,length: 26,omission: '......')-%></blockquote></td>
+          <td><%=post.comments.count()-%></td>
           <%if current_user.admin?-%>
-            <td style="text-align:center"><%= link_to '编辑', edit_post_path(post) -%></td>
-            <td style="text-align:center"><%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%></td>
+            <td><%= link_to '编辑', edit_post_path(post) -%></td>
+            <td><%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%></td>
           <%end-%>
         </tr>
       <%end-%>
