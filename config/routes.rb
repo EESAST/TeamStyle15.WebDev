@@ -1,5 +1,7 @@
 ﻿TeamStyle15Webdev::Application.routes.draw do
   
+  resources :news,:only=>[:index,:delete,:destroy,:edit,:update,:create,:new]
+
   controller :sessions do
     get 'login' => :new
     post 'login' => :create

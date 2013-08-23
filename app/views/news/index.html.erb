@@ -1,0 +1,33 @@
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+    <li><%= link_to '发表新闻', new_news_path %></li>
+    <li><%= link_to '用户列表', users_path %></li>
+    <li><%= link_to '队伍列表', teams_path %></li>
+    <li><%= link_to '帖子列表', posts_path %></li>
+    <li><%= link_to '评论列表', comments_path %></li>
+    <li><%= link_to "用户主页", user_index_path %></li>
+  </ul>
+</div>
+<div id="content">
+  <h1>新闻列表</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>内容</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @news.each do |news| %>
+        <tr>
+          <td><%= news.text %></td>
+          <td><%= link_to '编辑', edit_news_path(news) %></td>
+          <td><%= link_to '删除', news, method: :delete, data: { confirm: '确定？' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
