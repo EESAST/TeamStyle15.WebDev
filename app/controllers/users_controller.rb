@@ -16,6 +16,9 @@
   # GET /users/1
   # GET /users/1.json
   def show
+    if current_user.id==@user.id
+      redirect_to user_index_path
+    end
   end
 
   # GET /users/new
@@ -43,6 +46,12 @@
   # POST /users.json
   def create
     @user = User.new(user_params)
+    
+    if uploaded_path=@user.upload(params)
+      @user.portrait_path=uploaded_path.to_s
+    else
+      @user.portrait_path=@user.fetch(@user)
+    end
 
     respond_to do |format|
       if @user.save
@@ -58,6 +67,13 @@
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    File.delete("#{Rails.root}/public/#{@user.portrait_path}") if File.exist?("#{Rails.root}/public/#{@user.portrait_path}")
+    if uploaded_path=@user.upload(params)
+      @user.portrait_path=uploaded_path.to_s
+    else
+      @user.portrait_path=@user.fetch(@user)
+    end
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: "修改用户#{@user.name}的信息成功." }
@@ -95,6 +111,7 @@
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :hashed_password, :salt, :true_name, :student_number, :team_id, :portait_path, :type, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :true_name, :student_number, :team_id, :portrait, :type, :password, :password_confirmation)
     end
+
 end

@@ -1,26 +1,40 @@
-﻿<div class="center hero-unit">
-<h1>第十五届队式程序设计大赛官方网站</h1>
-<p id="notice"><%= notice %></p>
-<div><%= image_tag 'TeamStyle15.text.png', :size=> "400x200" %></div>
-<% if !(current_user=User.find_by_id(session[:user_id])) %>
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+<%if !current_user %>
+    <li><%= link_to "注册", new_user_path %></li>
+    <li><%= link_to "登录", login_path%></li>
+<%else %>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+<%  if current_user.admin? %>
+    <li><%= link_to "新闻列表", news_index_path %></li>
+    <li><%= link_to "帖子列表", posts_path %></li>
+    <li><%= link_to "评论列表", comments_path %></li>
+    <li><%= link_to "用户列表", users_path %></li>
+    <li><%= link_to "队伍列表", teams_path %></li>
+    <li><%= link_to "管理主页", admin_index_path %></li>
+<%  else-%>
+    <li><%= link_to "发表帖子", new_post_path %></li>
+    <li><%= link_to "浏览帖子", posts_path %></li>
+    <li><%= link_to "用户主页", user_index_path%></li>
+<%  end-%>
+<%end-%>
+  </ul>
+</div>
 
-  <%= link_to "注册!", new_user_path, :method => :get, class: "btn btn-large btn-primary", id: "sgn-primary" %>
-
-<!--上面这两种东西差不多的以后只写一个了-->
-<div><%= link_to "登录", login_path%></div><!--登录-->
-<% else %>
-<div><%= link_to "注销", logout_path, :method => :delete %></div><!--注销-->
-<% end %>
-
-<div><%= link_to "发表帖子", new_post_path %></div>
-<div><%= link_to "浏览帖子", posts_path %></div>
-
-<% if User.find_by_id(session[:user_id]) %>
-<div><%= link_to "用户主页", user_index_path%></div>
-<% if User.find_by_id(session[:user_id]).admin? %>
-<div><%= link_to "管理员主页", admin_index_path %></div>
-<div><%= link_to "用户列表", users_path %></div><!--管理用户列表-->
-<% end %>
-<% end %>
-<div></div><!--宣传信息神马的-->
+<div id="content">
+  <div id='introduction'>
+    &nbsp;&nbsp;&nbsp;&nbsp;“镜子的两边是两个不同的世界，两个世界保持着诡异的对称，直到某一天，一面巨大的镜子发生了异变，成为沟通两个世界的大门
+……<i>然后就打起来了</i>……”
+  </div>
+  <h2 style="font-size:30px;margin:20px 0">话说……</h2>
+<%(@news=News.all.order("updated_at DESC")).each do |news|-%>
+    <blockquote style="word-break:break-all;width:100%"><%=simple_format(news.text) %></blockquote>
+    <div style="text-align:right; font-size:12px">发布于 <%=news.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+<%if news.updated_at!=news.created_at-%>
+    <div style="text-align:right; font-size:12px">更新于 <%=news.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+<%end-%>
+    <br/>
+<%end-%>
+  <div style="float:auto"><%= image_tag 'TeamStyle15.text.png', :size=> "750x375" %></div>
 </div>

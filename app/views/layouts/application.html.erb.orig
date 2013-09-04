@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <title>队式十五：镜界</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
+</head>
+<body>
+<<<<<<< HEAD
+  <%= render 'layouts/header' %>
+  <div class="container">
+     <%= yield %>
+     <%= render 'layouts/footer' %>
+=======
+  <a style="display:scroll;position:fixed;bottom:0px;left:72%" href="#" title="返回顶部" onFocus="if(this.blur)this.blur()">
+    <img width=20px height=20px alt='TOP' border='0' onmouseover="this.src='/assets/top1.png'" src="/assets/top.png" onmouseout="this.src='/assets/top.png'" />
+  </a>
+  <div id="nav">
+    <ul>
+      <li><%=link_to "主页", root_path%></li>
+      <%if User.find_by_id(session[:user_id])%>
+        <li><%=link_to "论坛", posts_path%></li>
+        <%if current_user.admin?%>
+          <li><%=link_to "管理", admin_index_path%></li>
+          <li><%=link_to "用户", users_path%></li>
+        <%else%>
+          <li><%=link_to "用户", user_index_path%></li>
+        <%end%>
+        <%if current_user&&current_user.team_id%>
+            <li><%=link_to "队伍", team_path(current_user.team_id)%></li>
+        <%else%>
+          <li><%=link_to "队伍", teams_path%></li>
+        <%end%>
+      <%else%>
+        <li><%= link_to "注册", new_user_path %></li>
+        <li><%= link_to "登录", login_path %></li>
+      <%end%>
+      </ul>
+  </div>
+  <div id="head">
+    <h1 style="font-size:80px">镜界</h1>
+    <h2>第十五届队式程序设计大赛</h2>
+    <%image_tag "logo.png",height:100,style:"float:right"%>
+  </div>
+  <div id="notice">
+  <% if flash[:alert] %>
+    <p id="alert"><%= flash[:alert] %></p>
+  <% end %>
+  <p id="notice"><%= notice %></p>
+  </div>
+  <div class="main">
+    <%= yield %>
+    <div id="foot">
+     队式十五开发团队 网站组 倾情奉献<br/>
+     By TeamStyle15 Web Dev with honor.
+   </div>
+>>>>>>> upstream/master
+  </div>
+</body>
+</html>

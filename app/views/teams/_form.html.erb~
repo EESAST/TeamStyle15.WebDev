@@ -1,0 +1,26 @@
+﻿<%= form_for(@team) do |f| %>
+  <% if @team.errors.any? -%>
+    <div id="error_explanation">
+      <h2><%=@team.errors.count%>个错误</h2>
+
+      <ul>
+      <% @team.errors.messages.each do |msg| -%>
+        <li><%= msg.last.first %></li>
+      <% end -%>
+      </ul>
+    </div>
+  <% end -%>
+  <table style="width:500px;margin:auto;">
+    <thead>
+      <th id="left-item">请输入队伍名称：</th><th/> 
+    </thead>
+    <tr>
+        <td id="left-item">队伍名：</td>
+        <td id="right-item"><%=f.text_field :name%></td>
+    </tr>
+    <tr> 
+      <td id="left-item"><%= f.submit '提交'%></td>
+        <td/>
+    </tr>
+  </table>
+<% end %>

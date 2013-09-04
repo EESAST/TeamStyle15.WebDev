@@ -16,7 +16,8 @@
   # GET /teams/new
   def new
     if current_user.team_id&&Team.find_by_id(current_user.team_id)
-      redirect_to user_index_path, notice: ("您已经加入了队伍\""+Team.find_by_id(current_user.team_id).name+"\"")
+      redirect_to :back, notice: ("您已经加入了队伍\""+Team.find_by_id(current_user.team_id).name+"\"")
+      return
     end
     @team = Team.new
   end
@@ -29,10 +30,11 @@
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-    @team.captain_id=current_user.id
-    @team.users<<User.find(current_user.id)
-    
-    User.find_by_id(session[:user_id]).team_id=@team.id
+    if !current_user.admin?
+      @team.captain_id=current_user.id
+      @team.users<<current_user    
+      current_user.team_id=@team.id
+    end
 
     respond_to do |format|
       if @team.save
@@ -52,12 +54,10 @@
       redirect_to root_path, notice: '您不是队长'
       return
     end
-    
-    current_user.team_id=@team.id
-  
+
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: '修改队伍信息成功' }
+        format.html { redirect_to (current_user.admin?)?(teams_path):(@team), notice: '修改队伍信息成功' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -70,7 +70,7 @@
   # DELETE /teams/1.json
   def destroy
     if @team.captain_id!=current_user.id&&!current_user.admin?
-      redirect_to root_path, notice: '您不是队长'
+      redirect_to :back, notice: '您不是队长'
       return
     end
     @team.destroy
@@ -81,32 +81,60 @@
   end
   
   def add_member
-    @team=Team.find(params[:id])
-    if @team.users.count>3 #人数限制
-      redirect_to @team,notice:"队伍成员已满"
-    else
-      @team.users.push(User.find(current_user.id))
-      redirect_to @team,notice:"加入队伍\"#{@team.name}\"成功"
+    @team=Team.find(params[:team_id])
+    @user=User.find(params[:user_id])
+    if @team.users.count>4 #人数限制
+      redirect_to :back,notice:"队伍成员已满"
+      return
     end
+    if @user.admin?
+      redirect_to :back,notice:"管理员不能加入队伍"
+      return
+    end
+    if current_user.id!=@user.id&&!current_user.admin?
+      redirect_to :back,notice:"您无权将队员#{@user.name}加入队伍#{@team.name}"
+      return
+    end
+    if @team.users.include?(@user)
+      redirect_to :back,alert:"#{(@user==current_user)?"您":(用户+@user.name)}已经加入了队伍#{@team.name}"
+      return
+    end
+    if @user.team_id
+      redirect_to :back,alert:"#{(@user==current_user)?"您":(用户+@user.name)}已经加入了队伍#{Team.find(@user.team_id).name}"
+      return
+    end
+    if !@team.captain_id
+      @team.update_attribute(:captain_id,@user.id)
+    end
+    @team.users.push(@user)
+    @user.team_id=@team.id
+    redirect_to @team,notice:"#{(@user==current_user)?"您":(@user.name)}已成功加入队伍\"#{@team.name}\""
   end
   
-  def del_member
-    @team=Team.find(params[:id])
-    if @team.captain_id==current_user.id
-      redirect_to @team,notice:  "您是队长，不能退出队伍"
-    else
-      @team.users.delete(User.find(current_user.id))
-      redirect_to @team,notice:"退出队伍\"#{@team.name}\"成功"
+  def kick_member
+    @team=Team.find(params[:team_id])
+    @user=User.find(params[:user_id])
+    if @team.captain_id==@user.id
+      redirect_to :back,notice:  "您是队长，不能退出队伍"
+      return
+    elif current_user!=@user.id&&current_user!=@team.captain_id&&!current_user.admin?
+      redirect_to :back,notice:"您无权将队员#{@user.name}踢出队伍#{@team.name}"
+      return
+    elif !@team.users.include?(@user)
+      redirect_to :back,alert:"用户#{@user.name}不在队伍#{@team.name}中"
+      return
     end
+      @team.users.delete(@user)
+      redirect_to @team,notice:"#{(@user==current_user)?"您":(@user.name)}已成功退出队伍\"#{@team.name}\""
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # use callbacks to share common setup or constraints between actions.
     def set_team
       @team = Team.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # never trust parameters from the scary internet, only allow the white list through.
     def team_params
       params.require(:team).permit(:name, :captain_id)
     end

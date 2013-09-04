@@ -1,78 +1,112 @@
-﻿<h1>用户<%= current_user.name %></h1>
-<h3>欢迎使用</h3>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>用户名:</strong>
-  <%= current_user.name %>
-</p>
-<div>
-  <%= image_tag current_user.gravatar_url size: 100 %>
-</div>
-
-<p>
-  <strong>电子邮箱:</strong>
-  <%= current_user.email %>
-</p>
-
-<p>
-  <strong>姓名:</strong>
-  <%= current_user.true_name %>
-</p>
-
-<p>
-  <strong>学号:</strong>
-  <%= current_user.student_number %>
-</p>
-
-<p>
-  <strong>所在队伍:</strong>
-  <%if current_user.team_id-%>
-    <%= Team.find(current_user.team_id).name %>
-  <%else-%>尚未加入任何队伍<%end-%>
-</p>
-
-<p>
-  <strong>用户类型:</strong>
-  <% if current_user.admin? %>
-    <%= "管理员"%>
-  <% else %>
-    <%= "参赛选手" %>
-  <% end %>
-</p>
-
-<%@posts=Post.find_all_by_user_id(current_user.id)-%>
-<%if @posts.empty?-%>
-  <p>尚未发表任何帖子</p>
+<div id="right">
+  <h3>导航</h3>
+  <ul>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+    <li><%= link_to '修改个人信息', edit_user_path(current_user) %></li>
+<%if current_user.admin?-%>
+      <li><%= link_to '管理主页', admin_index_path %></li>
 <%else-%>
+    <li><%= link_to '查看队伍列表', teams_path %></li>
+    <%if current_user.team_id-%>
+      <%if Team.find(current_user.team_id).captain_id==current_user.id-%>
+        <li><%= link_to '管理所在队伍', team_path(current_user.team_id) %></li>
+      <%else-%>
+        <li><%= link_to '查看所在队伍', team_path(current_user.team_id) %></li>
+      <%end-%>
+      <li><%= link_to '退出所在队伍', "/teams/#{current_user.team_id}/del",method: :delete, data: {confirm: "确定退出队伍\"#{Team.find(current_user.team_id).name}\"？此操作不可恢复。"} %></li>
+    <%else-%>
+      <li><%= link_to '创建一支队伍', new_team_path %></li>
+      <%if Team.count!=0%>
+        <li><%= link_to '加入一支队伍', teams_path %></li>
+      <%end-%>
+    <%end-%>
+<%end-%>
+  </ul>
+</div>
+<div id="content">
+  <h1 style="font-size:30px;padding:10px 0"><%= current_user.name %><br/><br/></h1>
+  <h2 id="para-title">用户信息</h2>
+  <%@the_user=current_user-%>
+  <%=render 'table'-%>
+  <br/>
+  <!--用户信息跟帖子信息的分割线-->
   <div>
-    <%@posts.each do |post|-%>
-      <div>
-        <%=post.title-%>
-      </div>
-      <div>
-        <%=link_to "详情",post_path(post)-%>
-      </div>
+    <h2 id="para-title">发表的帖子</h2>
+    <%@posts=current_user.posts-%>
+<%if @posts.count()>0%>
+    <div style="font-size:12px;text-align:right">共<%=@posts.count()%>条</div>
+<%end-%>
+    <%if @posts.empty?-%>
+      <p>尚未发表任何帖子</p>
+    <%else-%>
+      <table>
+        <thead>
+          <th style="width=60px">标题</th>
+          <th>内容</th>
+          <th style="width=10px">评论</th>
+        </thead>
+        <tbody>
+        <%@posts.each do |post|-%>
+          <tr>
+            <td>
+              <%=link_to truncate(post.title,length:12,omission:"……"),post_path(post)%>
+            </td>
+            <td style="text-align:left">
+              <%=truncate(post.text,length:32,omission:"……")%>
+            </td>
+            <td>
+              <%=post.comments.count%>
+            </td>
+          </tr>
+        <%end-%>
+        </tbody>
+      </table>
+    <%end-%>
+    <br/>
+    <!--发帖信息和评论信息的分割线-->
+    <h2 id="para-title">评论的帖子</h2>
+    <%@comments=current_user.comments-%>
+<%if @comments.count>0-%>
+    <div style="font-size:12px;text-align:right">共<%=@comments.count()%>条</div>
+<%end-%>
+    <%if @comments.empty?-%>
+      <p>尚未发表任何评论</p>
+    <%else-%>
+      <%
+        @commented_posts={}
+        @comments.each do |comment|
+            (@commented_posts[comment.post_id]||=[])<<comment.id
+        end
+      -%>
+      <table>
+        <thead>
+          <th style="width:60px">帖子标题</th>
+          <th style="width:60px">帖子内容</th>
+          <th style="width:60px">评论总数</th>
+          <th style="width:300px">评论内容</th>
+        </thead>
+        <tbody>
+        <%@commented_posts.each_key do |post_id|-%>
+          <%@post=Post.find_by_id(post_id)-%>
+          <tr>
+            <td>
+              <%=link_to truncate(@post.title,length:12,omission:"……"),post_path(@post)%>
+            </td>
+            <td style="text-align:left">
+              <%=truncate(@post.text,length:12,omission:"……")%>
+            </td>
+            <td>
+              <%=@post.comments.count%>
+            </td>
+            <td>
+                <%@commented_posts[post_id].each do |comment_id|-%>
+                  <blockquote style="text-align:left"><%=truncate(Comment.find_by_id(comment_id).text,length:22,omission:"……")%></blockquote>
+                <%end-%>
+            </td>
+          </tr>
+        <%end-%>
+        </tbody>
+      </table>
     <%end-%>
   </div>
-<%end-%>
-
-
-<%= link_to '修改用户信息', edit_user_path(current_user) %> | 
-<%= link_to '查看队伍列表', teams_path %> |
-<%if current_user.team_id-%>
-  <%if Team.find(current_user.team_id).captain_id==current_user.id-%>
-    <%= link_to '管理所在队伍', team_path(current_user.team_id) %> |
-  <%else-%>
-    <%= link_to '查看所在队伍', team_path(current_user.team_id) %> |
-  <%end-%>
-  <%= link_to '退出所在队伍', "/teams/#{current_user.team_id}/del",method: :delete, data: {confirm: "确定退出队伍\"#{Team.find(current_user.team_id).name}\"？"} %> |
-<%else-%>
-  <%= link_to '创建一支队伍', new_team_path %> |
-  <%if Team.count!=0%>
-    <%= link_to '加入一支队伍', teams_path %> |
-  <%end-%>
-<%end-%>
-<%= link_to '返回网站主页', root_path %>
-
-
+</div>

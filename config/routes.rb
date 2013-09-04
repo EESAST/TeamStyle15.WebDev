@@ -1,5 +1,7 @@
 ﻿TeamStyle15Webdev::Application.routes.draw do
   
+  resources :news,:only=>[:index,:delete,:destroy,:edit,:update,:create,:new]
+
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
@@ -22,8 +24,8 @@
   match "comments/new" => redirect("/"), :via=>:get, :notice=>'不可以直接发表评论'
   match "comments/new" => redirect("/"), :via=>:post, :notice=>'不可以直接发表评论'
   
-  get 'teams/:id/add' => 'teams#add_member'
-  delete 'teams/:id/del' => 'teams#del_member'
+  get 'teams/:team_id/add/:user_id' => 'teams#add_member'
+  delete 'teams/:team_id/kick/:user_id' => 'teams#kick_member'
 
   
   # The priority is based upon order of creation: first created -> highest priority.

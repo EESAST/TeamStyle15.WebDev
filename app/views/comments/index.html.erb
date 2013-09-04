@@ -1,33 +1,48 @@
-﻿<h1>所有评论</h1>
-
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+    <li><%= link_to '帖子列表', posts_path %></li>
+    <% if User.find_by_id(session[:user_id]) %>
+      <% if User.find_by_id(session[:user_id]).admin? %>
+        <li><%= link_to "管理主页", admin_index_path %></li>
+      <% end %>
+      <li><%= link_to "用户主页", user_index_path%></li>
+    <% end %>
+    <li><%= link_to '网站主页', root_path %></li>
+  </ul>
+</div>
+<div id="content">
+<h1>所有评论</h1>
 <table>
   <thead>
     <tr>
       <th>作者</th>
       <th>内容</th>
       <th>帖子</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>编辑</th>
+      <th>删除</th>
     </tr>
   </thead>
-
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= User.find(comment.user_id).name %></td>
-        <td><%= comment.text %></td>
-        <td><%= comment.post_id %></td>
-        <td><%= link_to '详情', comment %></td>
+    <%if User.find_by_id(comment.user_id)%>
+        <td><%= User.find_by_id(comment.user_id).name%></td>
+    <% end %>
+        <td style="text-align:left"><%= truncate(comment.text,length:28,omission:'...') %></td>
+        <td>
+          <%if@post=Post.find_by_id(comment.post_id)-%>
+            <%= link_to truncate(@post.title,length:13,omission:'...'),Post.find_by_id(comment.post_id)-%>
+          <%else-%>
+            已被删除的帖子
+          <%end-%>
+        </td>
         <td><%= link_to '编辑', edit_comment_path(comment) %></td>
         <td><%= link_to '删除', comment, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
-<br>
-
-<%= link_to '返回用户主页', user_index_path %> |
-<%= link_to '返回管理员主页', admin_index_path %> |
-<%= link_to '返回网站主页', root_path %>

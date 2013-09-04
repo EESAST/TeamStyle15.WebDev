@@ -1,21 +1,19 @@
-﻿<%= form_for(@comment) do |f| %>
+<%= form_for(@comment) do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%=@comment.errors.count%>个错误:</h2>
-
       <ul>
-      <% @comment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @comment.errors.messages.each do |msg| %>
+        <li><%= msg.last.first %></li>
       <% end %>
       </ul>
     </div>
-  <% end %>
-
+  <% end %> 
   <div class="field">
-    <%= f.label :text,"评论" %><br>
-    <%= f.text_area :text,:size=>"100x30" %>
+    <%=f.label :text,'发表评论'-%><br>
+    <%=f.text_area :text,:size=>"100x10"-%>
   </div>
   <div class="actions">
-    <%= f.submit '提交' %>
+    <%=f.submit '提交'-%>
   </div>
 <% end %>

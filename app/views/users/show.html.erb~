@@ -1,0 +1,18 @@
+<div id="right">
+  <h3>导航</h3>
+  <ul>
+    <li><%= link_to "注销", logout_path, :method => :delete %></li>
+    <li><%= link_to '修改用户信息', edit_user_path(@user) %></li>
+    <li><%= link_to '用户列表', users_path %></li>
+    <li><%= link_to '队伍列表', teams_path %></li>
+<%if current_user.admin?-%>
+    <li><%= link_to '管理主页', admin_index_path %></li>
+<%end-%>
+  </ul>
+</div>
+<div id="content">
+  <h1 style="font-size:30px;padding:10px 0"><%= @user.name %><br/><br/></h1>
+  <%@the_user=@user-%>
+  <%=render :partial => 'user/table', :layout => true-%>
+</div>
+

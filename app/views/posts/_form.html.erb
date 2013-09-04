@@ -1,22 +1,27 @@
-﻿<%= form_for(@post) do |f| %>
+<%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%=@post.errors.count%>个错误:</h2>
 
       <ul>
-      <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @post.errors.messages.each do |msg| %>
+        <%if msg.first==:title-%>
+          <li><%="标题"+msg.last.first-%></li>
+        <%end-%>
+        <%if msg.first==:text-%>
+          <li><%="正文"+msg.last.first-%></li>
+        <%end-%>
       <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :title ,"标题"%><br>
-    <%= f.text_field :title %>
+    <%= f.label :title ,"标题"%>
+    <%= f.text_field :title, size:80 %>
   </div>
   <div class="field">
-    <%= f.label :text,"正文" %><br>
+    <%= f.label :text,"正文" %>
     <%= f.text_area :text, size: "100x30" %>
   </div>
   <div class="actions">
