@@ -1,0 +1,19 @@
+body{
+	margin: auto;
+}
+
+#logo {
+	font-family: "Adobe 繁黑体 Std","微软雅黑","黑体",serif;
+  margin-right: 10px;
+  font-size: 2.2em;
+  color: rgb(102, 102, 102);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: normal;
+  line-height: 1;
+  &:hover {
+    color: #046dcb;
+    text-decoration: none;
+  }
+}
