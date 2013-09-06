@@ -15,6 +15,8 @@
 
   get 'admin' => 'admin#index'
   get "user/index"
+  get "user/userpost"
+  get "user/team"
   get "admin/index"
   get "sessions/new"
   get "sessions/create"

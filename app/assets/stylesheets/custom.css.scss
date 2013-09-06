@@ -1,0 +1,130 @@
+/* mixins, variables, etc. */
+
+$grayMediumLight: #ccc;
+
+/* universal */
+
+html {
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+body {
+  margin: auto;
+  padding-top: 60px;
+}
+
+.span8, .span4{
+  max-width: 100%;
+}
+
+.container{
+  width: 940px;
+  max-width: 100%;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+.indicator{
+  font-weight: normal;
+  font-size: 30px;
+  border-bottom: 1px solid $grayMediumLight;
+  color: #222222;
+  margin-bottom: 10px;
+
+  img{
+    width: 50px;
+  }
+}
+
+.box-circle{
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+
+  border: 1px solid $grayMediumLight;
+  border-collapse: separate;
+  *border-collapse: collapse;
+    -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.box-title{
+  color: #666;
+  line-height: 25px;
+  min-height: 25px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  margin-left: 0;
+
+  background-color: #fafafa;
+  background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+  background-repeat: repeat-x;
+  border: 1px solid #d4d4d4;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+  *zoom: 1;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+
+.box-content{
+  padding: 10px;
+  p{
+    color: #333;
+    font-size: 20px;
+  }
+}
+
+/* header */
+
+#logo {
+	font-family: "Adobe 繁黑体 Std","微软雅黑","黑体",serif;
+  margin-right: 10px;
+  font-size: 2.2em;
+  color: rgb(102, 102, 102);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: normal;
+  line-height: 1;
+  &:hover {
+    color: #046dcb;
+    text-decoration: none;
+  }
+}
+
+/* post */
+.post{
+  padding: 10px;
+  border-bottom: 1px solid $grayMediumLight;
+  p{
+    margin-bottom: 0;
+  }
+  &:hover{
+    background: #f3f3f3;
+  }
+  img{
+    width: 50px;
+    margin-right: 10px;
+  }
+}

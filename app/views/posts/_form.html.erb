@@ -17,14 +17,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title ,"标题"%>
-    <%= f.text_field :title, size:80 %>
+    <%= f.text_field :title, size:80, :placeholder => "标题" %>
   </div>
   <div class="field">
-    <%= f.label :text,"正文" %>
-    <%= f.text_area :text, size: "100x30" %>
+    <%= f.text_area :text, size: "100x30", :placeholder => "正文" %>
   </div>
   <div class="actions">
-    <%= f.submit '提交' %>
+    <%= f.submit '提交', :class => "btn btn-success" %>
   </div>
 <% end %>

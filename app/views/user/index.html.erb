@@ -1,4 +1,4 @@
-<div id="right">
+<!--<div id="right">
   <h3>导航</h3>
   <ul>
     <li><%= link_to "注销", logout_path, :method => :delete %></li>
@@ -23,16 +23,33 @@
 <%end-%>
   </ul>
 </div>
-<div id="content">
-  <h1 style="font-size:30px;padding:10px 0"><%= current_user.name %><br/><br/></h1>
-  <h2 id="para-title">用户信息</h2>
+-->
+  <ul class="nav nav-tabs">
+  <li class="active"><a href="#">Profile</a></li>
+  <li><%= link_to "帖子", user_userpost_path %></li>
+  <li>
+    <%if current_user.team_id-%>
+      <%if Team.find(current_user.team_id).captain_id==current_user.id-%>
+        <li><%= link_to '队伍', team_path(current_user.team_id) %></li>
+      <%else-%>
+        <li><%= link_to '队伍', team_path(current_user.team_id) %></li>
+      <%end-%>
+    <% else %>
+      <%= link_to "Team", user_team_path %>
+    <% end %>
+  </li>
+  </ul>
+<div class="row">
+<div class="span8">
   <%@the_user=current_user-%>
   <%=render 'table'-%>
+  <%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn btn-primary" %>
   <br/>
   <!--用户信息跟帖子信息的分割线-->
+
   <div>
-    <h2 id="para-title">发表的帖子</h2>
-    <%@posts=current_user.posts-%>
+    <h2 id="para-title">最近发表</h2>
+    <%@posts=current_user.posts.limit(5) %>
 <%if @posts.count()>0%>
     <div style="font-size:12px;text-align:right">共<%=@posts.count()%>条</div>
 <%end-%>
@@ -64,7 +81,7 @@
     <%end-%>
     <br/>
     <!--发帖信息和评论信息的分割线-->
-    <h2 id="para-title">评论的帖子</h2>
+    <h2 id="para-title">最近评论的帖子</h2>
     <%@comments=current_user.comments-%>
 <%if @comments.count>0-%>
     <div style="font-size:12px;text-align:right">共<%=@comments.count()%>条</div>
@@ -109,4 +126,12 @@
       </table>
     <%end-%>
   </div>
+</div>
+
+<div class="span4">
+  <div class="box-circle">
+    <div class="box-title">Side Bar</div>
+  </div>
+</div>
+
 </div>

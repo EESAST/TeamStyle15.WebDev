@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+  <li><%= link_to "Profile", user_index_path %></li>
+  <li><%= link_to "帖子", user_userpost_path %></li>
+  <li class="active"><a href="#">Team</a></li>
+</ul>
+<div class="row">
+<div class="span8">
+	<div class="muted">尚未加入队伍</div><br/>
+      <%= link_to '创建一支队伍', new_team_path, :class => "btn btn-primary" %>
+      <%if Team.count!=0%>
+      <%= link_to '加入一支队伍', teams_path, :class => "btn btn-success" %>
+      <%end-%>
+
+</div>
+
+<div class="span4">
+  <div class="box-circle">
+    <div class="box-title">Side Bar</div>
+  </div>
+</div>
+
+</div>

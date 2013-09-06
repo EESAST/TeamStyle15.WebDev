@@ -30,11 +30,12 @@ input{
 }
 
 blockquote {
+  width: 70%;
   font: 1.2em/1.6em 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
   background: url(closequote.png) no-repeat right bottom;
+  
   padding-left: 30px;
   text-indent: -30px; 
-
 }
 
 blockquote:first-letter {
@@ -77,4 +78,13 @@ src: local(""), url('light hei.ttf') format('truetype');
 #right-item{
   width:250px;
   text-align:left;
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  padding: 20px;
+  border: solid #e3e3e3 1px; 
 }

@@ -1,3 +1,4 @@
+<!--
 <div id="right">
   <ul>
     <h3>导航</h3>
@@ -12,7 +13,37 @@
   </ul>
 </div>
 <div id="content">
-  <h1>浏览帖子</h1>
+-->
+<div class="indicator">
+    <p>浏览帖子</p>
+</div>
+<div class="row">
+<div class="span8">
+  <div class="box-circle">
+  <div class="box-title">Posts</div>
+  <%@posts.each do |post|-%>
+  <div class="post">
+    <% if User.find_by_id(post.user_id).portrait_path %>
+      <%= image_tag User.find_by_id(post.user_id).portrait_path, :class => "img pull-left" %>
+    <% else %>
+      <%= image_tag User.find_by_id(post.user_id).gravatar_url, :class => "img pull-left" %>
+    <% end %>
+    <%=link_to truncate(post.title,length: 26,omission: '...'),post-%>
+    <span class="badge badge-info pull-right"><%=post.comments.count() %></span>
+    <%if current_user.admin?-%>
+      <div class="pull-right">
+      <%= link_to '编辑', edit_post_path(post) -%>|
+      <%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%>
+      </div>
+    <%end-%>
+
+    <br/><%=truncate(post.text,length: 50,omission: '......')-%>
+    <p class="muted"><%= User.find_by_id(post.user_id).name %> 发表于 <%= post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') %></p>
+  </div>
+  <div class="clearfix"></div>
+  <% end %>
+  </div>
+<!--
   <table>
     <thead>
       <tr>
@@ -47,5 +78,18 @@
       <%end-%>
     </tbody>
 </table>
+-->
+<%= will_paginate @arrays, { :class => "pagination pagination-centered",
+                             :inner_window => 2,
+                             :outter_window => 1 } %></div>
+<div class="span4">
+  <div class="box-circle">
+    <div class="box-title">New</div>
+    <p class="text-center"><%= link_to '发表帖子', new_post_path, :class => "btn btn-success" %></p>
+  </div>
 </div>
+</div>
+<!--
+</div>
+-->
 
