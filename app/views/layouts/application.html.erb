@@ -17,7 +17,6 @@
   <div class="container">
   <%= link_to "镜界", root_path, id:"logo", :class => "pull-left" %>
   <nav>
-    <div class="nav-collapse collapse">
     <ul class="nav pull-right">
       <li><%= link_to "帮助", "#" %></li>
       <%if User.find_by_id(session[:user_id])%>
@@ -47,7 +46,6 @@
         <li><%= link_to "登录", login_path %></li>
       <%end%>
       </ul>
-      </div>
       </nav>
   </div>
   </div>
