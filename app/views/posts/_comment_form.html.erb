@@ -1,11 +1,10 @@
 <% @comment = Comment.new -%>
 <%= form_for(@comment) do |f|-%>
-  <div class="field">
-    <%=f.label :text,'发表评论'-%><br>
-    <%=f.text_area :text,:size=>"100x10"-%>
+  <div>
+    <%=f.text_area :text,:size=>"100x10", :placeholder => "发表评论" %>
   </div>
   <div class="actions">
-    <%=f.hidden_field :post_id,:value=>@post.id-%>
-    <%=f.submit '提交'-%>
+    <%=f.hidden_field :post_id,:value=>@post.id %>
+    <%=f.submit '提交', :class => "btn btn-success" %>
   </div>
 <%end-%>

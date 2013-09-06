@@ -1,3 +1,4 @@
+<!--
 <div id="right">
   <ul>
     <li><%= link_to "注销", logout_path, :method => :delete -%></li>
@@ -13,46 +14,78 @@
   </ul>
 </div>
 <div id="content">
-<p>
-  <h1 style="text-align:center; font-size:30px"><%=@post.title-%></h1><br//>
-  <h2 style="text-align:center; font-size:16px">
+-->
+<div class="row">
+<div class="span8">
+<div class="box-circle">
+<div class="box-content">
+<div class="indicator">
+  <% if User.find_by_id(@post.user_id).portrait_path %>
+    <%= image_tag User.find_by_id(@post.user_id).portrait_path, :class => "img pull-right" %>
+  <% else %>
+    <%= image_tag User.find_by_id(@post.user_id).gravatar_url, :class => "img pull-right" %>
+  <% end %>
+  <h2><%=@post.title-%></h2>
+  <h6 class="muted">由
   <%if User.find_by_id(@post.user_id) -%>
-    <strong>作者</strong>：<%= User.find_by_id(@post.user_id).name -%>
+    <%= User.find_by_id(@post.user_id).name -%>
   <%else-%>
-    <strong>作者</strong>：已被删除的用户
+    已被删除的用户
   <%end-%>
-  </h2>
-  <div style="text-align:right; font-size:12px"><strong>创建于</strong>：<%=@post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></div>
+  发表于<%=@post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%>
   <%if @post.created_at!=@post.updated_at-%>
-    <div style="text-align:right; font-size:12px"><strong>修改于</strong>：<%=@post.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+    <strong>修改于</strong>：<%=@post.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%>
   <%end-%>
-</p>
-<p>
-  <div><strong>正文：</strong></div>
-  <div style="word-break:break-all;font-size:18px"><%=simple_format(@post.text)-%></div>
-</p>
-<p>
-  <div><strong>评论：</strong></div><br/>
-  <% @post.comments.each do |comment| -%>
-  <fieldset>
-    <div style="text-align:right; font-size:12px"><strong>创建于</strong>：<%=comment.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></div>
-    <%if comment.created_at!=comment.updated_at-%>
-      <div style="text-align:right; font-size:12px"><strong>修改于</strong>：<%=comment.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+  </h6>  
+</div>
+
+<p><%=simple_format(@post.text)-%></p>
+    <%if current_user.admin?||current_user.id==@post.user_id-%>
+      <%= link_to '编辑帖子', edit_post_path(@post) -%> |
+      <%= link_to '删除帖子', post_path(@post),method: :delete,confirm: "此操作不可恢复。确定？"-%>
     <%end-%>
-    <div style="font-size:20px"><%=comment.user.name-%><strong>说:</strong></div>
-    <%=simple_format(comment.text,{},wrapper_tag: 'blockquote style="word-break:break-all"')-%>
+</div>
+</div>
+
+  <%if @post.comments.empty? -%>
+    <div style="font-size:20px; color:green">还没有人评论！来说点什么吧 ↓</div>
+  <% else %>
+<div class="box-circle">
+  <div class="box-title">评论</div>
+  <% @post.comments.each do |comment| -%>
+  <div class="post">
+  <% if User.find_by_id(@post.user_id).portrait_path %>
+    <%= image_tag User.find_by_id(@post.user_id).portrait_path, :class => "img pull-left" %>
+  <% else %>
+    <%= image_tag User.find_by_id(@post.user_id).gravatar_url, :class => "img pull-left" %>
+  <% end %>
+    <p class="muted"><%=comment.user.name-%><strong>创建于</strong>：<%=comment.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></p>
+    <%if comment.created_at!=comment.updated_at-%>
+      <div><strong>修改于</strong>：<%=comment.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+    <%end-%>
+    
+    <%=simple_format(comment.text,{},wrapper_tag: 'p')-%>
+
     <%if User.find(session[:user_id]).id==comment.user_id||User.find(session[:user_id]).admin?-%>
       <div style="text-align:right; font-size:12px">
         <%= link_to '编辑', edit_comment_path(comment.id) %>
         <%= link_to '删除', comment, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %>
       </div>
     <%end-%>
-  </fieldset><br/>
+  </div>
   <%end%>
-  <%if @post.comments.empty? -%>
-    <div style="font-size:20px; color:green">还没有人评论！来说点什么吧 ↓</div>
+  </div>
+
   <%end-%>
-</p>
+
 <%=render 'comment_form'%>
 <%render :template => 'comments/_form.html.erb'%>
+</div>
+
+<div class="span4">
+  <div class="box-circle">
+    <div class="box-title">Side Bar</div>
+    <div class="box-content">Any good?</div>
+  </div>
+</div>
 </div>
