@@ -6,50 +6,12 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-  <%= render 'layouts/shim' %>
 </head>
+<%= render "layouts/header"%>
 <body>
-  <a style="display:scroll;position:fixed;bottom:0px;left:72%" href="#" title="返回顶部" onFocus="if(this.blur)this.blur()">
-    <img width=20px height=20px alt='TOP' border='0' onmouseover="this.src='/assets/top1.png'" src="/assets/top.png" onmouseout="this.src='/assets/top.png'" />
+  <a style="display:scroll;position:fixed;bottom:0px;right:0%" href="#" title="返回顶部" onFocus="if(this.blur)this.blur()">
+    <img width=30px height=30px alt='TOP' border='0' onmouseover="this.src='/assets/top1.png'" src="/assets/top.png" onmouseout="this.src='/assets/top.png'" />
   </a>
-  <header class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-  <div class="container">
-  <%= link_to "镜界", root_path, id:"logo", :class => "pull-left" %>
-  <nav>
-    <ul class="nav pull-right">
-      <li><%= link_to "帮助", "#" %></li>
-      <%if User.find_by_id(session[:user_id])%>
-        <li><%=link_to "论坛", posts_path%></li>
-         <li id="fat-menu" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%= current_user.name %> <b class="caret"></b>
-          </a>
-            <ul class="dropdown-menu">
-              <%if current_user.admin?%>
-                <li><%=link_to "管理", admin_index_path%></li>
-                <li><%=link_to "用户", users_path%></li>
-              <%else%>
-                <li><%=link_to "用户", user_index_path%></li>
-              <%end%>
-              <%if current_user&&current_user.team_id%>
-                <li><%=link_to "队伍", team_path(current_user.team_id)%></li>
-              <%else%>
-                <li><%=link_to "队伍", teams_path%></li>
-              <%end%>
-              <li class="divider"></li>
-              <li><%= link_to "注销", logout_path, :method => :delete %></li>
-            </ul>
-        </li>
-      <%else%>
-        <li><%= link_to "注册", new_user_path %></li>
-        <li><%= link_to "登录", login_path %></li>
-      <%end%>
-      </ul>
-      </nav>
-  </div>
-  </div>
-  </header>
 
   <div id="notice">
   <% if flash[:alert] %>
@@ -59,11 +21,12 @@
   </div>
   <div class="container">
     <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
-    <div id="foot">
+    <% debug(params) if Rails.env.development? %>
+    <!--div id="foot">
      队式十五开发团队 网站组 倾情奉献<br/>
      By TeamStyle15 Web Dev with honor.
-   </div>
+   </div-->
+    <%= render 'layouts/footer' %>
 
   </div>
 </body>
