@@ -38,7 +38,7 @@
     <%end-%>
 
     <br/><%=truncate(post.text,length: 50,omission: '......')-%>
-    <p class="muted"><%= User.find_by_id(post.user_id).name %> 发表于 <%= post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') %></p>
+    <p class="muted"><%=link_to (@find_user=User.find(post.user_id)).name,@find_user %> 发表于 <%= post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') %></p>
   </div>
   <div class="clearfix"></div>
 <% end %>
@@ -62,8 +62,8 @@
       <%@posts.each do |post|-%>
         <tr>
           <td>
-            <%if User.find_by_id(post.user_id)-%>
-              <%=User.find_by_id(post.user_id).name-%>
+            <%if @find_user=User.find_by_id(post.user_id)-%>
+              <%=link_to @find_user.name,@find_user-%>
             <%else-%>
               已被删除的用户
             <%end-%>

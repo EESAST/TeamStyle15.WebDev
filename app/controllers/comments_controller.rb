@@ -31,6 +31,15 @@
     
     respond_to do |format|
       if @comment.save
+        if current_user.id!=Post.find(@comment.post_id).user_id
+          @message=Message.new
+          @message.user_id=Post.find(@comment.post_id).user_id
+          @message.messagetype=1
+          @message.content=@comment.id
+          @message.read=false
+          @message.save
+        end
+
         format.html { redirect_to :back, notice: '评论成功' }
         format.json { render action: 'show', status: :created, location: @comment }
       else
@@ -57,6 +66,10 @@
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    @messages=Message.find(:all,:conditions=>{:messagetype=>1,:content=>@comment.id})
+    @messages.each do |message|
+      message.destroy
+    end
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: '删除评论成功' }

@@ -1,10 +1,12 @@
 <table style="width:100%; line-height:auto; ">
-
+  <thead>
+    <th colspan=3>用户信息</th>
+  </thead>
   <tbody>
       <tr>
         <td id="left-item"><strong>用户名：</strong></td>
         <td id="right-item"><%= @the_user.name %></td>
-        <td rowspan=<%=(@the_user.admin?)?6:7%> style="width:200px;vertical-align:top;background-color:#FFF"><%= image_tag @the_user.portrait_path,:style => "max-height:200px"  %></td>
+        <td rowspan=<%=((@the_user.admin?)?5:6) + ((current_user.admin? || current_user==@the_user)?1:0)%> style="width:200px;vertical-align:top;background-color:#FFF"><%= image_tag @the_user.portrait_path,:style => "max-height:200px"  %></td>
       </tr>
       <tr>
         <td id="left-item"><strong>电子邮箱：</strong></td>
@@ -14,10 +16,13 @@
         <td id="left-item"><strong>姓名：</strong></td>
         <td id="right-item"><%= @the_user.true_name %></td>
       </tr>
+
+<%if current_user.admin? || current_user==@the_user-%>
       <tr>
         <td id="left-item"><strong>学号：</strong></td>
         <td id="right-item"><%= @the_user.student_number %></td>
       </tr>
+<%end-%>
 <%if !@the_user.admin?-%>
       <tr>
         <td id="left-item"><strong>所在队伍：</strong></td>

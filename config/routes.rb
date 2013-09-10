@@ -1,5 +1,8 @@
 ﻿TeamStyle15Webdev::Application.routes.draw do
   
+  resources :messages,:only=>[:index]
+  delete 'messages/:id' => 'messages#delete'
+
   resources :news,:only=>[:index,:delete,:destroy,:edit,:update,:create,:new]
 
   controller :sessions do

@@ -11,6 +11,10 @@
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @messages=Message.find(:all,:conditions=>{:messagetype=>1,:read=>false,:user_id=>current_user.id})
+    @messages.each do |message|
+      message.update(:read=>true)
+    end
   end
 
   # GET /posts/new

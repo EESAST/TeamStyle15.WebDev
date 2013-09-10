@@ -45,7 +45,34 @@
   <%=render 'table'-%>
   <%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn btn-primary" %>
   <br/>
-  <!--用户信息跟帖子信息的分割线-->
+  <!--用户信息跟用户消息的分割线-->
+  <div>
+    <h2 id="para-title">收到的消息</h2>
+    <%if current_user.messages.empty?-%>
+      <p>尚未收到任何消息</p>
+    <%else-%>
+      <table>
+        <thead>
+          <th style="width=10px">状态</th>
+          <th>内容</th>
+          <th style="width=10px">操作</th>
+        </thead>
+        <tbody>
+          <%current_user.messages.each do |message|-%>
+          <tr>
+            <td><%=(message.read)?'已读':'未读'-%></td>
+            <%if message.messagetype==1 -%>
+              <td><%=link_to (@msguser=User.find((@msgcomment=Comment.find(message.content)).user_id)).name,@msguser-%>评论了您的帖子<%=link_to Post.find(@msgcomment.post_id).title,post_path(@msgcomment.post_id)%></td>
+            <%end-%>
+            <td><%=link_to '忽略', "/messages/#{message.id}", :method=> :delete-%></td>
+          </tr>
+        <%end-%>
+        </tbody>
+      </table>
+    <%end-%>
+  </div>
+  <br/>
+  <!--用户消息跟帖子信息的分割线-->
 
   <div>
     <h2 id="para-title">最近发表</h2>
@@ -69,7 +96,7 @@
               <%=link_to truncate(post.title,length:12,omission:"……"),post_path(post)%>
             </td>
             <td style="text-align:left">
-              <%=truncate(post.text,length:32,omission:"……")%>
+              <p><%=truncate(post.text,length:32,omission:"……")%></p>
             </td>
             <td>
               <%=post.comments.count%>
@@ -117,7 +144,7 @@
             </td>
             <td>
                 <%@commented_posts[post_id].each do |comment_id|-%>
-                  <blockquote style="text-align:left"><%=truncate(Comment.find_by_id(comment_id).text,length:22,omission:"……")%></blockquote>
+                  <p><%=truncate(Comment.find_by_id(comment_id).text,length:22,omission:"……")%></p>
                 <%end-%>
             </td>
           </tr>

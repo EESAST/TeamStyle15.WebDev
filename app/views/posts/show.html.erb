@@ -27,8 +27,8 @@
   <% end %>
   <h2><%=@post.title-%></h2>
   <h6 class="muted">由
-  <%if User.find_by_id(@post.user_id) -%>
-    <%= User.find_by_id(@post.user_id).name -%>
+  <%if @find_user=User.find_by_id(@post.user_id) -%>
+    <%=link_to @find_user.name,@find_user -%>
   <%else-%>
     已被删除的用户
   <%end-%>
@@ -54,12 +54,8 @@
   <div class="box-title">评论</div>
   <% @post.comments.each do |comment| -%>
   <div class="post">
-  <% if User.find_by_id(@post.user_id).portrait_path %>
-    <%= image_tag User.find_by_id(@post.user_id).portrait_path, :class => "img pull-left" %>
-  <% else %>
-    <%= image_tag User.find_by_id(@post.user_id).gravatar_url, :class => "img pull-left" %>
-  <% end %>
-    <p class="muted"><%=comment.user.name-%><strong>创建于</strong>：<%=comment.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></p>
+    <%= image_tag (@comment_author=User.find(comment.user_id)).portrait_path, :class => "img pull-left" %>
+    <p class="muted"><%=link_to comment.user.name,comment.user-%><strong>创建于</strong>：<%=comment.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></p>
     <%if comment.created_at!=comment.updated_at-%>
       <div><strong>修改于</strong>：<%=comment.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
     <%end-%>

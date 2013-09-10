@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :team
   has_many :posts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
+  has_many :messages, :dependent => :destroy
   
   include Gravtastic
   gravtastic  :secure => false,

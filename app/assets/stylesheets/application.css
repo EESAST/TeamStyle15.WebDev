@@ -53,11 +53,11 @@ padding: 10px;
    
 @font-face {
 font-family: 'header hei';
-src: local(""), url('header hei.ttf') format('truetype');
+src: local(""), url(<%= asset_path('headerhei.ttf') %>) format('truetype');
 } 
 @font-face {
 font-family: 'light hei';
-src: local(""), url('light hei.ttf') format('truetype');
+src: local(""), url(<%= asset_path('lighthei.ttf') %>) format('truetype');
 }
 
 #para-title{

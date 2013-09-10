@@ -12,14 +12,15 @@
   <a style="display:scroll;position:fixed;bottom:0px;right:0%" href="#" title="返回顶部" onFocus="if(this.blur)this.blur()">
     <img width=30px height=30px alt='TOP' border='0' onmouseover="this.src='/assets/top1.png'" src="/assets/top.png" onmouseout="this.src='/assets/top.png'" />
   </a>
-
-  <div id="notice">
-  <% if flash[:alert] %>
-    <p id="alert"><%= flash[:alert] %></p>
-  <% end %>
-  <p id="notice"><%= notice %></p>
-  </div>
   <div class="container">
+    <div id="notice">
+      <div style="text-align:center">
+        <% if flash[:alert] %>
+          <p id="alert"><%= flash[:alert] %></p>
+        <% end %>
+        <p id="notice"><%= notice %></p>
+      </div>
+    </div>
     <%= yield %>
     <% debug(params) if Rails.env.development? %>
     <!--div id="foot">
