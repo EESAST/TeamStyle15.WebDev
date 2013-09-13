@@ -96,6 +96,7 @@
       redirect_to root_path,:notice=>"无效的请求"
       return 
     end
+    File.delete("#{Rails.root}/public/#{@user.portrait_path}") if File.exist?("#{Rails.root}/public/#{@user.portrait_path}")
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }

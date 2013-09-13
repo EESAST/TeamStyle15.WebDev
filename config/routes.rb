@@ -1,5 +1,7 @@
 ﻿TeamStyle15Webdev::Application.routes.draw do
   
+  resources :uploads
+
   resources :messages,:only=>[:index]
   delete 'messages/:id' => 'messages#delete'
 

@@ -1,8 +1,8 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
   <div class="container">
-  <%= link_to "镜界", root_path, id:"logo", :class => "pull-left" %>
-  <nav>
+    <%= link_to image_tag('/assets/Long-LOGO.png',:size=>"200x34"), root_path, id:"logo", :class => "pull-left" %>
+  <nav style="vertical-align:middle">
     <ul class="nav pull-right">
       <li><%= link_to "帮助", "#" %></li>
       <%if User.find_by_id(session[:user_id])%>
