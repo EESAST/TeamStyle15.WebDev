@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  integer: 
+  integer: 
+  integer: 
+  boolean: 
+  text: MyText
+
+two:
+  integer: 
+  integer: 
+  integer: 
+  boolean: 
+  text: MyText

@@ -1,0 +1,16 @@
+<table style="width:100%; line-height:auto; ">
+  <thead>
+    <th style="width:80px">消息状态</th>
+    <th>消息内容</th>
+  </thead>
+  <tbody>
+<%@the_user.messages.each do |message|%>
+    <tr>
+  <%if message.messagetype==1%>    
+      <td><%=(message.read)?('已读'):('未读')%></td>
+      <td style="text-align:left"><%=link_to User.find((comment=Comment.find(message.content)).user_id).name,user_path(comment.user_id)%>对<%=link_to '您的帖子',post_path(comment.post_id)-%>发表了评论：<%=truncate(comment.text)%></td>
+      </tr>
+  <%end-%>
+<%end-%>
+  </tbody>
+</table>
