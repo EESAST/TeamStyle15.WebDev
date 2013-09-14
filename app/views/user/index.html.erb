@@ -24,31 +24,35 @@
   </ul>
 </div>
 -->
-  <ul class="nav nav-tabs">
-  <li class="active"><a href="#">Profile</a></li>
-  <li><%= link_to "帖子", user_userpost_path %></li>
-  <li>
-    <%if current_user.team_id-%>
-      <%if Team.find(current_user.team_id).captain_id==current_user.id-%>
-        <li><%= link_to '队伍', team_path(current_user.team_id) %></li>
-      <%else-%>
-        <li><%= link_to '队伍', team_path(current_user.team_id) %></li>
-      <%end-%>
-    <% else %>
-      <%= link_to "Team", user_team_path %>
-    <% end %>
-  </li>
-  </ul>
+<%= render 'user/usernavbar' %>
+
+<% provide(:sub,'profile') %>
 <div class="row">
 <div class="span8">
   <%@the_user=current_user-%>
   <%=render 'table'-%>
-  <%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn btn-primary" %>
   <br/>
   <!--用户信息跟帖子信息的分割线-->
 
   <div>
-    <h2 id="para-title">最近发表</h2>
+  <div class="box-circle">
+  <div class="box-title">最近发表</div>
+  <% @posts=current_user.posts.limit(5).order("updated_at DESC") %>
+  <%if @posts.empty?-%>
+      <p>尚未发表任何帖子</p>
+  <%else-%>
+  <div class="box-content">
+<%@posts.each do |post|-%>
+  <div>
+    <div class="muted pull-right"><%=post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+    <%= link_to truncate(post.title,length: 26,omission: '...'), post %>
+    </div>
+    <div class="page-divider"></div>
+  <%end-%>
+  </div>
+  <% end %>
+  </div>  
+<!--
     <%@posts=current_user.posts.limit(5) %>
 <%if @posts.count()>0%>
     <div style="font-size:12px;text-align:right">共<%=@posts.count()%>条</div>
@@ -80,8 +84,12 @@
       </table>
     <%end-%>
     <br/>
+    -->
     <!--发帖信息和评论信息的分割线-->
-    <h2 id="para-title">最近评论的帖子</h2>
+
+    <div class="box-circle">
+    <div class="box-title">最近评论的帖子</div>
+    <div class="box-content">
     <%@comments=current_user.comments-%>
 <%if @comments.count>0-%>
     <div style="font-size:12px;text-align:right">共<%=@comments.count()%>条</div>
@@ -126,11 +134,16 @@
       </table>
     <%end-%>
   </div>
+  </div>
+  </div>
 </div>
 
 <div class="span4">
   <div class="box-circle">
     <div class="box-title">Side Bar</div>
+    <div class="box-content">
+      <%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn btn-primary" %>
+    </div>
   </div>
 </div>
 

@@ -1,15 +1,19 @@
-<div id="right">
-  <ul>
-    <h3>导航</h3>
+
+  <div class="box-circle">
+    <div class="box-title">Side Bar</div>
+    <div class="box-content nav">
     <li><%=link_to "注销", logout_path, :method => :delete %></li>
     <li><%=link_to '创建新用户', new_user_path %></li>
     <li><%=link_to '帖子列表', posts_path%></li>
     <li><%=link_to '评论列表', comments_path%></li>
     <li><%=link_to '队伍列表', teams_path%></li>
     <li><%=link_to '管理主页', admin_index_path %></li>
-</div>
-<div id="content">
-  <h1>用户列表<br/><br/></h1>
+    </div>
+  </div>
+
+<div class="box-circle">
+<div class="box-title">用户列表</div>
+<div class="box-content">
 <div style="font-size:12px;text-align:right">共<%=@users.count()%>个用户</div>
 <table>
   <thead>
@@ -31,7 +35,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.name,user %></td>
-        <td><%= image_tag user.portrait_path, height: '30' %></td>
+        <td><%= image_tag user.portrait_path %></td>
         <td><%= user.email %></td>
         <td><%= user.true_name %></td>
         <td><%= user.student_number %></td>
@@ -52,5 +56,6 @@
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate %>
+</div>
 </div>
