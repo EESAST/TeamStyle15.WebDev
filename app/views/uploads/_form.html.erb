@@ -1,0 +1,24 @@
+<%=form_for(@upload) do |f|%>
+  <% if @upload.errors.any?-%>
+    <div id="error_explanation">
+      <h2><%=@upload.errors.count-%>个错误：</h2>
+      <ul>
+      <%@upload.errors.messages.each do |msg|-%>
+        <li><%=msg.last.first-%></li>
+      <%end-%>
+      </ul>
+    </div>
+  <%end-%>
+  <table style="width:500px;margin:auto">
+    <thead>
+      <th colspan=2>上传AI</th>
+    </thead>
+    <tr colspan=2>
+      <td style="text-align:left">请务必选择一种我们能够打开的格式(zip,rar,7z,...)上传你的AI：<br/>
+      <%=f.file_field :upload_file%><br/>
+      <%=f.hidden_field :user_id,:value=>current_user.id%>
+      <%=f.hidden_field :team_id,:value=>Team.find_by_captain_id(current_user.id).id%>
+      <%=f.submit "上传" %></td>
+    </tr>
+  </table>
+<% end %>

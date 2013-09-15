@@ -1,0 +1,79 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+HomeController	home_controller.rb	/^class HomeController < ApplicationController$/;"	c
+MessagesController	messages_controller.rb	/^class MessagesController < ApplicationController$/;"	c
+NewsController	news_controller.rb	/^class NewsController < ApplicationController$/;"	c
+UserController	user_controller.rb	/^class UserController < ApplicationController$/;"	c
+add_member	teams_controller.rb	/^  def add_member$/;"	f
+admin_authorize	application_controller.rb	/^  def admin_authorize$/;"	f
+authorize	application_controller.rb	/^  def authorize$/;"	f
+comment_params	comments_controller.rb	/^    def comment_params$/;"	f
+create	comments_controller.rb	/^  def create$/;"	f
+create	messages_controller.rb	/^  def create$/;"	f	class:MessagesController
+create	news_controller.rb	/^  def create$/;"	f	class:NewsController
+create	posts_controller.rb	/^  def create$/;"	f
+create	sessions_controller.rb	/^  def create$/;"	f
+create	teams_controller.rb	/^  def create$/;"	f
+create	users_controller.rb	/^  def create$/;"	f
+destroy	comments_controller.rb	/^  def destroy$/;"	f
+destroy	messages_controller.rb	/^  def destroy$/;"	f	class:MessagesController
+destroy	news_controller.rb	/^  def destroy$/;"	f	class:NewsController
+destroy	posts_controller.rb	/^  def destroy$/;"	f
+destroy	sessions_controller.rb	/^  def destroy$/;"	f
+destroy	teams_controller.rb	/^  def destroy$/;"	f
+destroy	users_controller.rb	/^  def destroy$/;"	f
+edit	comments_controller.rb	/^  def edit$/;"	f
+edit	messages_controller.rb	/^  def edit$/;"	f	class:MessagesController
+edit	news_controller.rb	/^  def edit$/;"	f	class:NewsController
+edit	posts_controller.rb	/^  def edit$/;"	f
+edit	teams_controller.rb	/^  def edit$/;"	f
+edit	users_controller.rb	/^  def edit$/;"	f
+index	admin_controller.rb	/^  def index$/;"	f
+index	comments_controller.rb	/^  def index$/;"	f
+index	home_controller.rb	/^  def index$/;"	f	class:HomeController
+index	messages_controller.rb	/^  def index$/;"	f	class:MessagesController
+index	news_controller.rb	/^  def index$/;"	f	class:NewsController
+index	posts_controller.rb	/^  def index$/;"	f
+index	teams_controller.rb	/^  def index$/;"	f
+index	user_controller.rb	/^  def index$/;"	f	class:UserController
+index	users_controller.rb	/^  def index$/;"	f
+kick_member	teams_controller.rb	/^  def kick_member$/;"	f
+message_params	messages_controller.rb	/^    def message_params$/;"	f	class:MessagesController
+new	comments_controller.rb	/^  def new$/;"	f
+new	messages_controller.rb	/^  def new$/;"	f	class:MessagesController
+new	news_controller.rb	/^  def new$/;"	f	class:NewsController
+new	posts_controller.rb	/^  def new$/;"	f
+new	sessions_controller.rb	/^  def new$/;"	f
+new	teams_controller.rb	/^  def new$/;"	f
+new	users_controller.rb	/^  def new$/;"	f
+news_params	news_controller.rb	/^    def news_params$/;"	f	class:NewsController
+post_params	posts_controller.rb	/^    def post_params$/;"	f
+render_error	application_controller.rb	/^   def render_error(exception = nil)$/;"	f
+render_not_found	application_controller.rb	/^   def render_not_found(exception = nil)$/;"	f
+rescue_errors	application_controller.rb	/^  def self.rescue_errors$/;"	F
+set_comment	comments_controller.rb	/^    def set_comment$/;"	f
+set_message	messages_controller.rb	/^    def set_message$/;"	f	class:MessagesController
+set_news	news_controller.rb	/^    def set_news$/;"	f	class:NewsController
+set_post	posts_controller.rb	/^    def set_post$/;"	f
+set_team	teams_controller.rb	/^    def set_team$/;"	f
+set_user	users_controller.rb	/^    def set_user$/;"	f
+show	comments_controller.rb	/^  def show$/;"	f
+show	messages_controller.rb	/^  def show$/;"	f	class:MessagesController
+show	news_controller.rb	/^  def show$/;"	f	class:NewsController
+show	posts_controller.rb	/^  def show$/;"	f
+show	teams_controller.rb	/^  def show$/;"	f
+show	users_controller.rb	/^  def show$/;"	f
+team	user_controller.rb	/^  def team$/;"	f	class:UserController
+team_params	teams_controller.rb	/^    def team_params$/;"	f
+update	comments_controller.rb	/^  def update$/;"	f
+update	messages_controller.rb	/^  def update$/;"	f	class:MessagesController
+update	news_controller.rb	/^  def update$/;"	f	class:NewsController
+update	posts_controller.rb	/^  def update$/;"	f
+update	teams_controller.rb	/^  def update$/;"	f
+update	users_controller.rb	/^  def update$/;"	f
+user_params	users_controller.rb	/^    def user_params$/;"	f
+userpost	user_controller.rb	/^  def userpost$/;"	f	class:UserController
