@@ -6,30 +6,24 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-
+  <%= render "layouts/header"%>
 </head>
-<%= render "layouts/header"%>
+
 <body>
-  <a style="display:scroll;position:fixed;bottom:0px;right:0%" href="#" title="返回顶部" onFocus="if(this.blur)this.blur()">
-    <img width=30px height=30px alt='TOP' border='0' onmouseover="this.src='/assets/top1.png'" src="/assets/top.png" onmouseout="this.src='/assets/top.png'" />
-  </a>
+  <a style="display:scroll;position:fixed;bottom:0px;right:0%" href="#" title="返回顶部" onFocus="if(this.blur)this.blur()"><img width=30px height=30px alt='TOP' border='0' onmouseover="this.src='/assets/top1.png'" src="/assets/top.png" onmouseout="this.src='/assets/top.png'" /></a>
   <div class="container">
     <div id="notice">
       <div style="text-align:center">
-        <% if flash[:alert] %>
-          <p id="alert"><%= flash[:alert] %></p>
-        <% end %>
+<%if flash[:alert] %>
+        <p id="alert"><%= flash[:alert] %></p>
+<%end %>
         <p id="notice"><%= notice %></p>
       </div>
     </div>
-    <%= yield %>
+    <%=yield %>
     <% debug(params) if Rails.env.development? %>
-    <!--div id="foot">
-     队式十五开发团队 网站组 倾情奉献<br/>
-     By TeamStyle15 Web Dev with honor.
-   </div-->
-    <%= render 'layouts/footer' %>
-
+    <%=render 'layouts/footer' %>
   </div>
 </body>
+
 </html>

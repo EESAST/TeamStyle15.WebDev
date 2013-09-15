@@ -7,7 +7,7 @@
   # GET /users.json
   def index
     if User.find_by_id(session[:user_id]).admin?
-      @users = User.order(:name)
+      @users = User.paginate(page: params[:page]).order(:name)
     else
       redirect_to root_path, :notice => "您不是管理员"
     end

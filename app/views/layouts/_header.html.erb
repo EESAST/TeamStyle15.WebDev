@@ -1,38 +1,35 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-  <div class="container">
-    <%= link_to image_tag('/assets/Long-LOGO.png',:size=>"200x34"), root_path, id:"logo", :class => "pull-left" %>
-  <nav style="vertical-align:middle">
-    <ul class="nav pull-right">
-      <li><%= link_to "帮助", "#" %></li>
-      <%if User.find_by_id(session[:user_id])%>
-        <li><%=link_to "论坛", posts_path%></li>
-         <li id="fat-menu" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%= current_user.name %> <b class="caret"></b>
-          </a>
+    <div class="container">
+      <%= link_to image_tag('/assets/Long-LOGO.png',:size=>"200x34"), root_path, id:"logo", :class => "pull-left" %>
+      <nav style="vertical-align:middle">
+        <ul class="nav pull-right">
+          <li><%= link_to "帮助", "#" %></li>
+<%if User.find_by_id(session[:user_id])%>
+          <li><%=link_to "论坛", posts_path%></li>
+          <li id="fat-menu" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %><b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <%if current_user.admin?%>
-                <li><%=link_to "管理", admin_index_path%></li>
-                <li><%=link_to "用户", users_path%></li>
-              <%else%>
-                <li><%=link_to "用户", user_index_path%></li>
-              <%end%>
-              <%if current_user&&current_user.team_id%>
-                <li><%=link_to "队伍", team_path(current_user.team_id)%></li>
-              <%else%>
-                <li><%=link_to "队伍", teams_path%></li>
-              <%end%>
+<%  if current_user.admin?%>
+              <li><%=link_to "管理", admin_index_path%></li>
+              <li><%=link_to "用户", users_path%></li>
+<%  else%>
+              <li><%=link_to "用户", user_index_path%></li>
+<%  end%>
+<%  if current_user&&current_user.team_id%>
+              <li><%=link_to "队伍", team_path(current_user.team_id)%></li>
+<%  else%>
+              <li><%=link_to "队伍", teams_path%></li>
+<%  end%>
               <li class="divider"></li>
               <li><%= link_to "注销", logout_path, :method => :delete %></li>
             </ul>
         </li>
-      <%else%>
+<%else%>
         <li><%= link_to "注册", new_user_path %></li>
         <li><%= link_to "登录", login_path %></li>
-      <%end%>
+<%end%>
       </ul>
-      </nav>
-  </div>
+    </nav>
   </div>
 </header>
