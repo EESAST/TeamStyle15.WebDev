@@ -16,6 +16,7 @@
 /tmp
 
 # Ignore public uploads.
+/public/assets
 /public/uploads
 
 # Ignore Vim swap files and backuo files.
