@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   def fetch(user)
     portrait_path="/uploads/portraits/#{Time.now.to_i.to_s}_#{user.name}_gravatar_#{user.gravatar_url.split("/")[-1].split("?")[0]}"
     File.open("#{Rails.root}/public/#{portrait_path}", "wb") do |saved_file|
-      open(user.gravatar_url, 'rb') do |read_file|
+      open(user.gravatar_url,'rb',:proxy=>'http://localhost:8087') do |read_file|
         saved_file.write(read_file.read)
       end
     end
