@@ -1,4 +1,4 @@
-source 'http://mirrors.tuna.tsinghua.edu.cn/rubygems'
+source 'https://rubygems.org'
 
 ruby '1.9.3'
 
