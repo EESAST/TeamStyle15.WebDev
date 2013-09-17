@@ -47,11 +47,33 @@
   def create
     @user = User.new(user_params)
     
+    if (@team=Team.find_by_id(@user.team_id))&&(@team.users.count>4)
+      redirect_to :back, :notice=>"队伍#{@team.name}人数已满"
+      return
+    end
+
     if uploaded_path=@user.upload(params)
       @user.portrait_path=uploaded_path.to_s
     else
       @user.portrait_path=@user.fetch(@user)
     end
+
+  #判断用户类别的的逻辑
+    if @user.student_number
+      if @user.student_number>=2013000000
+        @user.user_type="参赛选手"
+      else
+        if @user.student_number>=2012000000
+          @user.user_type="队式开发组"
+        else
+          if @user.student_number>=2011000000
+            @user.user_type="队式元老"
+          end
+        end
+      end
+    end
+
+    @user.email=@user.email.downcase    
 
     respond_to do |format|
       if @user.save
@@ -75,7 +97,8 @@
     end
 
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(edit_user_params)
+        @user.update_attribute(:email,@user.email.downcase)
         format.html { redirect_to @user, notice: "修改用户#{@user.name}的信息成功." }
         format.json { head :no_content }
       else
@@ -113,6 +136,10 @@
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :true_name, :student_number, :team_id, :portrait, :type, :password, :password_confirmation)
+    end
+
+    def edit_user_params
+      params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :type, :password, :password_confirmation)
     end
 
 end

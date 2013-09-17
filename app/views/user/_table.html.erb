@@ -30,8 +30,8 @@
       </tr>
 <%end-%>
       <tr>
-        <td id="left-item"><strong>用户类型：</strong></td>
-        <td id="right-item"><%=(@the_user.admin?)?"管理员":"参赛选手"%></td>
+        <td id="left-item"><strong>用户类别：</strong></td>
+        <td id="right-item"><%=(@the_user.admin?)?"管理员":@the_user.user_type%></td>
       </tr>
       <tr>
         <td id="left-item"><strong>加入时间：</strong></td>

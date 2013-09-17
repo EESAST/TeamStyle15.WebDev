@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   validate :password_must_be_present
 
   def User.authenticate(name, password)
-    if user = find_by_name(name)
+    if user=find_by_email(name.downcase)||user=find_by_name(name)
       if user.hashed_password == encrypt_password(password, user.salt)
         user
       end
@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   
   def admin?
     name == 'admin'
+    student_number==2012000000
     #一定要在公开运行之前注册admin这个用户名，或者使用命令行直接操作数据库，否则无法使用管理员账户！
   end 
 

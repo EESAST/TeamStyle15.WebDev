@@ -44,7 +44,7 @@
           <% if user.admin? %>
             <%= "管理员"%>
           <% else %>
-            <%= "参赛选手" %>
+            <%= user.user_type %>
           <% end %>
         </td>
         <td><%=user.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d')%></td>
