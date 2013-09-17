@@ -44,8 +44,7 @@ class User < ActiveRecord::Base
   end
   
   def admin?
-    name == 'admin'
-    student_number==2012000000
+    name == 'admin' && student_number==2012000000
     #一定要在公开运行之前注册admin这个用户名，或者使用命令行直接操作数据库，否则无法使用管理员账户！
   end 
 
