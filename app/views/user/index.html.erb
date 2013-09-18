@@ -6,33 +6,7 @@
   <%@the_user=current_user-%>
   <%=render 'table'-%>
   <br/>
-  <!--用户信息跟用户消息的分割线-->
-  <div>
-    <h2 id="para-title">收到的消息</h2>
-    <%if current_user.messages.empty?-%>
-      <p>尚未收到任何消息</p>
-    <%else-%>
-      <table>
-        <thead>
-          <th style="width=10px">状态</th>
-          <th>内容</th>
-          <th style="width=10px">操作</th>
-        </thead>
-        <tbody>
-          <%current_user.messages.each do |message|-%>
-          <tr>
-            <td><%=(message.read)?'已读':'未读'-%></td>
-            <%if message.messagetype==1 -%>
-              <td><%=link_to (@msguser=User.find((@msgcomment=Comment.find(message.content)).user_id)).name,@msguser-%>评论了您的帖子<%=link_to Post.find(@msgcomment.post_id).title,post_path(@msgcomment.post_id)%></td>
-            <%end-%>
-            <td><%=link_to '忽略', "/messages/#{message.id}", :method=> :delete-%></td>
-          </tr>
-        <%end-%>
-        </tbody>
-      </table>
-    <%end-%>
-  </div>
-  <br/>
+
   <!--用户消息跟帖子信息的分割线-->
 
   <div>

@@ -1,15 +1,16 @@
-<table style="width:100%; line-height:auto; ">
-  <thead>
-    <th colspan=3>用户信息</th>
-  </thead>
+<div class="box-circle">
+  <div class="box-title">用户信息</div>
+  <div class="box-content">
+  <div class="row">
+<div class="span5">
+<table class="table-profile">
   <tbody>
       <tr>
         <td id="left-item"><strong>用户名：</strong></td>
         <td id="right-item"><%= @the_user.name %></td>
-        <td rowspan=<%=((@the_user.admin?)?5:6) + ((current_user.admin? || current_user==@the_user)?1:0)%> style="width:200px;vertical-align:top;background-color:#FFF"><%= image_tag @the_user.portrait_path,:style => "width:600px"  %></td>
       </tr>
       <tr>
-        <td id="left-item"><strong>电子邮箱：</strong></td>
+        <td id="left-item"><strong>邮箱：</strong></td>
         <td id="right-item"><%= @the_user.email-%></td>
       </tr>
       <tr>
@@ -25,13 +26,13 @@
 <%end-%>
 <%if !@the_user.admin?-%>
       <tr>
-        <td id="left-item"><strong>所在队伍：</strong></td>
+        <td id="left-item"><strong>队伍：</strong></td>
         <td id="right-item"><%=(@the_user.team_id)?(Team.find_by_id(@the_user.team_id).name):("尚未加入任何队伍")-%></td>
       </tr>
 <%end-%>
       <tr>
         <td id="left-item"><strong>用户类别：</strong></td>
-        <td id="right-item"><%=(@the_user.admin?)?"管理员":@the_user.user_type%></td>
+        <td id="right-item"><%=(@the_user.admin?)? "管理员":@the_user.user_type%></td>
       </tr>
       <tr>
         <td id="left-item"><strong>加入时间：</strong></td>
@@ -39,3 +40,11 @@
       </tr>
   </tbody>
 </table>
+</div>
+  <div class="span2">
+    <%= image_tag @the_user.portrait_path, :class => "img" %>
+  </div>
+  </div>
+
+  </div>
+</div>

@@ -11,6 +11,7 @@
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @sub = "team"
   end
 
   # GET /teams/new

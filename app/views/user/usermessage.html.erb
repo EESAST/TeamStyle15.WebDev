@@ -1,0 +1,35 @@
+<%= render 'user/usernavbar' %>
+<% provide(:sub,'usermessage') %>
+
+<div class="row">
+	<div class="span8">
+		<div class="box-circle">
+			<div class="box-title">收到的消息</div>
+			<div class="box-content">
+				    <%if current_user.messages.empty?-%>
+      <p>尚未收到任何消息</p>
+    <%else-%>
+      <table>
+        <thead>
+          <th style="width=10px">状态</th>
+          <th>内容</th>
+          <th style="width=10px">操作</th>
+        </thead>
+        <tbody>
+          <%current_user.messages.each do |message|-%>
+          <tr>
+            <td><%=(message.read)? '已读' : '未读'-%></td>
+            <%if message.messagetype==1 -%>
+              <td><%=link_to (@msguser=User.find((@msgcomment=Comment.find(message.content)).user_id)).name,@msguser-%>评论了您的帖子<%=link_to Post.find(@msgcomment.post_id).title,post_path(@msgcomment.post_id)%></td>
+            <%end-%>
+            <td><%=link_to '忽略', "/messages/#{message.id}", :method=> :delete-%></td>
+          </tr>
+        <%end-%>
+        </tbody>
+      </table>
+    <%end-%>
+			</div>
+		</div>
+	</div>
+	<div class="span4"></div>
+</div>
