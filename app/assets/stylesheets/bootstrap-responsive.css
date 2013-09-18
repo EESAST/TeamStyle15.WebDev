@@ -93,6 +93,10 @@
   .hidden-phone {
     display: none !important;
   }
+
+  span{
+    margin-left: 0;
+  }
 }
 
 .visible-print {
