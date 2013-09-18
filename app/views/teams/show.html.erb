@@ -1,8 +1,38 @@
 <% provide(:sub, 'team') %>
 <%= render 'user/usernavbar' %>
-<div id="right">
+
+<div class="row">
+<div class="span8">
+<div class="box-circle">
+<div class="box-title"><%= @team.name %></div>
+<div class="box-content">
+
+      <%= (@team.captain_id)?(link_to (@captain=User.find(@team.captain_id)).name,@captain):link_to("成为队长","/teams/#{@team.id}/add/#{current_user.id}")%>&nbsp;&nbsp;
+      <span class="label label-info">队长</span>
+      <br/>
+      <strong>队员:</strong>
+      <ul>
+<%@team.users.each do |user| -%>
+      <li><%=link_to user.name,user%>&nbsp;&nbsp;
+      <%=link_to "踢出队伍","/teams/#{@team.id}/kick/#{user.id}", :class => "muted" ,method: :delete,data: {confirm:"确定要把#{user.name}踢出队伍？此操作不可恢复。"} if (current_user.id==@team.captain_id||current_user.admin?)&&@team.captain_id!=user.id-%></li>
+<%end-%>
+      </ul>
+      <strong>成立时间:</strong>
+      <%=@team.created_at.in_time_zone('Beijing').strftime('%Y年%m月%d日%H时')%>
+
+
+<%if current_user.id==@team.captain_id%>
+<%end-%>
+</div>
+</div>
+
+</div>
+
+<div class="span4">
+<div class="box-circle">
+<div class="box-title">操作</div>
+<div class="box-content">
   <ul>
-    <h3>导航</h3>
 <%if current_user.id==@team.captain_id||current_user.admin?-%>
     <li><%= link_to '修改队伍名称', edit_team_path(@team) %></li>
     <li><%= link_to '解散队伍', team_path(@team), method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></li>
@@ -14,34 +44,7 @@
     <li><%= link_to '队伍列表', teams_path %></li>
   </ul>
 </div>
-<div id="content">
-  <h2>队伍详情<br/><br/></h2>
-  <table style="width:500px;margin:auto">
-    <thead>
-      <th colspan=2>队伍信息</th>
-    </thead>
-    <tr>
-      <td id="left-item"><strong>队伍名称:</strong></td>
-      <td id="right-item"><%= @team.name %></td>
-    </tr>
-    <tr>
-      <td id="left-item"><strong>队长:</strong></td>
-      <td id="right-item"><%= (@team.captain_id)?(link_to (@captain=User.find(@team.captain_id)).name,@captain):link_to("成为队长","/teams/#{@team.id}/add/#{current_user.id}")%></td>
-    </tr>
-    <tr>
-      <td id="left-item"><strong>队员:</strong></td>
-      <td id="right-item">
-<%@team.users.each do |user| -%>
-      <%=link_to user.name,user%>&emsp;<%=link_to '踢出队伍',"/teams/#{@team.id}/kick/#{user.id}",method: :delete,data: {confirm:"确定要把#{user.name}踢出队伍？此操作不可恢复。"} if (current_user.id==@team.captain_id||current_user.admin?)&&@team.captain_id!=user.id-%></br>
-<%end-%>
-      </td>
-    </tr>
-    <tr>
-      <td id="left-item"><strong>成立时间:</strong></td>
-      <td id="right-item"><%=@team.created_at.in_time_zone('Beijing').strftime('%Y年%m月%d日%H时')%></td>
-    </tr>
-  </table>
-<%if current_user.id==@team.captain_id%>
-    <h2>队伍管理<br/><br/></h2>
-<%end-%>
+</div>
+</div>
+
 </div>

@@ -32,10 +32,8 @@ textarea {
   resize: vertical;
 }
 
-table{
-  img{
+.img-small{
     width: 30px;
-  }
 }
 
 .center {
@@ -151,6 +149,7 @@ table{
 .intro-content{
   margin-top: 100px;
   width: 50%;
+  min-width: 600px;
   color: #fff;
   h1{
     font-size: 50px;

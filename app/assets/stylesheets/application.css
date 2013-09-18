@@ -11,3 +11,79 @@
  *= require_self
  *= require_tree .
  */
+body {
+//  background:url('background.png')repeat-x top center;
+  background-attachment:fixed;
+//  background-color:#F9F9F9;
+  padding-bottom: 100px;
+  margin:0;
+}
+
+#alert {
+  font:16px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
+  color: red;
+	}
+
+input{
+  font:14px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti !important;
+}
+
+blockquote {
+  width: 70%;
+  font: 1.2em/1.6em 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
+  background: url(closequote.png) no-repeat right bottom;
+  
+  padding-left: 30px;
+  text-indent: -30px; 
+}
+
+blockquote:first-letter {
+  background: url(openquote.png) no-repeat left top;
+  padding-left: 30px;
+  font: bold 1.4em 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
+}
+
+#quote{
+  font:16px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
+}
+
+fieldset {
+padding: 10px;
+}
+   
+@font-face {
+font-family: 'header hei';
+src: local(""), url('header hei.ttf') format('truetype');
+} 
+@font-face {
+font-family: 'light hei';
+src: local(""), url('light hei.ttf') format('truetype');
+}
+
+#para-title{
+  padding:10px 0;
+  text-align:center;
+}
+
+.field,.actions{
+  padding:6px 0;
+}
+
+#left-item{
+  width:150px;
+  text-align:right;
+}
+
+#right-item{
+  width:250px;
+  text-align:left;
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  padding: 20px;
+  border: solid #e3e3e3 1px; 
+}
