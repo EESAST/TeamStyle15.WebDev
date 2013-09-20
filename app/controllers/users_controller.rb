@@ -6,7 +6,7 @@
   # GET /users
   # GET /users.json
   def index
-    if User.find_by_id(session[:user_id]).admin?
+    if current_user.admin?
       @users = User.paginate(page: params[:page]).order(:name)
     else
       redirect_to root_path, :notice => "您不是管理员"
@@ -127,12 +127,12 @@
     end
   end
 
-  def authorize
-    redirect_to root_path, :notice=>"非法的密码重置请求" unless ((@user=User.find_by_password_reset_token(params[:token]))&&(Digest::SHA2.hexdigest(@user.password_reset_sent_at.to_s+"TeamStyle15ResetPassword")==params[:token]))#&&((Time.now-@user.password_reset_sent_at)<2*60*60))
+  def password_reset_authorize
+    redirect_to root_path, :notice=>"非法的密码重置请求" unless ((@user=User.find_by_password_reset_token(params[:token]))&&(Digest::SHA2.hexdigest(@user.password_reset_sent_at.to_s+"TeamStyle15ResetPassword")==params[:token])&&((Time.now-@user.password_reset_sent_at)<2*60*60))
   end
 
-  def reset 
-    redirect_to root_path, :notice=>"非法的密码重置请求" unless ((@user=User.find_by_password_reset_token(params[:token]))&&(Digest::SHA2.hexdigest(@user.password_reset_sent_at.to_s+"TeamStyle15ResetPassword")==params[:token]))#&&((Time.now-@user.password_reset_sent_at)<2*60*60))
+  def reset_password
+    render_not_found(nil) unless ((@user=User.find_by_password_reset_token(params[:token]))&&(Digest::SHA2.hexdigest(@user.password_reset_sent_at.to_s+"TeamStyle15ResetPassword")==params[:token])&&((Time.now-@user.password_reset_sent_at)<2*60*60))
     if (@password=params[:password])==params[:password_confirmation]
       if @user.update_attributes(:hashed_password=>User.encrypt_password(@password,@user.salt))
         redirect_to login_path, :notice=>"密码修改成功"

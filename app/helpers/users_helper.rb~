@@ -1,9 +1,0 @@
-module UsersHelper
-  def upload
-    uploaded_io = params[:user][:portrait]  
-    File.open(portrait_path=Rails.root.join('public', 'uploaded_portraits', uploaded_io.original_filename), 'w') do |file|  
-      file.write(uploaded_io.read)  
-    end
-    portrait_path
-  end 
-end

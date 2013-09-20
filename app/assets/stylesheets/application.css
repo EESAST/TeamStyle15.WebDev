@@ -32,8 +32,8 @@ blockquote {
   width: 70%;
   font: 1.2em/1.6em 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
   background: url(closequote.png) no-repeat right bottom;
-  padding-left: 30px;
-  text-indent: -30px; 
+  padding-left: 60px;
+  text-indent: 0px; 
 }
 
 blockquote:first-letter {

@@ -2,8 +2,8 @@
   
   get "password_resets/new"
   post "password_resets/new"=>"password_resets#create"
-  get "reset_password/:token"=>"users#authorize"
-  post "reset_password/:token"=>"users#reset"
+  get "reset_password/:token"=>"users#password_reset_authorize"
+  post "reset_password/:token"=>"users#reset_password"
   resources :uploads
 
   resources :messages,:only=>[:index]

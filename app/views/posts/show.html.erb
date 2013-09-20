@@ -41,8 +41,7 @@
 </div>
 <div class="page-divider"></div>
 <div class="box-content">
-
-<p><%=simple_format(@post.text)-%></p>
+    <%=raw sanitize(simple_format(@post.text), :tags => %w(br p) ) %>
     <%if current_user.admin?||current_user.id==@post.user_id-%>
       <%= link_to '编辑帖子', edit_post_path(@post) -%> |
       <%= link_to '删除帖子', post_path(@post),method: :delete,confirm: "此操作不可恢复。确定？"-%>
@@ -58,12 +57,12 @@
   <% @post.comments.each do |comment| -%>
   <div class="post">
     <%= image_tag (@comment_author=User.find(comment.user_id)).portrait_path, :class => "img pull-left" %>
+<%if comment.created_at==comment.updated_at-%>
     <p class="muted"><%=link_to comment.user.name,comment.user-%><strong>创建于</strong>：<%=comment.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') -%></p>
-    <%if comment.created_at!=comment.updated_at-%>
-      <div><strong>修改于</strong>：<%=comment.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
-    <%end-%>
-    
-    <%=simple_format(comment.text,{},wrapper_tag: 'p')-%>
+<%else-%>
+      <p class="muted"><%=link_to comment.user.name,comment.user-%><strong>修改于</strong>：<%=comment.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></p>
+<%end-%>
+    <%=raw sanitize(simple_format(comment.text), :tags => %w(br p) ) %> 
 
     <%if User.find(session[:user_id]).id==comment.user_id||User.find(session[:user_id]).admin?-%>
       <div style="text-align:right; font-size:12px">
