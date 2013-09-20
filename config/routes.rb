@@ -1,5 +1,9 @@
 ﻿TeamStyle15Webdev::Application.routes.draw do
   
+  get "password_resets/new"
+  post "password_resets/new"=>"password_resets#create"
+  get "reset_password/:token"=>"users#authorize"
+  post "reset_password/:token"=>"users#reset"
   resources :uploads
 
   resources :messages,:only=>[:index]

@@ -25,4 +25,5 @@
     session[:user_id] = nil
     redirect_to root_path, :notice => "已经退出登录"
   end
+
 end

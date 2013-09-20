@@ -127,6 +127,30 @@
     end
   end
 
+  def authorize
+    redirect_to root_path, :notice=>"非法的密码重置请求" unless ((@user=User.find_by_password_reset_token(params[:token]))&&(Digest::SHA2.hexdigest(@user.password_reset_sent_at.to_s+"TeamStyle15ResetPassword")==params[:token]))#&&((Time.now-@user.password_reset_sent_at)<2*60*60))
+  end
+
+  def reset 
+    redirect_to root_path, :notice=>"非法的密码重置请求" unless ((@user=User.find_by_password_reset_token(params[:token]))&&(Digest::SHA2.hexdigest(@user.password_reset_sent_at.to_s+"TeamStyle15ResetPassword")==params[:token]))#&&((Time.now-@user.password_reset_sent_at)<2*60*60))
+    if (@password=params[:password])==params[:password_confirmation]
+      if @user.update_attributes(:hashed_password=>User.encrypt_password(@password,@user.salt))
+        redirect_to login_path, :notice=>"密码修改成功"
+        return
+      else
+        redirect_to login_path, :notice=>"未知错误"
+        return
+      end
+    else
+      redirect_to login_path,:notice=>"两次输入的密码不匹配"
+    end
+  end
+
+  def password_reset_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

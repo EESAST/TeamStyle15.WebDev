@@ -1,0 +1,27 @@
+<div>
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%= link_to "网站主页", root_path %><li>
+  </ul>
+</div>
+<div id="content">
+  <%= form_tag do %>
+    <legend><h1>重置密码<br/><br/></h1></legend>
+    <table style="width:500px;margin:auto">
+      <thead>
+        <th colspan=2>请输入注册时留的邮箱：</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="left-item">邮箱：</td>
+          <td id="right-item"><%=text_field_tag :email,params[:email]%></td>
+        </tr>
+      <tr>      
+        <td colspan="2"><%= submit_tag "发送" %></td>
+      </tr>
+    </tbody>
+    </table>
+    <div style="text-align:right">直接联系<a href="mailto:chiblaok@126.com">管理员</a>也可以重置密码。</dib>
+  <%end-%>
+</div>

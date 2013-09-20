@@ -1,0 +1,29 @@
+<div id="right">
+  <ul>
+    <h3>导航</h3>
+    <li><%= link_to "网站主页", root_path %><li>
+  </ul>
+</div>
+<div id="content">
+<%=form_tag do %>
+    <legend><h1>重置密码<br/><br/></h1></legend>
+    <table style="width:500px;margin:auto">
+      <thead>
+        <th style="text-align:right">请输入新的密码：</th><th/>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="left-item">新密码：</td>
+          <td id="right-item"><%=password_field_tag :password,params[:password]%></td>
+        </tr>
+        <tr>
+          <td id="left-item">确认密码：</td>
+          <td id="right-item"><%=password_field_tag :password_confirmation,params[:password_confirmation]%></td>
+        </tr>
+        <tr>      
+          <td colspan="2"><%= submit_tag "确认重置" %></td>
+        </tr>
+      </tbody>
+    </table>
+<%end-%>
+</div>
