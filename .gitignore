@@ -19,6 +19,8 @@
 # Ignore public uploads.
 /public/assets
 /public/uploads
+/public/uploads/ai
+/public/uploads/portraits
 
 # Ignore Vim swap files and backuo files.
 *~
