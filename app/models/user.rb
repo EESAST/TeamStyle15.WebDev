@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   attr_reader :password
   attr_accessor :portrait
+  attr_accessor :renew_portrait
 
   validate :password_must_be_present
 

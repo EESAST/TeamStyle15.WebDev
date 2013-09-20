@@ -89,11 +89,13 @@
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    File.delete("#{Rails.root}/public/#{@user.portrait_path}") if File.exist?("#{Rails.root}/public/#{@user.portrait_path}")
-    if uploaded_path=@user.upload(params)
-      @user.portrait_path=uploaded_path.to_s
-    else
-      @user.portrait_path=@user.fetch(@user)
+    if params[:user][:renew_portrait]=="yes"||uploaded_path=@user.upload(params)
+      File.delete("#{Rails.root}/public/#{@user.portrait_path}") if File.exist?("#{Rails.root}/public/#{@user.portrait_path}")
+      if uploaded_path
+        @user.portrait_path=uploaded_path.to_s
+      else
+        @user.portrait_path=@user.fetch(@user)
+      end
     end
 
     respond_to do |format|
@@ -163,7 +165,7 @@
     end
 
     def edit_user_params
-      params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :user_type, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :user_type, :password, :password_confirmation,:renew_portrait)
     end
 
 end
