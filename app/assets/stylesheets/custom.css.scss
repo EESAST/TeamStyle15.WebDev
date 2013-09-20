@@ -5,6 +5,8 @@ $grayMediumLight: #ccc;
 $gray: #ccc;
 $grayLight: #ccc;
 
+/* responsive */
+
 /* universal */
 
 html {
@@ -18,7 +20,7 @@ body {
   width: 100%;
 }
 
-.span8, .span4{
+.span8, .span4, .span5{
   max-width: 100%;
 }
 
@@ -35,10 +37,18 @@ textarea {
   resize: vertical;
 }
 
-table{
-  img{
+.img-small{
     width: 30px;
-  }
+    max-width: 30px;
+}
+
+.img-medium{
+  width: 200px;
+  max-width: 200px;
+}
+
+.img-30{
+  width: 30%;
 }
 
 .center {
@@ -65,7 +75,6 @@ table{
 
 .box-circle{
   width: 100%;
-  max-width: 100%;
   margin-bottom: 20px;
 
   border: 1px solid $grayMediumLight;
@@ -117,6 +126,10 @@ table{
     background:-o-linear-gradient(top, #000, rgba(50, 50, 50, 0.5)); 
 }
 
+.table-profile{
+  width: 100%;
+}
+
 /* header */
 
 #logo {
@@ -154,6 +167,7 @@ table{
 .intro-content{
   margin-top: 100px;
   width: 50%;
+  min-width: 600px;
   color: #fff;
   h1{
     font-size: 50px;
@@ -187,7 +201,7 @@ table{
     background: #f3f3f3;
   }
   img{
-    width: 50px;
+    max-width: 50px;
     margin-right: 10px;
   }
 }

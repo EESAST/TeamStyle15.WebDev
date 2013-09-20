@@ -11,9 +11,6 @@
  *= require_self
  *= require_tree .
  */
-
-
-
 body {
 //  background:url('background.png')repeat-x top center;
   background-attachment:fixed;
@@ -25,7 +22,7 @@ body {
 #alert {
   font:16px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
   color: red;
-	}
+}
 
 input{
   font:14px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti !important;
@@ -36,7 +33,7 @@ blockquote {
   font: 1.2em/1.6em 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
   background: url(closequote.png) no-repeat right bottom;
   padding-left: 30px;
-  text-indent: 0px; 
+  text-indent: -30px; 
 }
 
 blockquote:first-letter {
@@ -55,6 +52,7 @@ padding: 10px;
    
 @font-face {
 font-family: 'header hei';
+
 src: local(""), url('headerhei.ttf') format('truetype');
 } 
 @font-face {
