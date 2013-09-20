@@ -159,11 +159,11 @@
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :true_name, :student_number, :team_id, :portrait, :type, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :true_name, :student_number, :team_id, :portrait, :password, :password_confirmation)
     end
 
     def edit_user_params
-      params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :type, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :user_type, :password, :password_confirmation)
     end
 
 end
