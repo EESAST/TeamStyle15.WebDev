@@ -1,6 +1,6 @@
 ﻿class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authorize, :only => [:create, :destroy, :new, :delete]
+  skip_before_filter :authorize, :only => [:create, :destroy, :new, :delete,:password_reset_authorize,:reset_password]
   skip_before_filter :admin_authorize
 
   # GET /users
@@ -138,6 +138,7 @@
     if (@password=params[:password])==params[:password_confirmation]
       if @user.update_attributes(:hashed_password=>User.encrypt_password(@password,@user.salt))
         redirect_to login_path, :notice=>"密码修改成功"
+        @user.update_attributes(:password_reset_token=>nil)
         return
       else
         redirect_to login_path, :notice=>"未知错误"
@@ -146,10 +147,6 @@
     else
       redirect_to login_path,:notice=>"两次输入的密码不匹配"
     end
-  end
-
-  def password_reset_params
-    params.require(:user).permit(:password, :password_confirmation)
   end
 
 
