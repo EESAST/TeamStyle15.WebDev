@@ -1,17 +1,6 @@
-<ul class="nav nav-tabs">
-  <li><%= link_to "Profile", user_index_path %></li>
-  <li class="active"><a href="#">帖子</a></li>
-  <li>
-    <%if current_user.team_id-%>
-      <%if Team.find(current_user.team_id).captain_id==current_user.id-%>
-        <li><%= link_to '队伍', team_path(current_user.team_id) %></li>
-      <%else-%>
-        <li><%= link_to '队伍', team_path(current_user.team_id) %></li>
-      <%end-%>
-    <% else %>
-      <%= link_to "Team", user_team_path %>
-    <% end %>
-  </li></ul>
+<%= render 'user/usernavbar' %>
+<% provide(:sub,'userpost') %>
+
 <div class="row">
 <div class="span8">
 	<% @posts=current_user.posts.paginate(:page => params[:page], :per_page => 10, :order => 'updated_at DESC') %>

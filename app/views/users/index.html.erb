@@ -35,7 +35,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.name,user %></td>
-        <td><%= image_tag user.portrait_path %></td>
+        <td><%= image_tag user.portrait_path, :class => "img-small" %></td>
         <td><%= user.email %></td>
         <td><%= user.true_name %></td>
         <td><%= user.student_number %></td>
