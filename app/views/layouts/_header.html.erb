@@ -24,12 +24,13 @@
               <li class="divider"></li>
               <li><%= link_to "注销", logout_path, :method => :delete %></li>
             </ul>
-        </li>
+          </li>
 <%else%>
-        <li><%= link_to "注册", new_user_path %></li>
-        <li><%= link_to "登录", login_path %></li>
+          <li><%= link_to "注册", new_user_path %></li>
+          <li><%= link_to "登录", login_path %></li>
 <%end%>
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
