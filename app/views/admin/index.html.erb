@@ -1,18 +1,9 @@
-<div id="right">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '新闻列表', news_index_path %></li>
-    <li><%= link_to '用户列表', users_path %></li>
-    <li><%= link_to '队伍列表', teams_path %></li>
-    <li><%= link_to '帖子列表', posts_path %></li>
-    <li><%= link_to '评论列表', comments_path %></li>
-    <li><%= link_to "用户主页", user_index_path %></li>
-    <li><%= link_to '网站主页', root_path %></li>
-  </ul>
-</div>
-<div id="content">
+<div class="span8">
   <h1>管理员登录</h1>
   <p>数据无价，请慎重使用你手中的权限！</p>
   <div><%= image_tag 'TeamStyle15.text.png', :size=> "600x300" %></div>
+</div>
+
+<div class="span4">
+<%=render :partial => 'users/adminsidebar'-%>
 </div>

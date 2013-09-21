@@ -1,15 +1,13 @@
-<div id="right">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%=link_to_function '取消修改信息', "history.go(-1)"%></li>
-  <%if current_user.admin?-%>
-    <li><%=link_to '用户列表', users_path%></li>
-  <%end-%>
-  </ul>
-</div>
-<div id="content">
-<h1>修改用户信息<br/><br/></h1>
+<div class="span8">
+<div class="box-circle">
+<div class="box-title">修改用户信息</div>
+<div class="box-content">
 <%@pwd="新";@team="选择队伍"-%>
 <%= render 'edit_form' %>
+</div>
+</div>
+</div>
+
+<div class="span4">
+<%= render 'adminsidebar' %>
 </div>

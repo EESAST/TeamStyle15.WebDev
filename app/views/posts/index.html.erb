@@ -81,6 +81,9 @@
                              :inner_window => 2,
                              :outter_window => 1 } %></div>
 <div class="span4">
+  <% if current_user.admin? %>
+    <%=render :partial => 'users/adminsidebar'-%>
+  <% end %>
   <div class="box-circle">
     <div class="box-title">New</div>
     <p class="text-center"><%= link_to '发表帖子', new_post_path, :class => "btn btn-success" %></p>

@@ -16,6 +16,7 @@
   # GET /users/1
   # GET /users/1.json
   def show
+    @sub = 'admin-userprofile'
     if current_user.id==@user.id
       redirect_to user_index_path
     end
@@ -32,6 +33,7 @@
 
   # GET /users/1/edit
   def edit
+    @sub = 'edit'
     if !(current_user=User.find_by_id(session[:user_id]))
       redirect_to login_url, :notice => "无效的请求"
       return 

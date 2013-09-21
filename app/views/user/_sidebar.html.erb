@@ -2,9 +2,8 @@
     <div class="box-title">操作</div>
     <div class="box-content">
     <ul class="nav">
- 	<li>
+ 	<p class="text-center">
     <%if current_user.team_id-%>
-
       <%if Team.find(current_user.team_id).captain_id==current_user.id-%>
         <%= link_to '队伍管理', team_path(current_user.team_id), :class => "btn btn-primary text-center" %>
       <%else-%>
@@ -13,9 +12,9 @@
     <% else %>
       <%= link_to "加入队伍", user_team_path, :class => "btn btn-primary" %>
     <% end %>
-    </li>
+    </p>
     <br>
-      <li><%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn" %></li>
+      <p class="text-center"><%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn" %></p>
     </div>
     </ul>
 </div>

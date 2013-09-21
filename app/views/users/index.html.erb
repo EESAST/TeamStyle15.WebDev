@@ -1,15 +1,4 @@
-
-  <div class="box-circle">
-    <div class="box-title">Side Bar</div>
-    <div class="box-content nav">
-    <li><%=link_to "注销", logout_path, :method => :delete %></li>
-    <li><%=link_to '创建新用户', new_user_path %></li>
-    <li><%=link_to '帖子列表', posts_path%></li>
-    <li><%=link_to '评论列表', comments_path%></li>
-    <li><%=link_to '队伍列表', teams_path%></li>
-    <li><%=link_to '管理主页', admin_index_path %></li>
-    </div>
-  </div>
+<%= render 'adminsidebar' %>
 
 <div class="box-circle">
 <div class="box-title">用户列表</div>
