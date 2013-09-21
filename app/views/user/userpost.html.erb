@@ -1,7 +1,7 @@
 <%= render 'user/usernavbar' %>
 <% provide(:sub,'userpost') %>
 
-<div class="row">
+<div class="row-fluid">
 <div class="span8">
 	<% @posts=current_user.posts.paginate(:page => params[:page], :per_page => 10, :order => 'updated_at DESC') %>
 	<% if @posts.empty? %>
@@ -21,9 +21,7 @@
 </div>
 
 <div class="span4">
-  <div class="box-circle">
-    <div class="box-title">Side Bar</div>
-  </div>
+<%= render 'sidebar'  %>
 </div>
 
 </div>

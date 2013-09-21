@@ -1,0 +1,12 @@
+<div class="box-circle">
+<div class="box-title">系统公告</div>
+<div class="box-content">
+	<%(@news=News.limit(5).order("updated_at DESC")).each do |news|-%>
+    <div class="sidebar">
+       <div class="pull-right"><p class="muted"><%=news.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></p></div>
+       <p><%= simple_format(news.text,length: 140,omission: '...') %></p>
+    </div>
+    <div class="page-divider"></div>
+<%end-%>
+</div>
+</div>
