@@ -1,7 +1,5 @@
 <%= render 'user/usernavbar' %>
-
-<% provide(:sub,'profile') %>
-<div class="row">
+<div class="row-fluid">
 <div class="span8">
   <%@the_user=current_user-%>
   <%=render 'table'-%>
@@ -114,12 +112,7 @@
 </div>
 
 <div class="span4">
-  <div class="box-circle">
-    <div class="box-title">Side Bar</div>
-    <div class="box-content">
-      <%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn btn-primary" %>
-    </div>
-  </div>
+<%= render 'sidebar' %>
 </div>
 
 </div>

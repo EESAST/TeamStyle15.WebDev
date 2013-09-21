@@ -1,0 +1,34 @@
+<div class="box-circle">
+    <div class="box-title">操作</div>
+    <div class="box-content">
+    <ul class="nav">
+ 	<li>
+    <%if current_user.team_id-%>
+
+      <%if Team.find(current_user.team_id).captain_id==current_user.id-%>
+        <%= link_to '队伍管理', team_path(current_user.team_id), :class => "btn btn-primary text-center" %>
+      <%else-%>
+        <%= link_to '队伍管理', team_path(current_user.team_id), :class => "btn btn-primary" %>
+      <%end-%>
+    <% else %>
+      <%= link_to "加入队伍", user_team_path, :class => "btn btn-primary" %>
+    <% end %>
+    </li>
+    <br>
+      <li><%= link_to '修改个人信息', edit_user_path(current_user), :class => "btn" %></li>
+    </div>
+    </ul>
+</div>
+
+<div class="box-circle">
+<div class="box-title">系统公告</div>
+<div class="box-content">
+	<%(@news=News.limit(5).order("updated_at DESC")).each do |news|-%>
+    <div class="sidebar">
+       <div class="pull-right"><p class="muted"><%=news.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></p></div>
+       <p><%= simple_format(news.text,length: 140,omission: '...') %></p>
+    </div>
+    <div class="page-divider"></div>
+<%end-%>
+</div>
+</div>

@@ -1,6 +1,8 @@
-<div class="row">
+<div class="row-fluid">
 <div class="span8">
-<h1>队伍列表</h1>
+<div class="box-circle">
+<div class="box-title">队伍列表</div>
+<div class="box-content">
 
 <table>
   <thead>
@@ -42,19 +44,22 @@
     <% end %>
   </tbody>
 </table>
+</div>
+</div>
 
 </div>
 
 <div class="span4">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '创建队伍', new_team_path %></li>
-    <li><%= link_to '用户主页', user_index_path %></li>
+<div class="box-circle">
+<div class="box-title">导航</div>
+<div class="box-content">
+  <ul class="nav">
+    <li><%= link_to '创建队伍', new_team_path, :class => "btn btn-primary" %></li>
     <%if User.find(session[:user_id]).admin?-%>
       <li><%= link_to '管理主页', admin_index_path %></li>
     <%end-%>
-    <li><%= link_to '网站主页', root_path %></li>
   </ul>
+  </div>
+  </div>
 </div>
 </div>
