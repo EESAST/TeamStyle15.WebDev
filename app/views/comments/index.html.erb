@@ -1,18 +1,6 @@
-<div id="right">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '帖子列表', posts_path %></li>
-    <% if User.find_by_id(session[:user_id]) %>
-      <% if User.find_by_id(session[:user_id]).admin? %>
-        <li><%= link_to "管理主页", admin_index_path %></li>
-      <% end %>
-      <li><%= link_to "用户主页", user_index_path%></li>
-    <% end %>
-    <li><%= link_to '网站主页', root_path %></li>
-  </ul>
-</div>
-<div id="content">
+<div class="span8">
+<div class="box-circle">
+<div class="box-content">
 <h1>所有评论</h1>
 <table>
   <thead>
@@ -44,5 +32,12 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @arrays, { :class => "pagination pagination-centered",
+                             :inner_window => 2,
+                             :outter_window => 1 } %></div>
+</div>
 </div>
 
+<div class="span4">
+  <%=render :partial => 'users/adminsidebar'-%>
+</div>

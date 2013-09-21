@@ -1,16 +1,6 @@
-<div id="right">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '发表新闻', new_news_path %></li>
-    <li><%= link_to '用户列表', users_path %></li>
-    <li><%= link_to '队伍列表', teams_path %></li>
-    <li><%= link_to '帖子列表', posts_path %></li>
-    <li><%= link_to '评论列表', comments_path %></li>
-    <li><%= link_to "用户主页", user_index_path %></li>
-  </ul>
-</div>
-<div id="content">
+<div class="span8">
+<div class="box-circle">
+<div class="box-content">
   <h1>新闻列表</h1>
   <table>
     <thead>
@@ -30,4 +20,10 @@
       <% end %>
     </tbody>
   </table>
+</div>
+</div>
+</div>
+
+<div class="span4">
+  <%=render :partial => 'users/adminsidebar'-%>
 </div>

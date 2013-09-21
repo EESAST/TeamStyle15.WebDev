@@ -1,0 +1,26 @@
+<div class="box-circle">
+<% if current_user.admin? %>
+<div class="box-title">管理员导航</div>
+<% else %>
+<div class="box-title">导航</div>
+<% end %>
+<div class="box-content">
+  <ul class="nav">
+  <%if current_user.admin?-%>
+  	<% if @sub == 'admin-userprofile' %>
+    <li><%= link_to '修改用户信息', edit_user_path(@user), :class => "btn" %></li><br>
+    <% end %>
+    <li><%= link_to '管理主页', admin_index_path %></li>
+    <li><%= link_to '用户列表', users_path %></li>
+    <li><%= link_to '队伍列表', teams_path %></li>
+    <li><%= link_to '新闻列表', news_index_path %></li>
+    <li><%= link_to '帖子列表', posts_path %></li>
+    <li><%= link_to '评论列表', comments_path %></li>
+    <% end %>
+    
+    <% if @sub == 'edit' %>
+   		 <li><%=link_to_function '取消修改信息', "history.go(-1)", :class => "btn btn-warning" %></li><br>
+    <% end %>
+  </ul>
+  </div>
+  </div>
