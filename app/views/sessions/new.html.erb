@@ -1,30 +1,26 @@
-<div id="right">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "网站主页", root_path %><li>
-  </ul>
-</div>
-<div id="content">
+<div class="span8">
+<div class="box-circle">
+<div class="box-title">登录</div>
+<div class="box-content">
   <%= form_tag do %>
-    <legend><h1>登录<br/><br/></h1></legend>
-    <table style="width:500px;margin:auto">
-      <thead>
-        <th style="text-align:right">请输入登录信息：</th><th/>
-      </thead>
       <tbody>
         <tr>
-          <td id="left-item">邮箱/用户名：</td>
+          <td id="left-item">邮箱/用户名：</td><br>
           <td id="right-item"><%=text_field_tag :name,params[:name]%></td>
         </tr>
+        <br>
       <tr>
-          <td id="left-item">密码：</td>
+          <td id="left-item">密码：</td><br>
           <td id="right-item"><%=password_field_tag :password,params[:password]%></td>
       </tr>
+      <br>
       <tr>      
-        <td colspan="2"><%= submit_tag "登录" %></td>
+        <td colspan="2"><%= submit_tag "登录", :class => "btn btn-success" %></td>
       </tr>
     </tbody>
     </table>
   <%end-%>
   <div style="text-align:center"><%=link_to "忘记密码？",password_resets_new_path -%></div>
+</div>
+</div>
 </div>

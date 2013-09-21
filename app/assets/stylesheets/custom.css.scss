@@ -1,11 +1,11 @@
 @import "bootstrap";
+@import "bootstrap-responsive";
+
 /* mixins, variables, etc. */
 
 $grayMediumLight: #ccc;
 $gray: #ccc;
 $grayLight: #ccc;
-
-/* responsive */
 
 /* universal */
 
@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  margin:0 auto;
+  margin:60px auto;
   width: 100%;
 }
 
@@ -128,6 +128,12 @@ textarea {
 
 .table-profile{
   width: 100%;
+}
+
+.sidebar{
+  p{
+    font-size:13px;
+  }
 }
 
 /* header */

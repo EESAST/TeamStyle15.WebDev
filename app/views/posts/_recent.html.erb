@@ -1,0 +1,12 @@
+      <div class="box-circle">
+        <div class="box-title">最近发表</div>
+        <div class="box-content">
+<%(@posts=Post.limit(10).order("updated_at DESC")).each do |post|-%>
+          <div>
+            <div class="muted pull-right"><%=post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d')-%></div>
+            <%= link_to truncate(post.title,length: 26,omission: '...'), post %>
+          </div>
+        <div class="page-divider"></div>
+<%end-%>
+      </div>
+    </div> 

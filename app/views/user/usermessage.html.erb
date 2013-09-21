@@ -1,7 +1,5 @@
 <%= render 'user/usernavbar' %>
-<% provide(:sub,'usermessage') %>
-
-<div class="row">
+<div class="row-fluid">
 	<div class="span8">
 		<div class="box-circle">
 			<div class="box-title">收到的消息</div>
@@ -31,5 +29,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="span4"></div>
+	<div class="span4">
+   <%= render 'sidebar' %> 
+  </div>
 </div>
