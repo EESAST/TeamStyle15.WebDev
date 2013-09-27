@@ -34,7 +34,7 @@
           <td style="width:50px"><%= link_to '解散', team, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></td>
         <%end-%>
         <%if current_user.team_id==nil&&!current_user.admin?%>
-          <td style="width:50px"><%=link_to'加入',"/teams/#{team.id}/add/#{current_user.id}",data: {confirm: "确定要加入队伍\"#{team.name}\"？"}-%></td>
+          <td style="width:50px"><%=link_to'申请加入',"/messages/#{current_user.id}/apply/#{team.id}",method: :post,data: {confirm: "确定要加入队伍\"#{team.name}\"？"}-%></td>
         <%else%>
           <%if current_user.id!=team.captain_id&&team.users.include?(current_user)%>
             <td style="width:50px"><%=link_to'退出',"/teams/#{team.id}/kick/#{current_user.id}",method: :delete,data: {confirm:"确定要退出队伍\"#{team.name}\"？"}-%></td>

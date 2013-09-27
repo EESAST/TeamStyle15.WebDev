@@ -164,7 +164,7 @@
     end
 
     def edit_user_params
-      params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :user_type, :password, :password_confirmation,:renew_portrait)
+      (current_user.admin?)?(params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :user_type, :password, :password_confirmation,:renew_portrait)):params.require(:user).permit(:name, :email, :true_name, :student_number, :portrait, :password, :password_confirmation,:renew_portrait)
     end
 
 end

@@ -80,11 +80,20 @@
       format.json { head :no_content }
     end
   end
-  
+
   def add_member
-    @team=Team.find(params[:team_id])
-    @user=User.find(params[:user_id])
-    if @team.users.count>4 #人数限制
+    @message=Message.find(params[:message_id])
+    if @message.messagetype==3  #选手申请加入队伍
+      @team=Team.find_by_captain_id(@message.user_id)
+      @user=User.find(@message.content)
+    elsif @message.messagetype==4 #队长邀请选手加入队伍
+      @team=Team.find(@message.content)
+      @user=User.find(@message.user_id)
+    else
+      redirect_to :back,notice:"无效的请求"
+    end
+
+    if @team.full? #人数限制
       redirect_to :back,notice:"队伍成员已满"
       return
     end
@@ -92,16 +101,16 @@
       redirect_to :back,notice:"管理员不能加入队伍"
       return
     end
-    if current_user.id!=@user.id&&!current_user.admin?
+    if current_user.id!=@user.id&&!current_user.admin?&&current_user.id!=@team.captain_id
       redirect_to :back,notice:"您无权将队员#{@user.name}加入队伍#{@team.name}"
       return
     end
     if @team.users.include?(@user)
-      redirect_to :back,alert:"#{(@user==current_user)?"您":(用户+@user.name)}已经加入了队伍#{@team.name}"
+      redirect_to :back,alert:"#{(@user==current_user)?"您":("用户"+@user.name)}已经加入了队伍#{@team.name}"
       return
     end
     if @user.team_id
-      redirect_to :back,alert:"#{(@user==current_user)?"您":(用户+@user.name)}已经加入了队伍#{Team.find(@user.team_id).name}"
+      redirect_to :back,alert:"#{(@user==current_user)?"您":("用户"+@user.name)}已经加入了队伍#{Team.find(@user.team_id).name}"
       return
     end
     if !@team.captain_id
@@ -118,10 +127,10 @@
     if @team.captain_id==@user.id
       redirect_to :back,notice:  "您是队长，不能退出队伍"
       return
-    elif current_user!=@user.id&&current_user!=@team.captain_id&&!current_user.admin?
+    elsif current_user.id!=@user.id&&current_user.id!=@team.captain_id&&!current_user.admin?
       redirect_to :back,notice:"您无权将队员#{@user.name}踢出队伍#{@team.name}"
       return
-    elif !@team.users.include?(@user)
+    elsif !@team.users.include?(@user)
       redirect_to :back,alert:"用户#{@user.name}不在队伍#{@team.name}中"
       return
     end

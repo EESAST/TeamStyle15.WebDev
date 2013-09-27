@@ -42,11 +42,11 @@
       <td id="left-item"><%=@team%>：</td>
         <td id="right-item"><%=f.select :team_id,Team.all.collect {|p| [ p.name, p.id ] }, include_blank: true%></td>
     </tr>
-  <%end-%>
     <tr>
       <td id="left-item">用户类别：</td>
       <td id="right-item"><%=f.select :user_type,['参赛选手','队式开发组','队式元老','打酱油的']-%></td>
     </tr>
+  <%end-%>
     <tr>
       <td id="left-item"><%=f.check_box :renew_portrait,{:checked=>false},"yes","no"-%>头像：</td>
       <td id="right-item"><%=f.file_field :portrait%></td>

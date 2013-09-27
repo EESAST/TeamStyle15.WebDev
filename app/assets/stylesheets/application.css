@@ -50,7 +50,7 @@ fieldset {
 padding: 10px;
 }
    
-@font-face {
+/*@font-face {
 font-family: 'header hei';
 
 src: local(""), url('headerhei.ttf') format('truetype');
@@ -58,7 +58,7 @@ src: local(""), url('headerhei.ttf') format('truetype');
 @font-face {
 font-family: 'light hei';
 src: local(""), url('lighthei.ttf') format('truetype');
-}
+}*/
 
 #para-title{
   padding:10px 0;

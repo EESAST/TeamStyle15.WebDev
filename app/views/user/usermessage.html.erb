@@ -17,10 +17,29 @@
           <%current_user.messages.each do |message|-%>
           <tr>
             <td><%=(message.read)? '已读' : '未读'-%></td>
+            <td>
             <%if message.messagetype==1 -%>
-              <td><%=link_to (@msguser=User.find((@msgcomment=Comment.find(message.content)).user_id)).name,@msguser-%>评论了您的帖子<%=link_to Post.find(@msgcomment.post_id).title,post_path(@msgcomment.post_id)%></td>
+              <%=link_to (@msguser=User.find((@msgcomment=Comment.find(message.content)).user_id)).name,@msguser-%>评论了您的帖子<%=link_to Post.find(@msgcomment.post_id).title,post_path(@msgcomment.post_id)%>
+            <%elsif message.messagetype==3-%>
+              <%=link_to (@msguser=User.find(message.content)).name,@msguser-%>申请加入您的队伍<%=link_to current_user.team.name,current_user.team-%>
+            <%elsif message.messagetype==4-%>
+              <%if @msgteam=Team.find_by_id(message.content)-%>
+                队伍<%=link_to @msgteam.name,@msgteam-%>的队长<%=link_to (@msgcaptain=User.find(@msgteam.captain_id)).name,@msgcaptain if @msgteam-%>邀请您加入
+              <%else-%>
+                邀请您的队伍已经解散
+              <%end-%>
             <%end-%>
-            <td><%=link_to '忽略', "/messages/#{message.id}", :method=> :delete-%></td>
+            </td>
+            <td>
+              <%if !message.read-%>
+                <%=(link_to '忽略', "/messages/#{message.id}", :method=> :delete)-%>
+                <%if message.messagetype==3-%>
+                  <br/><%=link_to "同意加入","/message/#{message.id}",:method=>:post-%>
+                <%elsif message.messagetype==4 && @msgteam-%>
+                  <br/><%=link_to "确认加入","/message/#{message.id}",:method=>:post-%>
+                <%end-%>
+              <%end-%>
+            </td>
           </tr>
         <%end-%>
         </tbody>

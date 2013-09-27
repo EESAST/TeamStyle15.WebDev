@@ -36,7 +36,9 @@
   match "comments/new" => redirect("/"), :via=>:get, :notice=>'不可以直接发表评论'
   match "comments/new" => redirect("/"), :via=>:post, :notice=>'不可以直接发表评论'
   
-  get 'teams/:team_id/add/:user_id' => 'teams#add_member'
+  post 'message/:message_id' => 'teams#add_member'
+  post 'messages/:user_id/apply/:team_id' => 'messages#apply'
+  post 'messages/:team_id/invite' =>'messages#invite'
   delete 'teams/:team_id/kick/:user_id' => 'teams#kick_member'
 
   
