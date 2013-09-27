@@ -14,7 +14,7 @@
           </ul>
           <strong>成立时间:</strong>
           <%=@team.created_at.in_time_zone('Beijing').strftime('%Y年%m月%d日%H时')%>
-          <%if !@team.full?-%>
+          <%if !@team.full?&&@team.captain_id==current_user.id-%>
             <br/><strong>邀请新成员:</strong><br/>支持用户名/姓名/邮箱/学号查找，不支持部分匹配。
             <%=form_tag "/messages/#{@team.id}/invite" do-%>
               <%=text_field_tag :user_string,params[:user_string]-%> 
