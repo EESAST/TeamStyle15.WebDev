@@ -5,7 +5,28 @@
   # GET /posts
   # GET /posts.json
   def index
+    flash[:last]=nil
     @posts = Post.paginate(page: params[:page], :per_page => 15, :order => 'updated_at DESC' )
+  end
+
+  def index0
+    flash[:last]=0
+    @posts = Post.where("post_type IS NULL OR post_type = 0").paginate(page: params[:page], :per_page => 15, :order => 'updated_at DESC' )
+  end
+
+  def index1
+    flash[:last]=1
+    @posts = Post.where("post_type = 1").paginate(page: params[:page], :per_page => 15, :order => 'updated_at DESC' )
+  end
+  
+  def index2
+    flash[:last]=2
+    @posts = Post.where("post_type = 2").paginate(page: params[:page], :per_page => 15, :order => 'updated_at DESC' )
+  end
+
+  def index3
+    flash[:last]=3
+    @posts = Post.where("post_type = 3").paginate(page: params[:page], :per_page => 15, :order => 'updated_at DESC' )
   end
 
   # GET /posts/1
@@ -20,6 +41,7 @@
   # GET /posts/new
   def new
     @post = Post.new
+    @last=params[:last]
   end
 
   # GET /posts/1/edit
@@ -92,6 +114,6 @@
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :text)
+      params.require(:post).permit(:user_id, :title, :text,:post_type)
     end
 end

@@ -1,21 +1,10 @@
-<!--<div id="right">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '帖子列表', posts_path %></li>
-    <%if User.find(session[:user_id]).admin?-%>
-      <li><%= link_to '管理主页', admin_index_path %></li>
-    <%end-%>
-    <li><%= link_to '网站主页', root_path %></li>
-  </ul>
-</div>
--->
 <div class="indicator"><p>发表帖子</p></div>
 <div class="row-fluid">
 <div class="span8">
   <div class="box-circle">
-  <div class="box-title">New</div>
+  <div class="box-title">新帖子</div>
   <div class="box-content">
+    <%@newpost=true-%>
   <%= render 'form' %>
   </div>
   </div>

@@ -37,7 +37,7 @@
         <td id="left-item">学号：</td>
         <td id="right-item"><%=f.number_field :student_number%></td>
     </tr>
-  <%if !@user.admin?-%>
+  <%if false-%>
     <tr>
       <td id="left-item"><%=@team%>：</td>
         <td id="right-item"><%=f.select :team_id,Team.all.collect {|p| [ p.name, p.id ] if p.users.count<4 }.compact, include_blank: true%></td>

@@ -15,7 +15,11 @@
       </ul>
     </div>
   <% end %>
-
+  <%if @newpost || current_user.admin?-%>
+    <div class="field">
+    <%= f.select :post_type,{'吐槽灌水'=>0,'问题反馈'=>1,'战术讨论'=>2,'战友招募'=>3},:selected=>flash[:last]-%>
+  </div>
+  <%end-%>
   <div class="field">
     <%= f.text_field :title, size:80, :placeholder => "标题" %>
   </div>

@@ -1,0 +1,31 @@
+    <div class="box-circle">
+      <div class="box-title"><%=@part-%></div>
+<%@posts.each do |post|-%>
+      <div class="post">
+<%  if User.find_by_id(post.user_id).portrait_path %>
+        <%= image_tag User.find_by_id(post.user_id).portrait_path, :class => "img pull-left" %>
+<%  else %>
+        <%= image_tag User.find_by_id(post.user_id).gravatar_url, :class => "img pull-left" %>
+<%  end %>
+        <%=link_to truncate(post.title,length: 26,omission: '...'),post-%>
+        <span class="badge badge-info pull-right"><%=post.comments.count() %></span>
+<%  if current_user.admin? || current_user.id==post.user_id-%>
+        <div class="pull-right">
+          <%= link_to '编辑', edit_post_path(post) -%>|
+          <%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%>
+        </div>
+<%  end-%>
+        <div class="phone-hidden"><br/><%=truncate(post.text,length: 50,omission: '......')-%></div>
+        <p class="muted"><%=link_to (@find_user=User.find(post.user_id)).name,@find_user %> 发表于 <%= post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S') %></p>
+      </div>
+      <div class="clearfix"></div>
+<%end %>
+    </div>
+    <div class="text-center"><%= link_to '发表帖子', new_post_path, :class => "btn btn-success" %></div>
+    <%= will_paginate @arrays, { :class => "pagination pagination-centered",:inner_window => 2,:outter_window => 1 } %>
+  </div>
+  <div class="span4">
+    <div class="box-circle">
+      <div class="box-title">发帖</div>
+      <p class="text-center"><%= link_to '发表帖子', new_post_path, :class => "btn btn-success" %></p>
+    </div>

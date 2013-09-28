@@ -41,7 +41,12 @@
   post 'messages/:team_id/invite' =>'messages#invite'
   delete 'teams/:team_id/kick/:user_id' => 'teams#kick_member'
 
-  
+  get 'posts0'=>'posts#index0'
+  get 'posts1'=>'posts#index1'
+  get 'posts2'=>'posts#index2'
+  get 'posts3'=>'posts#index3'
+ 
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
