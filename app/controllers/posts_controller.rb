@@ -6,7 +6,6 @@
   # GET /posts.json
   def index
     flash[:last]=nil
-    @posts = Post.paginate(page: params[:page], :per_page => 15, :order => 'updated_at DESC' )
   end
 
   def index0
