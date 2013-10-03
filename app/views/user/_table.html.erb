@@ -20,6 +20,10 @@
 
 <%if current_user.admin? || current_user==@the_user-%>
       <tr>
+        <td id="left-item"><strong>电话号码：</strong></td>
+        <td id="right-item"><%= @the_user.phone %></td>
+      </tr>
+      <tr>
         <td id="left-item"><strong>学号：</strong></td>
         <td id="right-item"><%= @the_user.student_number %></td>
       </tr>
