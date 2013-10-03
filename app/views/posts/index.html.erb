@@ -2,9 +2,114 @@
 <div class="row-fluid">
   <div class="span8">
     <%@part='全部帖子'-%>
-    <%= render 'postshow'-%>
+<!-- 吐槽灌水区 -->
+    <% @posts = Post.where("post_type IS NULL OR post_type = 0").limit(5).order("updated_at DESC") %>
+    <div class="box-circle">
+    <div class="box-title"><%= link_to "吐槽灌水区", 'posts0' %></div>
+    <div class="box-content">
+    <%@posts.each do |post|-%>
+    	<div class="post">
+    		<%  if User.find_by_id(post.user_id).portrait_path %>
+        <%= image_tag User.find_by_id(post.user_id).portrait_path, :class => "img pull-left" %>
+<%  else %>
+        <%= image_tag User.find_by_id(post.user_id).gravatar_url, :class => "img pull-left" %>
+<%  end %>
+        <%=link_to truncate(post.title,length: 26,omission: '...'),post-%>
+        <span class="badge badge-info pull-right"><%=post.comments.count() %></span>
+<%  if current_user.admin? || current_user.id==post.user_id-%>
+        <div class="pull-right">
+          <%= link_to '编辑', edit_post_path(post) -%>|
+          <%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%>
+        </div>
+<%  end-%>
+	<div class="clearfix"></div>
+    	</div>
+    <% end %>
+    </div>
+    </div>
+
+<!-- 问题反馈区 -->
+    <% @posts = Post.where("post_type = 1").limit(5).order("updated_at DESC") %>
+    <div class="box-circle">
+    <div class="box-title"><%= link_to "问题反馈区", 'posts1' %></div>
+    <div class="box-content">
+    <%@posts.each do |post|-%>
+    	<div class="post">
+    		<%  if User.find_by_id(post.user_id).portrait_path %>
+        <%= image_tag User.find_by_id(post.user_id).portrait_path, :class => "img pull-left" %>
+<%  else %>
+        <%= image_tag User.find_by_id(post.user_id).gravatar_url, :class => "img pull-left" %>
+<%  end %>
+        <%=link_to truncate(post.title,length: 26,omission: '...'),post-%>
+        <span class="badge badge-info pull-right"><%=post.comments.count() %></span>
+<%  if current_user.admin? || current_user.id==post.user_id-%>
+        <div class="pull-right">
+          <%= link_to '编辑', edit_post_path(post) -%>|
+          <%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%>
+        </div>
+<%  end-%>
+	<div class="clearfix"></div>
+    	</div>
+    <% end %>
+    </div>
+    </div>
+
+<!-- 战术讨论区 -->
+    <% @posts = Post.where("post_type = 2").limit(5).order("updated_at DESC") %>
+    <div class="box-circle">
+    <div class="box-title"><%= link_to "战术讨论区", 'posts2' %></div>
+    <div class="box-content">
+    <%@posts.each do |post|-%>
+    	<div class="post">
+    		<%  if User.find_by_id(post.user_id).portrait_path %>
+        <%= image_tag User.find_by_id(post.user_id).portrait_path, :class => "img pull-left" %>
+<%  else %>
+        <%= image_tag User.find_by_id(post.user_id).gravatar_url, :class => "img pull-left" %>
+<%  end %>
+        <%=link_to truncate(post.title,length: 26,omission: '...'),post-%>
+        <span class="badge badge-info pull-right"><%=post.comments.count() %></span>
+<%  if current_user.admin? || current_user.id==post.user_id-%>
+        <div class="pull-right">
+          <%= link_to '编辑', edit_post_path(post) -%>|
+          <%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%>
+        </div>
+<%  end-%>
+	<div class="clearfix"></div>
+    	</div>
+    <% end %>
+    </div>
+    </div>
+
+<!-- 队友招募区 -->
+    <% @posts = Post.where("post_type = 3").limit(5).order("updated_at DESC") %>
+    <div class="box-circle">
+    <div class="box-title"><%= link_to "队友招募区", 'posts3' %></div>
+    <div class="box-content">
+    <%@posts.each do |post|-%>
+    	<div class="post">
+    		<%  if User.find_by_id(post.user_id).portrait_path %>
+        <%= image_tag User.find_by_id(post.user_id).portrait_path, :class => "img pull-left" %>
+<%  else %>
+        <%= image_tag User.find_by_id(post.user_id).gravatar_url, :class => "img pull-left" %>
+<%  end %>
+        <%=link_to truncate(post.title,length: 26,omission: '...'),post-%>
+        <span class="badge badge-info pull-right"><%=post.comments.count() %></span>
+<%  if current_user.admin? || current_user.id==post.user_id-%>
+        <div class="pull-right">
+          <%= link_to '编辑', edit_post_path(post) -%>|
+          <%= link_to '删除', post, method: :delete, data: { confirm: '此操作不可恢复。继续？' } -%>
+        </div>
+<%  end-%>
+	<div class="clearfix"></div>
+    	</div>
+    <% end %>
+    </div>
+    </div>
+
+
+  </div>
+
+<div class="span4">
     <%= render 'sidenews' %>
     <%= render 'recent' %>
-  </div>
 </div>
-
