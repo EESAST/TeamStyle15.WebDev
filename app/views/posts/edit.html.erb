@@ -3,23 +3,24 @@
 <div class="box-title">编辑帖子</div>
 <div class="box-content">
   <%= render 'form' %>
+  <%= link_to '取消编辑', :back %>
 </div>
 </div>
 </div>
 
 <div class="span4">
+<%if User.find(session[:user_id]).admin?-%>
 <div class="box-circle">
 <div class="box-title">导航</div>
 <div class="box-content">
   <ul class="nav">
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '取消编辑', :back %></li>
-    <li><%= link_to '帖子列表', posts_path %></li>
-    <%if User.find(session[:user_id]).admin?-%>
       <li><%= link_to '管理主页', admin_index_path %></li>
-    <%end-%>
-    <li><%= link_to '网站主页', root_path %></li>
   </ul>
   </div>
   </div>
+<% end %>
+
+    <%= render 'sidenews' %>
+    <%= render 'recent' %>
+
 </div>
