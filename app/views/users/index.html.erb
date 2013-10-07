@@ -4,7 +4,7 @@
 <div class="box-circle">
 <div class="box-title">用户列表</div>
         <div style="font-size:12px;text-align:right">共<%=@users.count()%>个用户</div>
-        <table>
+        <table class="table">
           <thead>
             <tr>
               <th>用户名</th>
@@ -32,7 +32,7 @@
               <td><%= user.class_number %></td>
               <td><%= user.student_number %></td>
               <td><%= (team_id=user.team_id)?(Team.find(team_id).name):"——" %></td>
-              <td><%=(user.admin?)?"管理员":user.user_type%></td>
+              <td><%=(user.admin?)? "管理员":user.user_type%></td>
               <td><%=user.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d')%></td>
               <td><%= link_to '修改', edit_user_path(user) %></td>
 <%  if not user.admin?%>
