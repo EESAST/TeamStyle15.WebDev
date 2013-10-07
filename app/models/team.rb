@@ -5,6 +5,6 @@
   
   validates :name, :presence => {:presence => true, :message => "队伍名不能为空"}, :uniqueness => {:uniqueness => true, :message => "该队伍名已经被占用"}
   def full?
-    return (self.users.count>=4)?true:false
+    return (self.users.count>=3)?true:false
   end
 end
