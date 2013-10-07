@@ -12,6 +12,7 @@
               <th>电子邮箱</th>
               <th>电话号码</th>
               <th>姓名</th>
+              <th>班级</th>
               <th>学号</th>
               <th>所在队伍</th>
               <th>类别</th>
@@ -28,6 +29,7 @@
               <td><%= user.email %></td>
               <td><%= user.phone%></td>
               <td><%= user.true_name %></td>
+              <td><%= user.class_number %></td>
               <td><%= user.student_number %></td>
               <td><%= (team_id=user.team_id)?(Team.find(team_id).name):"——" %></td>
               <td><%=(user.admin?)?"管理员":user.user_type%></td>
