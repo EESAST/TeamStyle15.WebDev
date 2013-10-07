@@ -1,5 +1,17 @@
 TeamStyle15Webdev::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :address        => "smtp.126.com",
+    :port           => 25,
+    :domain         => "mail.126.com",
+    :authentication => "login",
+    :user_name      => "teamstyle15@126.com",
+    :password       => "TeamStyle15.Web",
+    :enable_starttls_auto => false,
+  }
+  Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
   config.cache_classes = true
