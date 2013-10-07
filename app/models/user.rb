@@ -10,11 +10,12 @@ class User < ActiveRecord::Base
               :filetype => :png,
               :size => 512
 
-  validates :name, :presence => {:presence => true, :message => "用户名不能为空"}, :uniqueness => {:uniqueness => true, :message => "该用户名已经被注册"}, :length=>{:maximum=>20,:message=>"用户名不能超过20个字符"}
+  validates :name, :presence => {:presence => true, :message => "用户名不能为空"}, :uniqueness => {:uniqueness => true, :message => "该用户名已经被注册"}, :length=>{:maximum=>20,:message=>"用户名不能超过20个字符"}, format: { without: /\s/, message: "用户名不能含有空字符"} 
   validates :password, :confirmation => true
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, on: :create, message: "电子邮件地址无效" }, :presence => {:presence => true, :message => "邮箱不能为空"}, :uniqueness => {:uniqueness => true, :message => "该邮箱已经被注册"}
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, message: "电子邮件地址无效" }, :presence => {:presence => true, :message => "邮箱不能为空"}, :uniqueness => {:uniqueness => true, :message => "该邮箱已经被注册"}
   validates :true_name, :presence => {:presence => true, :message => "姓名不能为空"}
   validates :phone, :presence => {:presence => true, :message => "电话号码不能为空"}
+  validates :class_number, :presence => {:presence => true, :message => "班级不能为空"}
   validates :student_number, :presence => {:presence => true, :message => "学号不能为空"}, :uniqueness => {:uniqueness => true, :message => "该学号已经被注册"} , :numericality => {:message => "学号输入错误", :only_integer => true, :less_than_or_equal_to => 2013999999, :greater_than => 2000000000}
 
   attr_accessor :password_confirmation
