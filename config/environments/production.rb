@@ -11,7 +11,7 @@ TeamStyle15Webdev::Application.configure do
     :password       => "TeamStyle15.Web",
     :enable_starttls_auto => false,
   }
-  Settings specified here will take precedence over those in config/application.rb.
+  # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
   config.cache_classes = true
