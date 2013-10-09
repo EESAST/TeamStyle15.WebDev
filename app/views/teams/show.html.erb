@@ -57,7 +57,7 @@
   <br/>
   <h2>队伍管理</h2>
   <%if @team.uploads.empty?-%>
-    <div style="text-align:center">尚未上传任何AI</div>
+    <div class="text-center muted">尚未上传任何AI</div>
   <%else-%>
     <table style="width:500px;margin:auto;">
       <thead>
@@ -87,9 +87,9 @@
 <div class="box-content">
   <ul class="nav">
 <%if current_user.id==@team.captain_id||current_user.admin?-%>
-    <li><%= link_to '修改队伍名称', edit_team_path(@team), :class => "btn btn-primary" %></li>
+    <%= link_to '修改队伍名称', edit_team_path(@team), :class => "btn btn-primary" %><br/>
     <br>
-    <li><%= link_to '解散队伍', team_path(@team), :class => "btn btn-danger", method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></li>
+    <%= link_to '解散队伍', team_path(@team), :class => "btn btn-danger", method: :delete, data: { confirm: '此操作不可恢复。确定？' } %><br>
     <br>
 <%end-%>
 <%if current_user.team_id==nil-%>

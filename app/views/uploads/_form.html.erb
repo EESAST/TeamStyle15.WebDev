@@ -18,7 +18,7 @@
       <%=f.file_field :upload_file%><br/>
       <%=f.hidden_field :user_id,:value=>current_user.id%>
       <%=f.hidden_field :team_id,:value=>Team.find_by_captain_id(current_user.id).id%>
-      <%=f.submit "上传" %></td>
+      <%=f.submit "上传", :class=>"btn btn-primary" %></td>
     </tr>
   </table>
 <% end %>

@@ -165,7 +165,7 @@ textarea {
   margin-bottom: 40px;
   border-top: solid 1px #e3e3e3;
 
-  background-image: url(slide.jpg);
+  background-image: url(1601_wide.jpg);
 
   img{
     display: block;
@@ -175,9 +175,12 @@ textarea {
 }
 
 .intro-content{
+  /*background-color: rgba(0,0,0,0.5);
+  padding: 20px;
+*/
   margin-top: 100px;
   width: 50%;
-  min-width: 600px;
+  min-width: 500px;
   color: #fff;
   h1{
     font-size: 50px;
