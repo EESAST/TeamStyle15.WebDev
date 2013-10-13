@@ -5,7 +5,9 @@
     <div class="intro-content">
       <h1 class="text-left">镜界</h1>
       <p>第十五届队式程序设计大赛</p>
+<%if not User.find_by_id(session[:user_id])-%>      
       <%= link_to "加入队式", new_user_path, :class => "btn btn-primary btn-large" %>
+<%end-%>
     </div>
   </div>
 </div>
