@@ -29,14 +29,12 @@
 
     <div class="box-circle">
     <div class="box-title">最近评论的帖子</div>
-    <div class="box-content">
     <%@comments=current_user.comments-%>
-<%if @comments.count>0-%>
-    <div style="font-size:12px;text-align:right">共<%=@comments.count()%>条</div>
-<%end-%>
     <%if @comments.empty?-%>
       <p>尚未发表任何评论</p>
     <%else-%>
+    <div class="box-content">
+    <div style="font-size:12px;text-align:right">共<%=@comments.count()%>条</div>
       <%
         @commented_posts={}
         @comments.each do |comment|
@@ -72,8 +70,8 @@
         <%end-%>
         </tbody>
       </table>
+</div>
     <%end-%>
-  </div>
   </div>
   </div>
 </div>

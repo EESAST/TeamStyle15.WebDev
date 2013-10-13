@@ -1,5 +1,5 @@
 ﻿class MessagesController < ApplicationController
-  skip_before_filter :admin_authorize, only: [:destroy, :delete, :apply, :invite]
+  skip_before_filter :admin_authorize, only: [:destroy, :delete, :apply, :invite, :pm]
   before_action :set_message, only: [:destroy,:delete]
 
   # GET /messages
@@ -84,6 +84,13 @@
     @message.save!
     redirect_to :back,:notice=>"入队邀请发送成功"
   end
+
+  def pm
+    @message.messagetype=6
+    @message.content=@current_user.id
+    @message.read=false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
