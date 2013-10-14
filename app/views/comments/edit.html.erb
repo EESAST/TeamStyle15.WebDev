@@ -1,19 +1,25 @@
-<div id="right">
+<div class="span8">
+<div class="box-circle">
+<div class="box-title">编辑评论</div>
+<div class="box-content">
+  <h1>原文内容</h1>
+  <div class="page-divider"></div>
+  <p><%=simple_format(Post.find_by_id(@comment.post_id).text)%></p>
+  <%=render 'form'%>
+  <%= link_to '取消编辑', :back %>
+  </div>
+  </div>
+</div>
+
+<div class="span4">
   <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '取消编辑', :back %></li>
     <%if User.find(session[:user_id]).admin?-%>
       <li><%= link_to '评论列表', comments_path %></li>
       <li><%= link_to '管理主页', admin_index_path %></li>
     <%end-%>
-    <li><%= link_to '用户主页', user_index_path %></li>
-    <li><%= link_to '网站主页', root_path %></li>
   <ul>
-</div>
-<div id="content">
-  <h1>原文内容</h1>
-  <blockquote><%=simple_format(Post.find_by_id(@comment.post_id).text,id:"quote")%></blockquote>
-  <h1>编辑评论</h1><br/>
-  <%=render 'form'%>
+
+    <%= render 'posts/sidenews' %>
+    <%= render 'posts/recent' %>
+
 </div>
