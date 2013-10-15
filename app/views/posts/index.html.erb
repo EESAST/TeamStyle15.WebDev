@@ -109,7 +109,11 @@
 
   </div>
 
-<div class="span4">
+<div class="span4">    
+    <div class="box-circle">
+      <div class="box-title">发帖</div>
+      <p class="text-center"><%= link_to '发表帖子', new_post_path, :class => "btn btn-success" %></p>
+    </div>
     <%= render 'sidenews' %>
     <%= render 'recent' %>
 </div>

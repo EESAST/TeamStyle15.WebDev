@@ -1,10 +1,11 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to image_tag('/assets/Long-LOGO.png',:size=>"200x34"), root_path, id:"logo", :class => "pull-left" %>
+      <%= link_to image_tag('/assets/Long-LOGO.png'), root_path, id:"logo", :class => "pull-left" %>
       <nav style="vertical-align:middle">
         <ul class="nav pull-right">
-          <li><%= link_to "帮助", "downloads/选手文档.pdf" %></li>
+          <li><%= link_to "平台", "/downloads/platform.7z" %></li>
+          <li><%= link_to "文档", "/downloads/documentation.pdf" %></li>
 <%if User.find_by_id(session[:user_id])%>
           <li><%=link_to "论坛", posts_path%></li>
           <li id="fat-menu" class="dropdown">
