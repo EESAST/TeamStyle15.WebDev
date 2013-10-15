@@ -8,6 +8,7 @@
 <%if not User.find_by_id(session[:user_id])-%>      
       <%= link_to "加入队式", new_user_path, :class => "btn btn-primary btn-large" %>
 <%end-%>
+      <br/><br/><a name="xn_share" type="button_count_right_large" href="#">分享到人人</a><%=javascript_include_tag "share_to_renren.js"-%>
     </div>
   </div>
 </div>

@@ -1,20 +1,3 @@
-<!--
-<div id="right">
-  <ul>
-    <li><%= link_to "注销", logout_path, :method => :delete -%></li>
-    <%if current_user.admin?||current_user.id==@post.user_id-%>
-      <li><%= link_to '编辑帖子', edit_post_path(@post) -%></li>
-      <li><%= link_to '删除帖子', post_path(@post),method: :delete,confirm: "此操作不可恢复。确定？"-%></li>
-    <%end-%>
-    <li><%= link_to '帖子列表', posts_path -%></li>
-    <%if User.find(session[:user_id]).admin?-%>
-      <li><%= link_to '管理主页', admin_index_path -%></li>
-    <%end-%>
-    <li><%= link_to '网站主页', root_path -%></li>
-  </ul>
-</div>
-<div id="content">
--->
 <div class="row-fluid">
 <div class="span8">
 <div class="box-circle">
@@ -36,7 +19,8 @@
   <%if @post.created_at!=@post.updated_at-%>
     <strong>修改于</strong>：<%=@post.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%>
   <%end-%>
-  </h6>  
+    <a name="xn_share" type="button_count_right" href="#" style="float:right">分享到人人</a><%=javascript_include_tag "share_to_renren.js"-%>
+  </h6>
 </div>
 </div>
 <div class="page-divider"></div>
