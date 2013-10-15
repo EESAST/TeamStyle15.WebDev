@@ -10,12 +10,14 @@
   	<% if @sub == 'admin-userprofile' %>
     <li><%= link_to '修改用户信息', edit_user_path(@user), :class => "btn" %></li><br>
     <% end %>
-    <li><%= link_to '管理主页', admin_index_path %></li>
-    <li><%= link_to '用户列表', users_path %></li>
-    <li><%= link_to '队伍列表', teams_path %></li>
-    <li><%= link_to '新闻列表', news_index_path %></li>
-    <li><%= link_to '帖子列表', posts_path %></li>
-    <li><%= link_to '评论列表', comments_path %></li>
+    <li><%= link_to '管理主页', admin_index_path, :class => "btn btn-primary" %></li>
+    <li><%= link_to '用户列表', users_path, :class => "btn"  %></li>
+    <li><%= link_to '队伍列表', teams_path, :class => "btn"  %></li>
+<%if @news_page-%>
+  <li><%= link_to '发表新闻', new_news_path, :class => "btn"%></li>
+<%end-%>
+    <li><%= link_to '帖子列表', posts_path, :class => "btn"  %></li>
+    <li><%= link_to '评论列表', comments_path, :class => "btn"  %></li>
     <% end %>
     
     <% if @sub == 'edit' %>
