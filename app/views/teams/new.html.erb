@@ -1,13 +1,10 @@
-﻿<div class="span6">
-<h1>创建队伍<br/><br/></h1>
-<%= render 'form' %>
+﻿<div class="span8">
+  <div class="box-circle">
+    <div class="box-title">创建队伍</div>
+    <div class="box-content"><%= render 'form' %></div>
+  </div>
 </div>
 
-<div class="span3">
-  <ul>
-    <h3>导航</h3>
-    <li><%= link_to "注销", logout_path, :method => :delete %></li>
-    <li><%= link_to '用户主页', user_index_path %></li>
-    <li><%= link_to '队伍列表', teams_path %></li>
-  </ul>
+<div class="span4">
+  <%=render partial:'user/sidebar'-%>
 </div>

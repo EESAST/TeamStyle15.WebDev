@@ -10,17 +10,6 @@
       </ul>
     </div>
   <% end -%>
-  <table style="width:500px;margin:auto;">
-    <thead>
-      <th id="left-item">请输入队伍名称：</th><th/> 
-    </thead>
-    <tr>
-      <td id="left-item">队伍名：</td>
-      <td id="right-item"><%=f.text_field :name%></td>
-    </tr>
-    <tr> 
-      <td id="left-item"><%= f.submit '提交'%></td>
-      <td/>
-    </tr>
-  </table>
+      <div>队伍名：<%=f.text_field :name%></div>
+      <div><%= f.submit '提交'%></div>
 <% end %>
