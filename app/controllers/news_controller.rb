@@ -1,4 +1,6 @@
 class NewsController < ApplicationController
+  skip_before_filter :admin_authorize
+  before_filter :authenticate
   before_action :set_news, only: [:show, :edit, :update, :destroy]
 
   # GET /news
@@ -70,5 +72,11 @@ class NewsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def news_params
       params.require(:news).permit(:title, :text)
+    end
+  
+    def authenticate
+      authenticate_or_request_with_http_basic do |username, password|
+        username == "foo" && password == "bar"
+      end
     end
 end
