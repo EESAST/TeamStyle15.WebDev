@@ -1,0 +1,44 @@
+<div class="span8">
+  <div class="box-circle">
+    <div class="box-title">开发组登录</div>
+    <div class="center">
+      <h4>上传新文件</h4>
+<%=form_tag('develop/upload',multipart:true) do%>
+      <div><%=file_field_tag(:release_file)-%></div>
+      <div><%=submit_tag('上传',class:"btn btn-inverse")-%></div>
+<%end-%>
+    </div>
+<%if @develop.empty?-%>
+    <p class="center">尚未上传任何文件</p>
+<%else-%>
+    <h4 class="center">已经上传的文件</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>物理文件名</th>
+          <th>下载链接名</th>
+          <th>显隐</th>
+          <th>删除</th>
+        </tr>
+      </thead>
+      <tbody>
+<%  @develop.each do |file|-%>
+        <tr>
+          <td><%=file.path-%></td>
+<%=   form_tag("develop/rename/#{file.id}") do%>
+          <td><%=text_field_tag(:file_name,file.name)-%> <%=submit_tag('改名',class:'btn btn-info')-%></td>
+<%    end-%>
+          <td><%=file.release ? button_to('隐藏',"develop/unrelease/#{file.id}",method:'post',class:'btn btn-warning') : button_to('显示',"develop/release/#{file.id}",method:'post',class:'btn btn-success')-%></td>
+          <td><%=button_to('删除',"develop/delete/#{file.id}",method:'post',class:'btn btn-danger')-%></td>
+        </tr>
+<%  end-%>
+      </tbody>
+    </table>
+    <% will_paginate-%>
+<%end-%>
+  </div>
+</div>
+<div class="span4">
+  <%=render partial: 'user/sidebar'-%>
+</div>
+

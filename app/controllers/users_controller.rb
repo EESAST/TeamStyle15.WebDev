@@ -56,20 +56,7 @@
       @user.portrait_path=@user.fetch(@user)
     end
 
-  #判断用户类别的的逻辑
-    if @user.student_number
-      if @user.student_number>=2013000000
-        @user.user_type="参赛选手"
-      else
-        if @user.student_number>=2012000000
-          @user.user_type="队式开发组"
-        else
-          if @user.student_number>=2011000000
-            @user.user_type="队式元老"
-          end
-        end
-      end
-    end
+    @user.user_type="参赛选手"
 
     @user.email=@user.email.downcase    
 

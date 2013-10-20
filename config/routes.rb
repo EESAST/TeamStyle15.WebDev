@@ -46,6 +46,12 @@
   get 'posts2'=>'posts#index2'
   get 'posts3'=>'posts#index3'
  
+  get 'develop'=>'develop#index'
+  post 'develop/upload'
+  post 'develop/release/:release_file_id'=>'develop#release'
+  post 'develop/unrelease/:release_file_id'=>'develop#unrelease'
+  post 'develop/delete/:release_file_id'=>'develop#delete'
+  post 'develop/rename/:release_file_id'=>'develop#rename'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

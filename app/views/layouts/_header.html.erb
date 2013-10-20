@@ -4,10 +4,19 @@
       <%= link_to image_tag('/assets/Long-LOGO.png'), root_path, id:"logo", :class => "pull-left" %>
       <nav style="vertical-align:middle">
         <ul class="nav pull-right">
-          <li><%= link_to "平台", "/downloads/platform.7z" %></li>
-          <li><%= link_to "文档", "/downloads/documentation.pdf" %></li>
 <%if User.find_by_id(session[:user_id])%>
+          <li><%=link_to "主页", root_path%></li>
           <li><%=link_to "论坛", posts_path%></li>
+<%if !ReleaseFile.find(:all,conditions:{release:true}).empty?-%>
+          <li id="fat-menu" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">下载<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<%ReleaseFile.find(:all,conditions:{release:true}).each do |file|-%>
+              <li><%=link_to file.name,"/downloads/#{file.path}"-%></li>
+<%end-%>
+            </ul>
+          </li>
+<%end-%>
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %><b class="caret"></b></a>
             <ul class="dropdown-menu">
