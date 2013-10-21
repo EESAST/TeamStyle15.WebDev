@@ -1,15 +1,11 @@
-<!--
 <div class="box-circle">
   <div class="box-title">给<%=@the_user.name-%>留言</div>
   <div class="box-content">
-<%@message=Message.new-%>
-    <%=form_for(@message) do|f|-%>
-      <%=f.hidden_field :user_id, :value=>@the_user.id-%>
-      <%=f.hidden_field :content, :value=>@current_user.id-%>
-      <%=f.hidden_field :messagetype, :value=>6-%>
-      <%=f.text_area :text-%>
-      <%=f.submit "发送",:class => "btn btn-success"-%>
+    <%=form_tag('/pm') do-%>
+      <%=hidden_field_tag :user_id, params[:user_id], :value=>@the_user.id-%>
+      <%=hidden_field_tag :content, params[:content], :value=>@current_user.id-%>
+      <%=text_area_tag :text, params[:text], size: '100%'-%>
+      <%=submit_tag "发送",:class => "btn btn-success"-%>
     <%end-%>
   </div>
 </div>
--->

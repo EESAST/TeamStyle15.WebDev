@@ -1,16 +1,5 @@
 ﻿TeamStyle15Webdev::Application.routes.draw do
   
-  get "password_resets/new"
-  post "password_resets/new"=>"password_resets#create"
-  get "reset_password/:token"=>"users#password_reset_authorize"
-  post "reset_password/:token"=>"users#reset_password"
-  resources :uploads
-
-  resources :messages,:only=>[:index]
-  delete 'messages/:id' => 'messages#delete'
-
-  resources :news,:only=>[:index,:delete,:destroy,:edit,:update,:create,:new]
-
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
@@ -21,25 +10,35 @@
   resources :comments,:only=>[:index,:delete,:destroy,:edit,:update,:create]
   resources :posts
   resources :users
+  resources :uploads
+  resources :messages,:only=>[:index]
+  resources :news,:only=>[:index,:delete,:destroy,:edit,:update,:create,:new]
 
   get 'admin' => 'admin#index'
+  get "admin/index"
+  
+  get 'user' => 'user#index'
   get "user/index"
   get "user/userpost"
   get "user/usermessage"
   get "user/team"
-  get "admin/index"
+
   get "sessions/new"
   get "sessions/create"
   get "sessions/destroy"
   
-  match "home/index" => redirect("/"), :via=>:get
-  match "comments/new" => redirect("/"), :via=>:get, :notice=>'不可以直接发表评论'
-  match "comments/new" => redirect("/"), :via=>:post, :notice=>'不可以直接发表评论'
-  
+  get "password_resets/new"
+  post "password_resets/new"=>"password_resets#create"
+  get "reset_password/:token"=>"users#password_reset_authorize"
+  post "reset_password/:token"=>"users#reset_password"
+
   post 'message/:message_id' => 'teams#add_member'
   post 'messages/:user_id/apply/:team_id' => 'messages#apply'
   post 'messages/:team_id/invite' =>'messages#invite'
   delete 'teams/:team_id/kick/:user_id' => 'teams#kick_member'
+  delete 'messages/:id' => 'messages#delete'
+
+  post 'pm' => 'messages#pm'
 
   get 'posts0'=>'posts#index0'
   get 'posts1'=>'posts#index1'
@@ -52,6 +51,10 @@
   post 'develop/unrelease/:release_file_id'=>'develop#unrelease'
   post 'develop/delete/:release_file_id'=>'develop#delete'
   post 'develop/rename/:release_file_id'=>'develop#rename'
+  
+  match "home/index" => redirect("/"), :via=>:get
+  match "comments/new" => redirect("/"), :via=>:get, :notice=>'不可以直接发表评论'
+  match "comments/new" => redirect("/"), :via=>:post, :notice=>'不可以直接发表评论'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

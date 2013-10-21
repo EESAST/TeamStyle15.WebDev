@@ -28,6 +28,11 @@
               <%else-%>
                 邀请您的队伍已经解散
               <%end-%>
+            <%elsif message.messagetype==6-%>
+              <%=link_to (@msguser=User.find(message.content)).name,@msguser-%>给您留言:<br/>
+              <div style="text-align:left">
+                <%=raw sanitize(simple_format(message.text), :tags => %w(br p) ) %>
+              </div>
             <%end-%>
             </td>
             <td>
@@ -38,6 +43,9 @@
                 <%elsif message.messagetype==4 && @msgteam-%>
                   <br/><%=link_to "确认加入","/message/#{message.id}",:method=>:post-%>
                 <%end-%>
+              <%end-%>
+              <%if message.messagetype==6-%>
+                <br/><%=link_to "回复","/users/#{message.content}"-%>
               <%end-%>
             </td>
           </tr>

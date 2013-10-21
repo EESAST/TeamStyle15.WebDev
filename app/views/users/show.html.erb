@@ -2,10 +2,10 @@
   <h1><%= @user.name %></h1>
   <div class="page-divider"></div><br>
   <%@the_user=@user-%>
-  <%=render :partial => 'user/table'-%>
-  <%=render :partial => 'user/pm'-%>
+  <%=render partial: 'user/table'-%>
+  <%=render partial: 'user/pm'-%>
 </div>
 
 <div class="span4">
-  <%= render 'adminsidebar' %>
+  <%= render partial: 'user/sidebar' %>
 </div>

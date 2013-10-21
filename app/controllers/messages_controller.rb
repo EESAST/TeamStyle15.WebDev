@@ -86,9 +86,23 @@
   end
 
   def pm
+    @message=Message.new
     @message.messagetype=6
-    @message.content=@current_user.id
+    @message.user_id=params[:user_id]
+    @message.content=params[:content]
     @message.read=false
+    @message.text=params[:text]
+    if @message.text.empty?
+      redirect_to :back, notice: '留言内容不能为空'
+      return
+    end
+    if @message.save!
+      redirect_to :back, notice: '留言发送成功'
+      return
+    else
+      redirect_to :back, notice: '留言发送失败'
+      return
+    end
   end
 
   private
