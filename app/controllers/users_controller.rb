@@ -6,7 +6,7 @@
   # GET /users
   # GET /users.json
   def index
-      @users = User.paginate(page: params[:page]).order(:name)
+      @users = User.paginate(page: params[:page]).order(current_user.admin? ? :created_at : :name)
   end
 
   # GET /users/1
