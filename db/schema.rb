@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020073056) do
+ActiveRecord::Schema.define(version: 20131023044723) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -103,6 +103,16 @@ ActiveRecord::Schema.define(version: 20131020073056) do
     t.datetime "password_reset_sent_at"
     t.string   "phone"
     t.string   "class_number"
+    t.integer  "test1"
+    t.integer  "test2"
+    t.integer  "test3"
+    t.integer  "test4"
+    t.integer  "test5"
+    t.integer  "test6"
+    t.integer  "test7"
+    t.integer  "test8"
+    t.integer  "test9"
+    t.integer  "test0"
   end
 
 end
