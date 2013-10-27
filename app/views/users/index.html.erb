@@ -3,60 +3,35 @@
     <div class="box-title">用户列表</div>
       <div class="box-content">
         <div style="font-size:12px;text-align:right">共<%=@users.count()%>个用户</div>
+          <%= will_paginate %>
         <table class="table">
           <thead>
             <tr>
-              <tr>
                 <th>用户名</th>
-                <th>邮箱</th>
-                <th>姓名</th>
-              </tr>
-              <tr>
                 <th>队伍</th>
-                <th>类别</th>
-                <th>测试赛名次</th>
-              </tr>
-<%if current_user.admin?-%>
-              <tr>
-                <th>电话</th>
-                <th>班级</th>
-                <th>学号</th>
-              </tr>
-              <tr>
-                <th>注册时间</th>
-                <th>修改</th>
-                <th>删除</th>
-              </tr>
-<%end-%>
+                <th>排序</th>
+                <th>测试赛成绩</th>
             </tr>
           </thead>
           <tbody>
+<%counter=0-%>
 <%@users.each do |user| %>
             <tr>
-              <tr>
-                <td><%= link_to user.name,user %></td>
-                <td><%= user.email %></td>
-                <td><%= user.true_name %></td>
-              </tr>
-              <tr>
-                <td><%= (team_id=user.team_id)?(link_to (@user_team=Team.find(team_id)).name,@user_team):"没有组队" %></td>
-                <td><%=(user.admin?)? "管理员":user.user_type%></td>
-                <td>敬请期待</td>
-              </tr>
-<%if current_user.admin?-%>
-              <tr>
-                <td><%= user.phone%></td>
-                <td><%= user.class_number %></td>
-                <td><%= user.student_number %></td>
-              </tr>
-              <tr>
-                <td><%=user.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d')%></td>
-                <td><%= link_to '修改', edit_user_path(user) %></td>
-<%  if not user.admin?%>
-                <td><%= link_to '删除', user, method: :delete, data: { confirm: '此操作不可恢复。确定？' } %></td>
-              </tr>
-<%  end%>
-<%end-%>
+              <td><%= link_to user.name,user %></td>
+              <td><%= (team_id=user.team_id)?(link_to (@user_team=Team.find(team_id)).name,@user_team):"没有组队" %></td>
+              <td><%=counter+=1-%></td>
+<%  test_result=0
+      test_result+=(user.test1||=0)
+      test_result+=(user.test2||=0)
+      test_result+=(user.test3||=0)
+      test_result+=(user.test4||=0)
+      test_result+=(user.test5||=0)
+      test_result+=(user.test6||=0)
+      test_result+=(user.test7||=0)
+      test_result+=(user.test8||=0)
+      test_result+=(user.test9||=0)
+-%>
+                <td><%=test_result-%></td>
               </tr>
 <%end%>
             </tbody>
