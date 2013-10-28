@@ -27,8 +27,6 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.0)
     atomic (1.1.13)
-    bootstrap-sass (2.3.2.0)
-      sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
     builder (3.1.4)
@@ -118,7 +116,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (= 2.3.2.0)
   bootstrap-will_paginate (= 0.0.9)
   coffee-rails (= 4.0.0)
   gravtastic
