@@ -1,0 +1,46 @@
+<div class="row-fluid">
+  <div class="span8">
+    <div class="box-circle">
+      <div class="box-title">测试赛数据</div>
+      <div class="box-content">
+        <table class="table">
+          <thead>
+            <th>用户名</th>
+            <th>第一关</th>
+            <th>第二关</th>
+            <th>第三关</th>
+            <th>第四关</th>
+            <th>第五关</th>
+            <th>第六关</th>
+            <th>第七关</th>
+            <th>总分</th>
+          </thead>
+          <tbody>
+            <%@users.each do |user|-%>
+            <tr>
+              <td><%=link_to user.name,user,class: 'label'-%></td>
+              <td><%=user.test1||=0-%></td>
+              <td><%=user.test2||=0-%></td>
+              <td><%=user.test3||=0-%></td>
+              <td><%=user.test4||=0-%></td>
+              <td><%=user.test5||=0-%></td>
+              <td><%=user.test6||=0-%></td>
+              <td><%=user.test7||=0-%></td>
+              <td><%=user.test1+
+                     user.test2+
+                     user.test3+
+                     user.test4+
+                     user.test5+
+                     user.test6+
+                     user.test7-%></td>
+            </tr>
+            <%end-%>
+          </tbody>
+        </table>
+        <%=will_paginate @users-%>
+      </div>
+    </div>
+  </div>
+  <div class="span4">
+    <%=render partial:'user/sidebar'-%>
+</div>

@@ -74,6 +74,41 @@
     <%end-%>
   </div>
   </div>
+    <div class="box-circle">
+      <div class="box-title">测试赛数据</div>
+      <div class="box-content">
+        <table>
+          <thead>
+            <th>第一关</th>
+            <th>第二关</th>
+            <th>第三关</th>
+            <th>第四关</th>
+            <th>第五关</th>
+            <th>第六关</th>
+            <th>第七关</th>
+            <th>总分</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%=current_user.test1||=0-%></td>
+              <td><%=current_user.test2||=0-%></td>
+              <td><%=current_user.test3||=0-%></td>
+              <td><%=current_user.test4||=0-%></td>
+              <td><%=current_user.test5||=0-%></td>
+              <td><%=current_user.test6||=0-%></td>
+              <td><%=current_user.test7||=0-%></td>
+              <td><%=current_user.test1+
+                     current_user.test2+
+                     current_user.test3+
+                     current_user.test4+
+                     current_user.test5+
+                     current_user.test6+
+                     current_user.test7-%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 </div>
 
 <div class="span4">

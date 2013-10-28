@@ -51,6 +51,8 @@
   post 'develop/unrelease/:release_file_id'=>'develop#unrelease'
   post 'develop/delete/:release_file_id'=>'develop#delete'
   post 'develop/rename/:release_file_id'=>'develop#rename'
+
+  get 'test_battle'=>'test_battle#index'
   
   match "home/index" => redirect("/"), :via=>:get
   match "comments/new" => redirect("/"), :via=>:get, :notice=>'不可以直接发表评论'
