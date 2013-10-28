@@ -81,5 +81,5 @@ if __name__ == "__main__":
 	HOST, PORT = "59.66.141.37", 8086
 
 	# Create the server
-	server = SocketServer.TCPServer((HOST, PORT), MyTCPHandler)
+	server = SocketServer.ThreadingTCPServer((HOST, PORT), MyTCPHandler)
 	server.serve_forever()
