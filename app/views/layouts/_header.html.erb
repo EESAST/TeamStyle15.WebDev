@@ -12,7 +12,7 @@
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">下载<b class="caret"></b></a>
             <ul class="dropdown-menu">
-<%ReleaseFile.find(:all,conditions:{release:true}).each do |file|-%>
+              <%ReleaseFile.find(:all,conditions:{release:true}).sort{ |a,b| b.updated_at <=> a.updated_at }.each do |file|-%>
               <li><%=link_to file.name,"/downloads/#{file.path}"-%></li>
 <%end-%>
             </ul>
