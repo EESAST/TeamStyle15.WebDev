@@ -11,6 +11,7 @@
   protected
   
   def authorize
+#    User.find_by_auth_token(params[:auth_token])
     unless User.find_by_id(session[:user_id])
       redirect_to login_url, :notice => "请登录"
     end
@@ -40,4 +41,7 @@
      render :template => "errors/500", :status => 500, :layout => 'public'
    end
   
+    def at_process
+      a
+    end
 end

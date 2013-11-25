@@ -14,7 +14,7 @@
     <tbody>
       <% @news.each do |news| %>
         <tr>
-          <td><%= news.text %></td>
+          <td><%= simple_format(news.text) %></td>
           <td><%= link_to '编辑', edit_news_path(news) %></td>
           <td><%= link_to '删除', news, method: :delete, data: { confirm: '确定？' } %></td>
         </tr>

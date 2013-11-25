@@ -105,6 +105,20 @@
     end
   end
 
+  def at
+    @message=Message.new
+    @message.messagetype=5
+    @message.user_id=params[:user_id]
+    @message.content=params[:content]
+    @message.read=false
+    if @message.save!
+      return
+    else
+      redirect_to :back, notice: '@失败'
+      return
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message

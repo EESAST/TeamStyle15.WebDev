@@ -6,23 +6,25 @@
 <% end %>
 <div class="box-content">
   <ul class="nav">
+  <p class="text-center">
   <%if current_user.admin?-%>
   	<% if @sub == 'admin-userprofile' %>
-    <li><%= link_to '修改用户信息', edit_user_path(@user), :class => "btn" %></li><br>
+      <%= link_to '修改用户信息', edit_user_path(@user), :class => "btn" %><br/>
     <% end %>
-    <li><%= link_to '管理主页', admin_index_path, :class => "btn btn-primary" %></li>
-    <li><%= link_to '用户列表', users_path, :class => "btn"  %></li>
-    <li><%= link_to '队伍列表', teams_path, :class => "btn"  %></li>
+    <%= link_to '管理主页', admin_index_path, :class => "btn btn-primary" %><br/>
+    <%= link_to '用户列表', users_path, :class => "btn"  %><br/>
+    <%= link_to '队伍列表', teams_path, :class => "btn"  %><br/>
 <%if @news_page-%>
-  <li><%= link_to '发表新闻', new_news_path, :class => "btn"%></li>
+  <%= link_to '发表新闻', new_news_path, :class => "btn" -%><br/>
 <%end-%>
-    <li><%= link_to '帖子列表', posts_path, :class => "btn"  %></li>
-    <li><%= link_to '评论列表', comments_path, :class => "btn"  %></li>
+    <%= link_to '帖子列表', posts_path, :class => "btn"  %><br/>
+    <%= link_to '评论列表', comments_path, :class => "btn"  %><br/>
     <% end %>
     
     <% if @sub == 'edit' %>
-   		 <li><%=link_to_function '取消修改信息', "history.go(-1)", :class => "btn btn-warning" %></li><br>
+   		 <%=link_to_function '取消修改信息', "history.go(-1)", :class => "btn btn-warning" %><br/>
     <% end %>
+  </p>
   </ul>
   </div>
   </div>

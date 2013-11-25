@@ -13,6 +13,7 @@ class Message < ActiveRecord::Base
     #1：评论id
     #3：申请入队用户id
     #4：发邀队伍id
+    #5：被@的评论id
     #6：发信人id
   #read：是否已读
   #text：附加信息

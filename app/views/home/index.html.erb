@@ -20,14 +20,15 @@
     <div class="page-divider"></div>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;镜子的两边是两个不同的世界，两个世界保持着诡异的对称，直到某一天，一面巨大的镜子发生了异变，成为沟通两个世界的大门……<i>然后就打起来了</i>……</p>
   </div>
+<%if User.find_by_id(session[:user_id])-%>      
   <div class="row-fluid">
     <div class="span6">
       <div class="box-circle">
         <div class="box-title">话说</div>
         <div class="box-content">
-<%(@news=News.limit(5).order("updated_at DESC")).each do |news|-%>
+<%(@news=News.order("updated_at DESC")).each do |news|-%>
           <div>
-            <div class="muted pull-right"><%=news.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
+            <div class="muted pull-right"><%=news.updated_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
             <%= simple_format(news.text,length: 140,omission: '...') %>
           </div>
           <div class="page-divider"></div>
@@ -39,7 +40,7 @@
       <div class="box-circle">
         <div class="box-title">最近发表</div>
         <div class="box-content">
-<%(@posts=Post.limit(10).order("updated_at DESC")).each do |post|-%>
+<%(@posts=Post.order("updated_at DESC")).each do |post|-%>
           <div>
             <div class="muted pull-right"><%=post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
             <%= link_to truncate(post.title,length: 26,omission: '...'), post %>
@@ -50,4 +51,5 @@
     </div>  
   </div>
 </div>
+<%end-%>
 <div>
