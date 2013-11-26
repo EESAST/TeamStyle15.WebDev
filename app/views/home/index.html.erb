@@ -43,7 +43,7 @@
 <%(@posts=Post.order("updated_at DESC")).each do |post|-%>
           <div>
             <div class="muted pull-right"><%=post.created_at.in_time_zone('Beijing').strftime('%Y/%m/%d %H:%M:%S')-%></div>
-            <%= link_to truncate(post.title,length: 26,omission: '...'), post %>
+            <%= link_to ((User.find_by_id(post.user_id).admin?) ? (simple_format('<strong>'+truncate(post.title,length: 26,omission: '...')+"</strong>")) :(truncate(post.title,length: 26,omission: '...'))) , post%>
           </div>
         <div class="page-divider"></div>
 <%end-%>
