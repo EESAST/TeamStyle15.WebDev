@@ -12,7 +12,7 @@
   end
 
   def Upload.upload_end
-    Time.local(2013,12,1,15)
+    Time.local(2014,1,1,0)
   end
 
   
