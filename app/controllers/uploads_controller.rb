@@ -1,5 +1,5 @@
 ﻿class UploadsController < ApplicationController
-  skip_before_filter :admin_authorize, only: [:create,:edit, :update, :destroy]
+  skip_before_filter :admin_authorize
   before_action :set_upload, only: [:show, :edit, :update, :destroy]
 
   # GET /uploads
@@ -62,7 +62,7 @@
 
     respond_to do |format|
       if @upload.update(upload_params)
-        format.html { redirect_to @upload, notice: 'Upload was successfully updated.' }
+        format.html { redirect_to Team.find_by_captain_id(current_user.id), notice: '更新成功' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

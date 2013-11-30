@@ -20,7 +20,7 @@
               <%=text_field_tag :user_string,params[:user_string]-%> 
               <%= submit_tag "邀请" %>
             <%end-%>
-          <%end-%>
+<%end-%>
           
         </div>
       </div>
@@ -32,54 +32,58 @@
           <%@upload=Upload.new-%>
             <%=render :partial => 'uploads/form'-%>
           <%end-%>
-          <%if @team.uploads.empty?-%>
+<%  if @team.uploads.empty?-%>
             <div style="text-align:center">尚未上传任何AI</div>
-          <%else %>
+<%  else %>
             <table style="width:500px;margin:auto;">
               <thead>
-                <th colspan=3>已上传的AI</th>
+                <th colspan=3 class="">已上传的AI</th>
               </thead>
-          <% @team.uploads.each do |ai|-%>
+<%    @team.uploads.each do |ai|-%>
               <tr>
                 <td>
-         <% str1=ai.path[ai.path.index("_")+1,ai.path.length-1]-%>
+          <% str1=ai.path[ai.path.index("_")+1,ai.path.length-1]-%>
           <% str=str1[str1.index("_")+1,str1.length-1]-%>
           <%= link_to str,ai.path-%>
                 </td>
-                <td><%= link_to '更新', edit_upload_path(ai) %></td>
-                <td><%=link_to "删除", ai, method: :delete, data: { confirm: '此操作不可恢复，确定？' } %></td>
+                <td><%=link_to '更新', edit_upload_path(ai) ,class:"btn"%></td>
+                <td><%=link_to "删除", ai, method: :delete, data: { confirm: '此操作不可恢复，确定？' },class:"btn btn-danger" %></td>
               </tr>
-  <%end-%>
+<%    end-%>
             </table>
+<%  end-%>
+        </div>
+      </div>
 <%end-%>
 
-<%if current_user.admin?%>
-  <br/>
-  <h2>队伍管理</h2>
-  <%if @team.uploads.empty?-%>
-    <div class="text-center muted">尚未上传任何AI</div>
-  <%else-%>
-    <table style="width:500px;margin:auto;">
-      <thead>
-        <th colspan=2>已上传的AI</th>
-      </thead>
-<%@team.uploads.each do |ai|-%>
-      <tr>
-        <td>
-          <%str1=ai.path[ai.path.index("_")+1,ai.path.length-1]-%>
-          <%str=str1[str1.index("_")+1,str1.length-1]-%>
-          <%=link_to str,ai.path-%>
-        </td>
-        <td><%=link_to "删除", ai, method: :delete, data: { confirm: '此操作不可恢复，确定？' } %></td>
-      </tr>
+<%if current_user.admin? %>
+      <div class="box-circle">
+        <div class="box-title">上传AI</div>
+          <div class="box-content">
+            <h2>队伍管理</h2>
+<%  if @team.uploads.empty?-%>
+            <div class="text-center muted">尚未上传任何AI</div>
+<%  else-%>
+            <table style="width:500px;margin:auto;">
+              <thead>
+                <th colspan=2>已上传的AI</th>
+              </thead>
+<%    @team.uploads.each do |ai|-%>
+              <tr>
+                <td>
+                  <%str1=ai.path[ai.path.index("_")+1,ai.path.length-1]-%>
+                  <%str=str1[str1.index("_")+1,str1.length-1]-%>
+                  <%=link_to str,ai.path-%>
+                </td>
+                <td><%=link_to "删除", ai, method: :delete, data: { confirm: '此操作不可恢复，确定？' },class:"btn btn-danger" %></td>
+              </tr>
+<%    end-%>
+            </table>
+<%  end-%>
+        </div>
+      </div>
 <%end-%>
-    </table>
-  <%end-%>
-<%end-%>
-</div>
-</div>
-<%end-%>
-</div>
+  </div>
 
 <div class="span4">
 <div class="box-circle">
