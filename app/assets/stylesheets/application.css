@@ -28,7 +28,7 @@ input{
   font:14px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti !important;
 }
 
-blockquote {
+/*blockquote {
   width: 70%;
   font: 1.2em/1.6em 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
   background: url(closequote.png) no-repeat right bottom;
@@ -40,7 +40,7 @@ blockquote:first-letter {
   background: url(openquote.png) no-repeat left top;
   padding-left: 30px;
   font: bold 1.4em 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
-}
+}*/
 
 #quote{
   font:16px 'light hei',"Microsoft Yahei","微软雅黑","黑体",Tahoma,Arial,Helvetica,STHeiti;
